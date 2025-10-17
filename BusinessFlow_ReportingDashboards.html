@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Flow: Reporting & Dashboards - ERP Automation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .flowchart-container {
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .explanation-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .step-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        
+        .step-box h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .automation-point {
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f1f9f4;
+        }
+        
+        .automation-point h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        
+        .code-section {
+            margin: 30px 0;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            border-radius: 5px;
+            padding: 0;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-header {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .copy-button {
+            background: #2c5aa0;
+            color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .copy-button:hover {
+            background: #1e3f7a;
+        }
+        
+        .copy-button.copied {
+            background: #28a745;
+        }
+        
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            .copy-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <a href="index.html" class="back-link">← Back to System Overview</a>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>Business Flow: Reporting & Dashboards</h1>
+            <p>Real-time data collection, automated dashboard updates, exception alerts, and comprehensive KPI monitoring</p>
+        </div>
+
+        <!-- Section 1: Visual Flowchart -->
+        <div class="section">
+            <h2>1. Visual Flowchart</h2>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    A[Business transactions occur] --> B[System collects data in real-time]
+    B --> C[Data stored in central database]
+    C --> D[Dashboard auto-refreshes]
+    D --> E[Display updated KPIs & metrics]
+    E --> F{Exception detected?}
+    F -- Yes --> G[Trigger alert/notification]
+    G --> H[Notify relevant users]
+    H --> I[User reviews exception]
+    I --> J{Action required?}
+    J -- Yes --> K[User takes corrective action]
+    J -- No --> L[Acknowledge & close alert]
+    F -- No --> M[Continue monitoring]
+    M --> N{Scheduled report due?}
+    N -- Yes --> O[System auto-generates report]
+    O --> P[Report sent to recipients]
+    P --> Q[Recipients review data]
+    Q --> R{Analysis reveals issues?}
+    R -- Yes --> S[Management action & decisions]
+    R -- No --> T[File for record]
+    N -- No --> U{User requests ad-hoc report?}
+    U -- Yes --> V[User selects parameters]
+    V --> W[System generates custom report]
+    W --> X[User analyzes data]
+    X --> Y[Export or share insights]
+    U -- No --> D
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Flow Explanation -->
+        <div class="section">
+            <h2>2. Flow Chart Explanation</h2>
+            
+            <div class="explanation-box">
+                <p>This reporting and dashboard workflow provides real-time visibility into all business operations. The system automatically collects transactional data, updates dashboards in real-time, detects exceptions, and generates automated alerts. Scheduled reports are generated and distributed automatically, while ad-hoc reporting capability enables users to analyze data on-demand without IT dependency.</p>
+            </div>
+            
+            <h3>Process Flow Steps</h3>
+            
+            <div class="step-box">
+                <h4>Step 1: Business Transactions Occur</h4>
+                <p><strong>Trigger:</strong> Any business activity in the system.</p>
+                <p><strong>Transaction types:</strong></p>
+                <ul>
+                    <li>Customer orders created, modified, or closed</li>
+                    <li>Inventory movements (receipts, issues, transfers)</li>
+                    <li>Production activities (work order start, completion, QC)</li>
+                    <li>Procurement transactions (PO creation, vendor confirmations)</li>
+                    <li>Shipping and delivery events</li>
+                    <li>Financial transactions (invoices, payments, AR/AP)</li>
+                    <li>Quality inspections and results</li>
+                </ul>
+                <p><strong>Frequency:</strong> Continuous throughout business operations</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 2: System Collects Data in Real-Time</h4>
+                <p><strong>Action:</strong> System captures transaction data immediately as events occur.</p>
+                <p><strong>Data captured includes:</strong></p>
+                <ul>
+                    <li>Transaction details (what, when, who, how much)</li>
+                    <li>Timestamp and user ID</li>
+                    <li>Reference documents (order #, PO #, invoice #)</li>
+                    <li>Quantities, amounts, and status changes</li>
+                    <li>Before and after values (for audit trail)</li>
+                    <li>Location and department information</li>
+                </ul>
+                <p><strong>Real-time:</strong> Data available within seconds of transaction completion</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 3: Data Stored in Central Database</h4>
+                <p><strong>Action:</strong> All transaction data consolidated in central database.</p>
+                <p><strong>Data structure:</strong></p>
+                <ul>
+                    <li>Transactional tables (orders, inventory, production, etc.)</li>
+                    <li>Master data tables (customers, items, vendors)</li>
+                    <li>Summary/aggregation tables for performance</li>
+                    <li>Historical data retained per retention policy</li>
+                </ul>
+                <p><strong>Benefits:</strong></p>
+                <ul>
+                    <li>Single source of truth - no data silos</li>
+                    <li>Consistent reporting across all users</li>
+                    <li>Supports real-time and historical analysis</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 4: Dashboard Auto-Refreshes</h4>
+                <p><strong>Action:</strong> System dashboards refresh automatically to show latest data.</p>
+                <p><strong>Refresh frequency options:</strong></p>
+                <ul>
+                    <li>Real-time (immediate updates as data changes)</li>
+                    <li>Every 1 minute (for high-activity dashboards)</li>
+                    <li>Every 5-15 minutes (for summary dashboards)</li>
+                    <li>Manual refresh on demand</li>
+                </ul>
+                <p><strong>Automation:</strong> Users always see current data without manual refresh</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 5: Display Updated KPIs & Metrics</h4>
+                <p><strong>Action:</strong> Dashboards present key performance indicators and metrics.</p>
+                <p><strong>Dashboard types:</strong></p>
+                <ul>
+                    <li><strong>Executive Dashboard:</strong> High-level KPIs (revenue, orders, inventory value, cash flow)</li>
+                    <li><strong>Sales Dashboard:</strong> Order pipeline, quotations, win rate, sales by customer/region</li>
+                    <li><strong>Operations Dashboard:</strong> Production output, efficiency, OEE, on-time delivery</li>
+                    <li><strong>Inventory Dashboard:</strong> Stock levels, turnover, aging, stockouts</li>
+                    <li><strong>Procurement Dashboard:</strong> PO status, vendor performance, lead times</li>
+                    <li><strong>Quality Dashboard:</strong> QC pass/fail rates, NCRs, defect trends</li>
+                    <li><strong>Financial Dashboard:</strong> Revenue, expenses, profit margins, AR/AP aging</li>
+                </ul>
+                <p><strong>Visualization types:</strong></p>
+                <ul>
+                    <li>Charts: Line, bar, pie, gauge, waterfall</li>
+                    <li>Tables: Detailed data with sorting/filtering</li>
+                    <li>KPI tiles: Large numbers with trend arrows</li>
+                    <li>Heat maps: Visual patterns across time or categories</li>
+                    <li>Trend analysis: Historical comparisons</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 6: Exception Detected Decision</h4>
+                <p><strong>Decision:</strong> Does current data indicate an exception or threshold breach?</p>
+                <p><strong>Exception types monitored:</strong></p>
+                <ul>
+                    <li><strong>Inventory:</strong> Low stock, stockout, excess inventory, slow-moving items</li>
+                    <li><strong>Production:</strong> Delayed work orders, QC failures, machine downtime</li>
+                    <li><strong>Delivery:</strong> Late shipments, delivery failures, carrier delays</li>
+                    <li><strong>Quality:</strong> QC reject rate above threshold, vendor quality issues</li>
+                    <li><strong>Financial:</strong> Overdue payments, credit limit breach, high AR aging</li>
+                    <li><strong>Sales:</strong> Lost orders, quotation conversion rate drop</li>
+                </ul>
+                <p><strong>Threshold examples:</strong></p>
+                <ul>
+                    <li>Inventory below minimum stock level</li>
+                    <li>Order delivery date at risk (late production/procurement)</li>
+                    <li>QC reject rate > 5%</li>
+                    <li>Invoice 30+ days overdue</li>
+                    <li>Production efficiency < 80%</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 7: Trigger Alert/Notification</h4>
+                <p><strong>Action:</strong> System automatically generates alert when exception detected.</p>
+                <p><strong>Alert details:</strong></p>
+                <ul>
+                    <li>Exception type and description</li>
+                    <li>Severity level (Critical, High, Medium, Low)</li>
+                    <li>Affected item/order/customer</li>
+                    <li>Current value vs threshold</li>
+                    <li>Recommended action</li>
+                    <li>Deep link to relevant data/transaction</li>
+                </ul>
+                <p><strong>Alert rules configurable:</strong> Users can set their own thresholds and notification preferences</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 8: Notify Relevant Users</h4>
+                <p><strong>Action:</strong> Alert delivered to appropriate personnel.</p>
+                <p><strong>Notification channels:</strong></p>
+                <ul>
+                    <li><strong>Email:</strong> Alert sent to user's email with details</li>
+                    <li><strong>Mobile App:</strong> Push notification to smartphone</li>
+                    <li><strong>Dashboard Banner:</strong> Alert displayed when user logs in</li>
+                    <li><strong>SMS:</strong> Text message for critical alerts</li>
+                    <li><strong>Slack/Teams:</strong> Integration with collaboration tools</li>
+                </ul>
+                <p><strong>Routing logic:</strong></p>
+                <ul>
+                    <li>Inventory alerts → Procurement team</li>
+                    <li>Production delays → Production manager</li>
+                    <li>Quality issues → QC supervisor</li>
+                    <li>Overdue payments → AR manager</li>
+                    <li>Customer complaints → Customer service lead</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 9: User Reviews Exception</h4>
+                <p><strong>Action:</strong> Notified user investigates the exception.</p>
+                <p><strong>Investigation activities:</strong></p>
+                <ul>
+                    <li>Open alert and review details</li>
+                    <li>Drill down into underlying transaction data</li>
+                    <li>Check related documents and history</li>
+                    <li>Assess impact and urgency</li>
+                    <li>Determine if action needed or false positive</li>
+                </ul>
+                <p><strong>System support:</strong> Provides context and drill-through to source data</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 10: Action Required Decision</h4>
+                <p><strong>Decision:</strong> Does the exception require corrective action?</p>
+                <p><strong>If Yes:</strong> User takes action to resolve issue</p>
+                <p><strong>If No:</strong> Acknowledge as false positive or already resolved</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 11: User Takes Corrective Action</h4>
+                <p><strong>Action:</strong> User executes business process to resolve exception.</p>
+                <p><strong>Example corrective actions:</strong></p>
+                <ul>
+                    <li><strong>Low stock:</strong> Create purchase requisition or transfer order</li>
+                    <li><strong>Production delay:</strong> Expedite work order, add capacity, or adjust schedule</li>
+                    <li><strong>Late delivery:</strong> Contact carrier, notify customer of delay</li>
+                    <li><strong>Quality issue:</strong> Initiate vendor discussion, implement corrective action</li>
+                    <li><strong>Overdue payment:</strong> Call customer, send reminder, escalate to collections</li>
+                </ul>
+                <p><strong>System:</strong> Records action taken and updates transaction status</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 12: Acknowledge & Close Alert</h4>
+                <p><strong>Action:</strong> User acknowledges alert as reviewed and no action needed.</p>
+                <p><strong>Closure reasons:</strong></p>
+                <ul>
+                    <li>False positive (threshold too sensitive)</li>
+                    <li>Already resolved by another user</li>
+                    <li>Situation corrected itself</li>
+                    <li>Acknowledged for awareness only</li>
+                </ul>
+                <p><strong>System:</strong> Alert marked closed with timestamp and user notes</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 13: Continue Monitoring</h4>
+                <p><strong>Action:</strong> System continues real-time monitoring loop.</p>
+                <p><strong>Continuous process:</strong> Dashboard refresh and exception monitoring runs 24/7</p>
+            </div>
+            
+            <h3>Scheduled Reporting Flow</h3>
+            
+            <div class="step-box">
+                <h4>Step 14: Scheduled Report Due Decision</h4>
+                <p><strong>Decision:</strong> Is it time to generate scheduled report?</p>
+                <p><strong>Report schedule types:</strong></p>
+                <ul>
+                    <li><strong>Daily:</strong> Daily sales summary, production output, inventory transactions</li>
+                    <li><strong>Weekly:</strong> Sales pipeline, production efficiency, vendor performance</li>
+                    <li><strong>Monthly:</strong> Financial statements, customer analysis, inventory turnover</li>
+                    <li><strong>Quarterly:</strong> Executive summary, trend analysis, KPI scorecards</li>
+                    <li><strong>Custom:</strong> User-defined frequency (every 3 days, bi-weekly, etc.)</li>
+                </ul>
+                <p><strong>Trigger time:</strong> Configured for each report (e.g., 8 AM every Monday)</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 15: System Auto-Generates Report</h4>
+                <p><strong>Action:</strong> System automatically creates report per schedule.</p>
+                <p><strong>Report generation process:</strong></p>
+                <ul>
+                    <li>Query database with report criteria</li>
+                    <li>Apply filters and date ranges</li>
+                    <li>Calculate aggregations and summaries</li>
+                    <li>Apply formatting and layout</li>
+                    <li>Generate charts and visualizations</li>
+                    <li>Create PDF or Excel file</li>
+                </ul>
+                <p><strong>Automation:</strong> No manual report creation - runs unattended at scheduled time</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 16: Report Sent to Recipients</h4>
+                <p><strong>Action:</strong> Report delivered to distribution list automatically.</p>
+                <p><strong>Distribution methods:</strong></p>
+                <ul>
+                    <li><strong>Email:</strong> PDF/Excel attachment to recipient list</li>
+                    <li><strong>Portal:</strong> Posted to online portal for download</li>
+                    <li><strong>Shared Folder:</strong> Saved to network drive or SharePoint</li>
+                    <li><strong>FTP/SFTP:</strong> Uploaded to secure file transfer location</li>
+                </ul>
+                <p><strong>Distribution list:</strong> Configurable per report with roles or specific users</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 17: Recipients Review Data</h4>
+                <p><strong>Action:</strong> Report recipients analyze the data.</p>
+                <p><strong>Review activities:</strong></p>
+                <ul>
+                    <li>Read executive summary and key findings</li>
+                    <li>Analyze trends and variances</li>
+                    <li>Compare to targets or previous periods</li>
+                    <li>Identify patterns or anomalies</li>
+                    <li>Share insights with team</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 18: Analysis Reveals Issues Decision</h4>
+                <p><strong>Decision:</strong> Does data analysis reveal problems requiring management action?</p>
+                <p><strong>If Yes:</strong> Management takes corrective action</p>
+                <p><strong>If No:</strong> File report for record keeping</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 19: Management Action & Decisions</h4>
+                <p><strong>Action:</strong> Management makes decisions based on report insights.</p>
+                <p><strong>Example management actions:</strong></p>
+                <ul>
+                    <li><strong>Sales declining:</strong> Launch marketing campaign, adjust pricing</li>
+                    <li><strong>Inventory excess:</strong> Run promotions, reduce production</li>
+                    <li><strong>Production inefficiency:</strong> Investigate root cause, provide training</li>
+                    <li><strong>Vendor performance poor:</strong> Negotiate improvements or find alternative supplier</li>
+                    <li><strong>Cash flow issue:</strong> Accelerate collections, delay payments</li>
+                </ul>
+                <p><strong>Strategic value:</strong> Data-driven decisions replace gut feeling</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 20: File for Record</h4>
+                <p><strong>Action:</strong> Report archived for compliance and reference.</p>
+                <p><strong>Archiving:</strong></p>
+                <ul>
+                    <li>Stored in document management system</li>
+                    <li>Organized by report type and date</li>
+                    <li>Retention period per policy (e.g., 7 years)</li>
+                    <li>Searchable for future retrieval</li>
+                </ul>
+            </div>
+            
+            <h3>Ad-Hoc Reporting Flow</h3>
+            
+            <div class="step-box">
+                <h4>Step 21: User Requests Ad-Hoc Report Decision</h4>
+                <p><strong>Decision:</strong> Does user need custom report not in scheduled list?</p>
+                <p><strong>Ad-hoc report scenarios:</strong></p>
+                <ul>
+                    <li>One-time analysis for specific question</li>
+                    <li>Custom date range not matching scheduled reports</li>
+                    <li>Filtering by specific customer, item, or vendor</li>
+                    <li>Management ad-hoc request</li>
+                    <li>Audit or compliance inquiry</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 22: User Selects Parameters</h4>
+                <p><strong>Action:</strong> User configures report criteria using report builder.</p>
+                <p><strong>Configurable parameters:</strong></p>
+                <ul>
+                    <li><strong>Date range:</strong> Start and end dates</li>
+                    <li><strong>Filters:</strong> Customer, vendor, item, department, status</li>
+                    <li><strong>Grouping:</strong> By customer, by month, by product category</li>
+                    <li><strong>Sorting:</strong> Ascending/descending by field</li>
+                    <li><strong>Columns:</strong> Select which data fields to display</li>
+                    <li><strong>Aggregation:</strong> Sum, average, count, min, max</li>
+                    <li><strong>Format:</strong> PDF, Excel, CSV</li>
+                </ul>
+                <p><strong>User empowerment:</strong> No IT dependency for custom reports</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 23: System Generates Custom Report</h4>
+                <p><strong>Action:</strong> System creates report based on user parameters.</p>
+                <p><strong>Generation process:</strong></p>
+                <ul>
+                    <li>Apply user-selected filters and criteria</li>
+                    <li>Query database with dynamic SQL</li>
+                    <li>Calculate aggregations</li>
+                    <li>Format output per user preference</li>
+                    <li>Generate file (PDF/Excel/CSV)</li>
+                </ul>
+                <p><strong>Performance:</strong> Most reports generate in seconds to minutes</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 24: User Analyzes Data</h4>
+                <p><strong>Action:</strong> User reviews custom report results.</p>
+                <p><strong>Analysis activities:</strong></p>
+                <ul>
+                    <li>Review data to answer specific question</li>
+                    <li>Drill down or pivot for deeper insights</li>
+                    <li>Compare across different dimensions</li>
+                    <li>Identify root causes or trends</li>
+                    <li>Prepare recommendations</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 25: Export or Share Insights</h4>
+                <p><strong>Action:</strong> User shares findings with stakeholders.</p>
+                <p><strong>Sharing options:</strong></p>
+                <ul>
+                    <li>Email report to colleagues</li>
+                    <li>Present in management meetings</li>
+                    <li>Include in PowerPoint presentations</li>
+                    <li>Save to shared folder</li>
+                    <li>Create dashboard widget from report</li>
+                </ul>
+            </div>
+            
+            <h3>Key Automation Points</h3>
+            
+            <div class="automation-point">
+                <h4>✓ Real-Time Data Collection</h4>
+                <p>All business transactions automatically captured and stored centrally - no manual data entry or consolidation from spreadsheets.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Auto-Refreshing Dashboards</h4>
+                <p>Dashboards update automatically showing latest KPIs and metrics - users always see current data without manual refresh or Excel updates.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automated Exception Alerts</h4>
+                <p>System monitors thresholds 24/7 and sends alerts automatically when exceptions occur - proactive management instead of reactive firefighting.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Scheduled Report Auto-Generation</h4>
+                <p>Reports generated and distributed automatically per schedule - no manual report creation, formatting, or emailing required.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Self-Service Ad-Hoc Reporting</h4>
+                <p>Users can create custom reports on-demand without IT assistance - empowers business users to answer their own questions.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Single Source of Truth</h4>
+                <p>All data in centralized database ensures consistency across all reports and dashboards - eliminates conflicting numbers from different spreadsheets.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Role-Based Dashboard Views</h4>
+                <p>Different dashboards automatically displayed based on user role - executives see high-level KPIs, managers see operational details, operators see work queues.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Exception-Based Management</h4>
+                <p>Management focuses on exceptions and alerts instead of routine status checks - time freed up for strategic decisions and improvements.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Mermaid Code -->
+        <div class="section code-section">
+            <h2>3. Mermaid Code Snippet</h2>
+            <p>Copy the code below to use this flowchart in your own documentation or tools that support Mermaid diagrams.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Mermaid Flowchart Code</span>
+                    <button class="copy-button" onclick="copyCode()">Copy Code</button>
+                </div>
+                <pre><code id="mermaid-code">flowchart TD
+    A[Business transactions occur] --> B[System collects data in real-time]
+    B --> C[Data stored in central database]
+    C --> D[Dashboard auto-refreshes]
+    D --> E[Display updated KPIs & metrics]
+    E --> F{Exception detected?}
+    F -- Yes --> G[Trigger alert/notification]
+    G --> H[Notify relevant users]
+    H --> I[User reviews exception]
+    I --> J{Action required?}
+    J -- Yes --> K[User takes corrective action]
+    J -- No --> L[Acknowledge & close alert]
+    F -- No --> M[Continue monitoring]
+    M --> N{Scheduled report due?}
+    N -- Yes --> O[System auto-generates report]
+    O --> P[Report sent to recipients]
+    P --> Q[Recipients review data]
+    Q --> R{Analysis reveals issues?}
+    R -- Yes --> S[Management action & decisions]
+    R -- No --> T[File for record]
+    N -- No --> U{User requests ad-hoc report?}
+    U -- Yes --> V[User selects parameters]
+    V --> W[System generates custom report]
+    W --> X[User analyzes data]
+    X --> Y[Export or share insights]
+    U -- No --> D</code></pre>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>ERP Automation System - Business Flow Documentation</p>
+            <p>Generated: October 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Copy code function
+        function copyCode() {
+            const code = document.getElementById('mermaid-code').textContent;
+            const button = document.querySelector('.copy-button');
+            
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = 'Copy Code';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

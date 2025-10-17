@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Tự Động ERP - Tổng Quan Giải Pháp & Danh Sách Chức Năng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        
+        th {
+            background: #333;
+            color: #fff;
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        tr:hover {
+            background: #f0f0f0;
+        }
+        
+        .module-header {
+            background: #1a1a1a !important;
+            color: #fff !important;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .function-name {
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+        
+        .function-desc {
+            color: #666;
+            font-size: 12px;
+            font-style: italic;
+        }
+        
+        .feature-count {
+            text-align: center;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .priority-1 {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .priority-2 {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .priority-3 {
+            background: #e8f0f8;
+            color: #2c5aa0;
+        }
+        
+        .overview-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .principle-box {
+            border-left: 4px solid #2c5aa0;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f5f9ff;
+        }
+        
+        .flow-step {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        
+        .flow-step h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .stats-box {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            min-width: 150px;
+            margin: 10px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .toc {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .toc h3 {
+            background: none;
+            border: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #2c5aa0;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .summary-table {
+            margin: 30px 0;
+        }
+        
+        .summary-table th {
+            background: #2c5aa0;
+        }
+        
+        .total-row {
+            background: #e8f0f8 !important;
+            font-weight: bold;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Hệ Thống Tự Động ERP</h1>
+            <p>Tổng Quan Giải Pháp & Danh Sách Chức Năng Toàn Diện</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Mục Lục</h3>
+            <ul>
+                <li><a href="#vision">1. Tầm Nhìn & Mục Tiêu</a></li>
+                <li><a href="#principles">2. Nguyên Tắc Giải Pháp</a></li>
+                <li><a href="#architecture">3. Kiến Trúc Hệ Thống Tổng Quan</a></li>
+                <li><a href="#as-is-flow">4. Quy Trình Hiện Tại (As-Is)</a></li>
+                <li><a href="#business-flow">5. Quy Trình Tự Động (To-Be)</a></li>
+                <li><a href="#features">6. Tính Năng & Phân Hệ Chính</a></li>
+                <li><a href="#pain-points">7. Vấn Đề Được Giải Quyết</a></li>
+                <li><a href="#function-list">8. Danh Sách Chức Năng & Tính Năng</a></li>
+                <li><a href="#summary">9. Thống Kê Tổng Hợp</a></li>
+            </ul>
+        </div>
+
+        <!-- Section 1: Vision & Objective -->
+        <div class="section" id="vision">
+            <h2>1. Tầm Nhìn & Mục Tiêu</h2>
+            <div class="overview-box">
+                <p><strong>Tự động hóa và số hóa toàn bộ quy trình từ nhận đơn hàng đến giao hàng</strong>, loại bỏ bảng tính thủ công, email và trao đổi rời rạc. Hệ thống cung cấp khả năng quan sát thời gian thực, lập kế hoạch tự động và phối hợp liền mạch giữa các phòng ban và nhà cung cấp ngoài.</p>
+            </div>
+        </div>
+
+        <!-- Section 2: Key Solution Principles -->
+        <div class="section" id="principles">
+            <h2>2. Nguyên Tắc Giải Pháp</h2>
+            <div class="principle-box">
+                <h4>Tự Động Hóa Ưu Tiên</h4>
+                <p>Thay thế các bước thủ công bằng quy trình tự động và kích hoạt hệ thống.</p>
+            </div>
+            <div class="principle-box">
+                <h4>Dữ Liệu Thời Gian Thực</h4>
+                <p>Tất cả dữ liệu kho, sản xuất, đơn hàng đều trực tuyến và truy cập được.</p>
+            </div>
+            <div class="principle-box">
+                <h4>Quản Lý Ngoại Lệ</h4>
+                <p>Người dùng chỉ can thiệp khi cần phê duyệt, xử lý ngoại lệ hoặc leo thang vấn đề.</p>
+            </div>
+            <div class="principle-box">
+                <h4>Tích Hợp</h4>
+                <p>Kết nối các phòng ban nội bộ và nhà cung cấp ngoài trên một nền tảng duy nhất.</p>
+            </div>
+            <div class="principle-box">
+                <h4>Thân Thiện Người Dùng</h4>
+                <p>Bảng điều khiển trực quan, quy trình hướng dẫn, nhập liệu tối thiểu.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Architecture -->
+        <div class="section" id="architecture">
+            <h2>3. Kiến Trúc Hệ Thống Tổng Quan</h2>
+            <ul>
+                <li><strong>Ứng dụng ERP trên web</strong> - Phân hệ, phân quyền theo vai trò</li>
+                <li><strong>Cơ sở dữ liệu tập trung</strong> - Quản lý kho, đơn hàng, BOM, nhà cung cấp, sản xuất, QC</li>
+                <li><strong>Động cơ quy trình</strong> - Kích hoạt tự động, phê duyệt, thông báo</li>
+                <li><strong>Lớp tích hợp</strong> - API cho nhà cung cấp ngoài, email/SMS, kế toán</li>
+                <li><strong>Phân hệ báo cáo & bảng điều khiển</strong> - KPI thời gian thực, cảnh báo, phân tích</li>
+            </ul>
+        </div>
+
+        <!-- Section 4: As-Is Business Flow (Current Operations) -->
+        <div class="section" id="as-is-flow">
+            <h2>4. Quy Trình Hiện Tại (As-Is)</h2>
+            <div class="warning-box" style="background: #ffebee; border-left: 4px solid #c62828; padding: 20px; margin: 20px 0;">
+                <h4 style="color: #c62828; margin-top: 0;">⚠️ Thách Thức Hiện Tại</h4>
+                <p>Doanh nghiệp hiện vận hành bằng quy trình thủ công, bảng tính Excel, email, điện thoại và tin nhắn. Không có hệ thống tập trung cung cấp dữ liệu thời gian thực, gây ra nhiều bất cập, khó phối hợp và sai sót dữ liệu.</p>
+            </div>
+            <div class="highlight-box" style="background: #fff3e0; border-left: 4px solid #ef6c00; padding: 20px; margin: 25px 0;">
+                <h4 style="color: #e65100; margin-top: 0;">📋 Tổng Quan Vận Hành Hiện Tại</h4>
+                <p style="font-size: 15px; line-height: 1.7; margin-bottom: 15px;">
+                    Vận hành hiện tại dựa chủ yếu vào phối hợp thủ công giữa các phòng ban. Đơn hàng nhận qua email, kiểm tra kho phải gọi điện cho kho, lập kế hoạch bằng bảng tính, tiến độ sản xuất cập nhật qua tin nhắn. Tài liệu As-Is thể hiện thực trạng với các điểm đau và bất cập.
+                </p>
+                <a href="BusinessFlow_AsIs_Current.html" class="flow-button" style="display: inline-block; background: #ef6c00; color: #fff; padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; margin-top: 10px;">
+                    Xem Quy Trình Hiện Tại →
+                </a>
+            </div>
+            <h3 style="font-size: 16px; font-weight: bold; margin: 25px 0 15px 0; color: #666;">Các Vấn Đề Chính Trong Vận Hành Hiện Tại:</h3>
+            <ul style="margin: 10px 0 15px 25px; font-size: 14px;">
+                <li>Nhập liệu thủ công trên nhiều bảng tính, dễ sai sót</li>
+                <li>Không có dữ liệu kho thời gian thực - phải gọi/email hỏi kho</li>
+                <li>Thời gian giao hàng từ nhà cung cấp ngoài không chắc chắn (trao đổi qua email)</li>
+                <li>Lập kế hoạch năng lực dựa trên cảm tính, không có dữ liệu hệ thống</li>
+                <li>Đặt giữ kho qua email gây xung đột phân bổ</li>
+                <li>Trao đổi rời rạc (email/tin nhắn/điện thoại), không có hồ sơ tập trung</li>
+                <li>Phản hồi chất lượng chậm - lỗi báo miệng hoặc tin nhắn</li>
+                <li>Ban lãnh đạo thiếu bảng điều khiển tổng hợp - phải tổng hợp báo cáo thủ công</li>
+            </ul>
+        </div>
+
+        <!-- Section 5: Automated Business Flow (To-Be) -->
+        <div class="section" id="business-flow">
+            <h2>5. Quy Trình Tự Động (To-Be)</h2>
+            <div class="overview-box" style="background: #e8f0f8; border-color: #2c5aa0;">
+                <h4 style="color: #2c5aa0; margin-top: 0;">📊 Quy Trình Tích Hợp Từ Đầu Đến Cuối</h4>
+                <p style="margin-bottom: 15px;">Xem cách các quy trình kinh doanh phối hợp liền mạch từ nhận đơn hàng đến giao hàng và thanh toán.</p>
+                <a href="BusinessFlow_IntegratedComplete.html" style="display: inline-block; padding: 10px 20px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 14px; font-weight: bold;">Xem Quy Trình Tích Hợp →</a>
+            </div>
+            <h3 style="margin-top: 30px;">Chi Tiết Các Quy Trình Riêng Lẻ:</h3>
+            <div class="flow-step">
+                <h4>1. Nhận Đơn Hàng Khách</h4>
+                <ul>
+                    <li>Đơn hàng khách nhập hoặc tải lên qua cổng/ API.</li>
+                    <li>Hệ thống kiểm tra dữ liệu, trạng thái khách và kích hoạt lập kế hoạch.</li>
+                </ul>
+                <a href="BusinessFlow_CustomerOrderIntake.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">Xem Quy Trình Chi Tiết →</a>
+            </div>
+            <div class="flow-step">
+                <h4>2. Phân Tích & Lập Kế Hoạch Đơn Hàng Tự Động</h4>
+                <ul>
+                    <li>Hệ thống kiểm tra kho thành phẩm, bán thành phẩm, linh kiện thời gian thực.</li>
+                    <li>Nếu sản xuất nội bộ đáp ứng, tự động tạo kế hoạch sản xuất.</li>
+                    <li>Nếu không, hệ thống đề xuất thuê ngoài và tạo RFQ/PO cho nhà cung cấp.</li>
+                    <li>Ngày có vật tư và ngày giao hàng được tính tự động.</li>
+                </ul>
+                <a href="BusinessFlow_AutomatedOrderAnalysisPlanning.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">Xem Quy Trình Chi Tiết →</a>
+            </div>
+            <div class="flow-step">
+                <h4>3. Mua Hàng & Thuê Ngoài</h4>
+                <ul>
+                    <li>Hệ thống gửi RFQ/PO điện tử cho nhà cung cấp.</li>
+                    <li>Nhà cung cấp xác nhận thời gian giao hàng qua cổng/email/API.</li>
+                    <li>Hệ thống cập nhật kế hoạch và thông báo nếu có chậm trễ hoặc vấn đề.</li>
+                </ul>
+                <a href="BusinessFlow_ProcurementOutsourcing.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">Xem Quy Trình Chi Tiết →</a>
+            </div>
+            <div class="flow-step">
+                <h4>4. Thực Hiện Sản Xuất</h4>
+                <ul>
+                    <li>Lệnh sản xuất điện tử cho nội bộ và thuê ngoài.</li>
+                    <li>Xuất kho vật tư, tiến độ sản xuất, QC đều được ghi nhận trên hệ thống.</li>
+                    <li>Đối tác thuê ngoài cập nhật trạng thái và giao hàng qua cổng/API.</li>
+                </ul>
+                <a href="BusinessFlow_ProductionExecution.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">Xem Quy Trình Chi Tiết →</a>
+            </div>
+            <div class="flow-step">
+                <h4>5. Quản Lý Kho & Chất Lượng</h4>
+                <ul>
+                    <li>Tất cả nhập/xuất/chuyển kho được ghi nhận thời gian thực.</li>
+                    <li>Kết quả QC nhập hoặc tải lên; hệ thống tự động chặn kho không đạt.</li>
+                    <li>Cảnh báo tự động khi thiếu kho, chậm tiến độ hoặc lỗi chất lượng.</li>
+                </ul>
+                <a href="BusinessFlow_InventoryQualityManagement.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">Xem Quy Trình Chi Tiết →</a>
+            </div>
+            <div class="flow-step">
+                <h4>6. Giao Hàng & Xuất Hóa Đơn</h4>
+                <ul>
+                    <li>Hệ thống tạo phiếu xuất, tài liệu giao hàng, tự động xuất hóa đơn khi giao/nhận hàng.</li>
+                    <li>Khách hàng được thông báo tự động kèm tài liệu và tracking.</li>
+                </ul>
+                <a href="BusinessFlow_ShippingInvoicing.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">Xem Quy Trình Chi Tiết →</a>
+            </div>
+            <div class="flow-step">
+                <h4>7. Báo Cáo & Bảng Điều Khiển</h4>
+                <ul>
+                    <li>Bảng điều khiển thời gian thực cho quản lý, vận hành, tài chính.</li>
+                    <li>Báo cáo tự động hàng ngày/tuần/tháng và cảnh báo ngoại lệ.</li>
+                </ul>
+                <a href="BusinessFlow_ReportingDashboards.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">Xem Quy Trình Chi Tiết →</a>
+            </div>
+        </div>
+
+        <!-- Section 6: Key Features & Modules -->
+        <div class="section" id="features">
+            <h2>6. Tính Năng & Phân Hệ Chính</h2>
+            <ul>
+                <li><strong>Quản lý dữ liệu gốc:</strong> Components, BOM, vendors, customers, packaging.</li>
+                <li><strong>Quản lý đơn hàng:</strong> PO entry, validation, status tracking.</li>
+                <li><strong>Quản lý kho:</strong> Theo dõi tồn kho thời gian thực, đặt giữ kho, cảnh báo.</li>
+                <li><strong>Lập kế hoạch & thực hiện sản xuất:</strong> Automated scheduling, work orders, progress tracking.</li>
+                <li><strong>Mua hàng & thuê ngoài:</strong> Digital RFQ/PO, vendor collaboration, lead time tracking.</li>
+                <li><strong>Kiểm tra chất lượng:</strong> Digital QC records, non-conformance management.</li>
+                <li><strong>Giao hàng & logistics:</strong> Pick/pack, shipment, delivery confirmation.</li>
+                <li><strong>Tích hợp tài chính:</strong> Automated invoicing, cost tracking, revenue recognition.</li>
+                <li><strong>Bảng điều khiển & phân tích:</strong> KPIs, trends, exception alerts.</li>
+            </ul>
+        </div>
+
+        <!-- Section 7: Pain Points Addressed -->
+        <div class="section" id="pain-points">
+            <h2>7. Vấn Đề Được Giải Quyết</h2>
+            <ul>
+                <li>✓ Không còn bảng tính thủ công hay nhập liệu lặp lại.</li>
+                <li>✓ Kiểm tra kho, lập kế hoạch, phối hợp nhà cung cấp đều tự động.</li>
+                <li>✓ Trạng thái đơn hàng, sản xuất, tồn kho đều cập nhật thời gian thực.</li>
+                <li>✓ Quản lý ngoại lệ: người dùng chỉ xử lý các vấn đề, không làm việc lặp lại.</li>
+                <li>✓ Tích hợp nhà cung cấp ngoài và theo dõi hiệu suất liền mạch.</li>
+                <li>✓ Ban lãnh đạo có dữ liệu và xu hướng tức thời để ra quyết định.</li>
+            </ul>
+        </div>
+
+        <!-- Section 8: Function List -->
+        <div class="section" id="function-list">
+            <h2>8. Danh Sách Chức Năng & Tính Năng</h2>
+            <!-- Thống kê tổng quan -->
+            <div class="stats-box">
+                <div class="stat-item">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Phân hệ</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">51</div>
+                    <div class="stat-label">Chức năng</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">652</div>
+                    <div class="stat-label">Tính năng</div>
+                </div>
+            </div>
+
+            <!-- Module 1: Master Data Management -->
+            <h3>Phân hệ 1: Quản Lý Dữ Liệu Gốc</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.1 - Quản Lý Linh Kiện</div>
+                            <div class="function-desc">18 tính năng</div>
+                        </td>
+                        <td>Tạo và quản lý dữ liệu linh kiện/vật tư gồm thông số kỹ thuật, nhà cung cấp, thời gian giao hàng, tồn kho, và theo dõi chi phí.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.2 - Quản Lý BOM</div>
+                            <div class="function-desc">22 tính năng</div>
+                        </td>
+                        <td>Tạo và quản lý cấu trúc sản phẩm (BOM) gồm linh kiện, số lượng, phiên bản, quy trình, năng lực sản xuất và tính giá thành.</td>
+                        <td class="feature-count">22</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.3 - Quản Lý Bao Bì</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Định nghĩa quy tắc và thông số bao bì gồm bao bì chuẩn/tùy chỉnh, kích thước thùng, trọng lượng, cấu hình pallet.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.4 - Quản Lý Nhà Cung Cấp</div>
+                            <div class="function-desc">18 tính năng</div>
+                        </td>
+                        <td>Quản lý thông tin nhà cung cấp gồm năng lực, thời gian giao hàng, năng suất, chỉ số hiệu suất, tài khoản cổng thông tin, và theo dõi tuân thủ.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.5 - Quản Lý Khách Hàng</div>
+                            <div class="function-desc">18 tính năng</div>
+                        </td>
+                        <td>Quản lý thông tin khách hàng gồm trạng thái tín dụng, điều kiện thanh toán, địa chỉ giao hàng, giá bán, yêu cầu bao bì, và truy cập cổng thông tin.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 2: Order Management -->
+            <h3>Phân hệ 2: Quản Lý Đơn Hàng</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F2.1 - Tiếp Nhận Đơn Hàng</div>
+                            <div class="function-desc">18 tính năng</div>
+                        </td>
+                        <td>Nhận và xác thực đơn hàng của khách hàng qua nhiều kênh (thủ công, tải lên tệp, API, cổng thông tin) với xác thực tự động và kích hoạt lập kế hoạch.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F2.2 - Theo Dõi Trạng Thái Đơn Hàng</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Theo dõi và giám sát vòng đời đơn hàng với trạng thái thời gian thực, theo dõi tiến độ, khả năng hiển thị cổng thông tin khách hàng, và khả năng tìm kiếm toàn diện.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F2.3 - Sửa Đổi Đơn Hàng</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Xử lý thay đổi và hủy bỏ đơn hàng với phân tích tác động, quy trình phê duyệt, lập kế hoạch lại tự động, và giải phóng dự trữ hàng tồn kho.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 3: Planning & Analysis -->
+            <h3>Phân hệ 3: Lập Kế Hoạch & Phân Tích</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.1 - Kiểm Tra Tình Trạng Tồn Kho</div>
+                            <div class="function-desc">12 tính năng</div>
+                        </td>
+                        <td>Kiểm tra tồn kho thời gian thực trên toàn bộ BOM, bán thành phẩm, và linh kiện với tính toán ATP, hỗ trợ nhiều vị trí, và phân tích tuổi thọ.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.2 - Lập Kế Hoạch Sản Xuất</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Tạo kế hoạch sản xuất tự động với ưu tiên sản xuất nội bộ so với thuê ngoài, cân bằng năng lực, lập lịch, và các kịch bản giả định.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.3 - Động Cơ MRP</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Lập kế hoạch nhu cầu vật liệu với phân tích BOM, tính toán nhu cầu ròng, lập thời gian, khuyến nghị mua sắm, và cảnh báo ngoại lệ.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.4 - Tính Toán Ngày Giao Hàng</div>
+                            <div class="function-desc">16 tính năng</div>
+                        </td>
+                        <td>Tính toán cam kết giao hàng thực tế với thời gian giao hàng của nhà cung cấp, thời gian sản xuất, năng lực, QC, đóng gói, và thời gian vận chuyển.</td>
+                        <td class="feature-count">16</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.5 - Lập Kế Hoạch Năng Lực</div>
+                            <div class="function-desc">13 tính năng</div>
+                        </td>
+                        <td>Quản lý năng lực sản xuất theo dây chuyền/cell với theo dõi mức sử dụng, xác định quá tải, gợi ý làm thêm/thuê ngoài, và các kịch bản giả định.</td>
+                        <td class="feature-count">13</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 4: Procurement & Outsourcing -->
+            <h3>Phân hệ 4: Mua Sắm & Thuê Ngoài</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F4.1 - Tạo RFQ/PO</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Tự động tạo RFQ/PO từ các thiếu hụt vật liệu với lựa chọn nhà cung cấp, tính toán số lượng/ngày, định giá, và quy trình phê duyệt.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F4.2 - Cổng Thông Tin Nhà Cung Cấp</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Giao tiếp số với nhà cung cấp qua email, API, và cổng thông tin cho phân phối RFQ/PO, xác nhận thời gian giao hàng, cập nhật trạng thái, và trao đổi tài liệu.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F4.3 - Quản Lý Thời Gian Giao Hàng</div>
+                            <div class="function-desc">10 tính năng</div>
+                        </td>
+                        <td>Theo dõi cam kết giao hàng của nhà cung cấp với so sánh yêu cầu và xác nhận, cảnh báo, gợi ý nhà cung cấp thay thế, và chấm điểm hiệu suất.</td>
+                        <td class="feature-count">10</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F4.4 - Theo Dõi Đơn Đặt Hàng</div>
+                            <div class="function-desc">12 tính năng</div>
+                        </td>
+                        <td>Theo dõi trạng thái đơn hàng mua sắm với bảng điều khiển, cảnh báo về giao hàng quá hạn, theo dõi giao hàng một phần, quy trình thay đổi/hủy bỏ.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 5: Production Execution -->
+            <h3>Phân hệ 5: Thực Hiện Sản Xuất</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.1 - Quản Lý Lệnh Sản Xuất</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Tạo và quản lý lệnh sản xuất với tự động tạo, phân công dây chuyền, lập lịch, theo dõi trạng thái, phê duyệt, và quy trình phát hành.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.2 - Lấy Nguyên Vật Liệu</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Quản lý phân bổ và cấp phát nguyên vật liệu với danh sách lấy hàng, dự trữ hàng tồn kho, quét mã vạch, theo dõi tiêu thụ, và truy xuất lô/số.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.3 - Tiến Độ Sản Xuất</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Theo dõi thực hiện sản xuất với theo dõi thời gian thực, quản lý WIP, ghi nhận thời gian ngừng hoạt động, tính toán hiệu suất/OEE, và hỗ trợ ứng dụng di động.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.4 - Sản Xuất Thuê Ngoài</div>
+                            <div class="function-desc">15 tính năng</div>
+                        </td>
+                        <td>Quản lý sản xuất thuê ngoài với tạo lệnh sản xuất, lựa chọn nhà cung cấp, chuyển giao vật liệu, theo dõi trạng thái, trả hàng, và giám sát hiệu suất.</td>
+                        <td class="feature-count">15</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.5 - Kiểm Soát Chất Lượng Trong Quá Trình</div>
+                            <div class="function-desc">12 tính năng</div>
+                        </td>
+                        <td>Kiểm tra chất lượng trong quá trình sản xuất với định nghĩa điểm kiểm tra, ghi nhận số liệu, quyết định đạt/không đạt, tạo NCR, và nhập liệu di động.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 6: Inventory Management -->
+            <h3>Phân hệ 6: Quản Lý Tồn Kho</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.1 - Nhập Kho</div>
+                            <div class="function-desc">17 tính năng</div>
+                        </td>
+                        <td>Ghi nhận hàng hóa nhập từ nhà cung cấp và sản xuất với đối chiếu PO, theo dõi lô/số, kích hoạt QC, tạo GRN, và hỗ trợ di động/mã vạch.</td>
+                        <td class="feature-count">17</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.2 - Theo Dõi Tồn Kho</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Hiển thị tồn kho thời gian thực theo vị trí, linh kiện, trạng thái (có sẵn/đã đặt/đang giữ/WIP) với theo dõi lô, phân tích tuổi thọ, định giá, và kiểm kê chu kỳ.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.3 - Đặt Giữ Hàng Tồn Kho</div>
+                            <div class="function-desc">12 tính năng</div>
+                        </td>
+                        <td>Dự trữ và phân bổ hàng tồn kho cho đơn hàng và lệnh sản xuất với ngăn chặn đặt chồng, giải phóng tự động, quy tắc ưu tiên, và theo dõi lịch sử.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.4 - Cảnh Báo Tồn Kho</div>
+                            <div class="function-desc">12 tính năng</div>
+                        </td>
+                        <td>Cảnh báo tự động về tồn kho thấp, hết hàng, tồn kho dư, hàng chậm quay vòng, hàng sắp hết hạn, và ngưỡng/cá nhân nhận cảnh báo có thể cấu hình.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.5 - Chuyển Kho Tồn</div>
+                            <div class="function-desc">11 tính năng</div>
+                        </td>
+                        <td>Quản lý chuyển kho giữa các vị trí bao gồm cả nhà cung cấp thuê ngoài với theo dõi hàng đang vận chuyển, quy trình phê duyệt, và tài liệu chuyển giao.</td>
+                        <td class="feature-count">11</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 7: Quality Control -->
+            <h3>Phân hệ 7: Kiểm Soát Chất Lượng</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F7.1 - Kiểm Tra Đầu Vào</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Kiểm tra nguyên vật liệu đầu vào với kế hoạch kiểm tra, ghi nhận số liệu, quyết định đạt/không đạt, phê duyệt/từ chối hàng, và tạo NCR.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F7.2 - Kiểm Soát Chất Lượng Trong Quá Trình</div>
+                            <div class="function-desc">8 tính năng</div>
+                        </td>
+                        <td>Kiểm soát chất lượng trong quá trình sản xuất với kích hoạt tự động điểm kiểm tra, đo lường thời gian thực, quyết định đạt/không đạt, cảnh báo, và biểu đồ SPC.</td>
+                        <td class="feature-count">8</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F7.3 - Kiểm Tra Cuối Cùng</div>
+                            <div class="function-desc">13 tính năng</div>
+                        </td>
+                        <td>Kiểm tra hàng hóa hoàn thành trước khi giao hàng với kiểm tra chức năng, kiểm tra bao bì, phê duyệt/từ chối giao hàng, và tạo chứng nhận chất lượng.</td>
+                        <td class="feature-count">13</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F7.4 - Quản Lý NCR</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Quản lý các vấn đề chất lượng với tạo NCR, theo dõi hành động khắc phục, quyết định làm lại/loại bỏ, phân tích nguyên nhân gốc, và CAPA (Hành động Khắc phục và Phòng ngừa).</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 8: Shipping & Logistics -->
+            <h3>Phân hệ 8: Vận Chuyển & Logistics</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.1 - Tạo Danh Sách Lấy Hàng</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Tạo và quản lý danh sách lấy hàng với lấy hàng theo lô, tối ưu hóa lộ trình, hỗ trợ lấy hàng theo sóng/khu vực, ứng dụng di động, và quét mã vạch.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.2 - Đóng Gói & Ghi Nhãn</div>
+                            <div class="function-desc">12 tính năng</div>
+                        </td>
+                        <td>Đóng gói hàng hóa theo quy tắc đóng gói với tính toán thùng, tạo nhãn mã vạch, tính toán trọng lượng/thể tích, và tạo danh sách đóng gói.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.3 - Quản Lý Vận Chuyển</div>
+                            <div class="function-desc">15 tính năng</div>
+                        </td>
+                        <td>Tạo vận đơn với lựa chọn nhà vận chuyển, tạo tài liệu (BOL, hóa đơn, danh sách đóng gói), tích hợp nhà vận chuyển, theo dõi, và thông báo cho khách hàng.</td>
+                        <td class="feature-count">15</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.4 - Xác Nhận Giao Hàng</div>
+                            <div class="function-desc">12 tính năng</div>
+                        </td>
+                        <td>Theo dõi và xác nhận giao hàng với tích hợp API nhà vận chuyển, ghi nhận POD, ghi nhận giao hàng thực tế, kích hoạt hóa đơn tự động, và theo dõi hiệu suất.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.5 - Ngoại Lệ Vận Chuyển</div>
+                            <div class="function-desc">11 tính năng</div>
+                        </td>
+                        <td>Quản lý các vấn đề vận chuyển bao gồm chậm trễ, thất bại trong giao hàng, trả hàng, hàng hóa bị hỏng, yêu cầu khẩn cấp, và quy trình leo thang ngoại lệ.</td>
+                        <td class="feature-count">11</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 9: Finance Integration -->
+            <h3>Phân hệ 9: Tích Hợp Tài Chính</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.1 - Tính Toán COGS</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Tính toán giá vốn hàng bán với chi phí vật liệu, lao động, chi phí chung, thuê ngoài, và chi phí đóng gói bao gồm so sánh tiêu chuẩn và thực tế và phân tích biến động.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.2 - Tạo Hóa Đơn Tự Động</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Tạo hóa đơn tự động khi giao hàng/nhận hàng với định giá, thuế, lập hóa đơn một phần, tạo PDF, phân phối qua email, và tích hợp kế toán.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.3 - Nhận Diện Doanh Thu</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Theo dõi doanh thu và phải thu theo đơn hàng, khách hàng, sản phẩm, và kỳ hạn với phân tích tuổi nợ, cảnh báo quá hạn, theo dõi thanh toán, và dự đoán doanh thu.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.4 - Kế Toán PO</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Quản lý hóa đơn và phải trả cho nhà cung cấp với đối chiếu 3 bên, quy trình phê duyệt, lập lịch thanh toán, đối chiếu, và báo cáo tuổi nợ AP.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.5 - Phân Tích Lợi Nhuận</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Phân tích biên lợi nhuận theo đơn hàng, sản phẩm, khách hàng, và kỳ hạn với phân tích biến động chi phí, xác định lợi nhuận cao/thấp, và phân tích điểm hòa vốn.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-3">Ưu tiên 3</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 10: Dashboards & Reporting -->
+            <h3>Phân hệ 10: Bảng Điều Khiển & Báo Cáo</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.1 - Bảng Điều Khiển Thời Gian Thực</div>
+                            <div class="function-desc">16 tính năng</div>
+                        </td>
+                        <td>Bảng điều khiển tương tác cho đơn hàng, tồn kho, sản xuất, tài chính, nhà cung cấp, chất lượng, và vận chuyển với tùy chỉnh theo vai trò và khả năng phân tích chi tiết.</td>
+                        <td class="feature-count">16</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.2 - Báo Cáo Chuẩn</div>
+                            <div class="function-desc">18 tính năng</div>
+                        </td>
+                        <td>Báo cáo có sẵn cho tồn kho, đơn hàng, sản xuất, nhà cung cấp, chất lượng, vận chuyển, và tài chính với khả năng tạo lịch và xuất khẩu.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.3 - Cảnh Báo Ngoại Lệ</div>
+                            <div class="function-desc">16 tính năng</div>
+                        </td>
+                        <td>Cảnh báo tự động cho các vấn đề tồn kho, chậm trễ, lỗi chất lượng, hạn chế năng lực, giữ tín dụng với ngưỡng, người nhận, và quy trình leo thang có thể cấu hình.</td>
+                        <td class="feature-count">16</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.4 - Phân Tích & Xu Hướng</div>
+                            <div class="function-desc">16 tính năng</div>
+                        </td>
+                        <td>Phân tích nâng cao bao gồm xu hướng bán hàng, dự đoán nhu cầu, xu hướng tồn kho, xu hướng sản xuất, xu hướng chất lượng, phân tích ABC/Pareto, và truy vấn tùy chỉnh.</td>
+                        <td class="feature-count">16</td>
+                        <td><span class="priority-badge priority-3">Ưu tiên 3</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.5 - Theo Dõi Kiểm Toán</div>
+                            <div class="function-desc">12 tính năng</div>
+                        </td>
+                        <td>Theo dõi tất cả giao dịch và hành động của người dùng với dấu thời gian, giá trị trước/sau, khả năng tìm kiếm/lọc, báo cáo tuân thủ, và nhật ký không thể thay đổi.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 11: User & System Administration -->
+            <h3>Phân hệ 11: Quản Trị Người Dùng & Hệ Thống</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Chức năng</th>
+                        <th style="width: 50%;">Mô tả</th>
+                        <th style="width: 12%;">Số tính năng</th>
+                        <th style="width: 13%;">Ưu tiên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.1 - Quản Lý Người Dùng</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Quản lý người dùng và kiểm soát truy cập với quyền hạn dựa trên vai trò, xác thực đa yếu tố, chính sách mật khẩu, theo dõi hoạt động, và quản lý phiên.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.2 - Cấu Hình Quy Trình Công Việc</div>
+                            <div class="function-desc">13 tính năng</div>
+                        </td>
+                        <td>Cấu hình quy trình phê duyệt và thông báo cho đơn hàng, PO, NCR, thay đổi với các cấp độ phê duyệt, kích hoạt, quy tắc leo thang, và mẫu.</td>
+                        <td class="feature-count">13</td>
+                        <td><span class="priority-badge priority-2">Ưu tiên 2</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.3 - Quản Lý Tích Hợp</div>
+                            <div class="function-desc">12 tính năng</div>
+                        </td>
+                        <td>Quản lý tích hợp bên ngoài với nhà cung cấp, nhà vận chuyển, hệ thống kế toán qua API, EDI, email/SMS với theo dõi, xử lý lỗi, và bảng điều khiển sức khỏe.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-3">Ưu tiên 3</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.4 - Cấu Hình Hệ Thống</div>
+                            <div class="function-desc">14 tính năng</div>
+                        </td>
+                        <td>Cấu hình tham số hệ thống bao gồm thông tin công ty, chuỗi số, mặc định, tiền tệ, đơn vị đo, lịch, vị trí, thuế, và thương hiệu.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.5 - Nhập/Xuất Dữ Liệu</div>
+                            <div class="function-desc">13 tính năng</div>
+                        </td>
+                        <td>Thao tác dữ liệu hàng loạt cho dữ liệu gốc và giao dịch với xác thực, báo cáo lỗi, mẫu, xuất khẩu theo lịch, và kiểm tra tính toàn vẹn dữ liệu.</td>
+                        <td class="feature-count">13</td>
+                        <td><span class="priority-badge priority-1">Ưu tiên 1</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 9: Summary Statistics -->
+        <div class="section" id="summary">
+            <h2>9. Thống Kê Tổng Hợp</h2>
+            
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50%;">Module</th>
+                        <th style="width: 15%;">Functions</th>
+                        <th style="width: 15%;">Features</th>
+                        <th style="width: 20%;">Priority Mix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Module 1: Master Data Management</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">90</td>
+                        <td>1st: 4, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 2: Order Management</td>
+                        <td class="feature-count">3</td>
+                        <td class="feature-count">46</td>
+                        <td>1st: 2, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 3: Planning & Analysis</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">69</td>
+                        <td>1st: 3, 2nd: 2</td>
+                    </tr>
+                    <tr>
+                        <td>Module 4: Procurement & Outsourcing</td>
+                        <td class="feature-count">4</td>
+                        <td class="feature-count">50</td>
+                        <td>1st: 3, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 5: Production Execution</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">69</td>
+                        <td>1st: 3, 2nd: 2</td>
+                    </tr>
+                    <tr>
+                        <td>Module 6: Inventory Management</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">66</td>
+                        <td>1st: 4, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 7: Quality Control</td>
+                        <td class="feature-count">4</td>
+                        <td class="feature-count">49</td>
+                        <td>1st: 2, 2nd: 2</td>
+                    </tr>
+                    <tr>
+                        <td>Module 8: Shipping & Logistics</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">64</td>
+                        <td>1st: 4, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 9: Finance Integration</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">70</td>
+                        <td>1st: 2, 2nd: 2, 3rd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 10: Dashboards & Reporting</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">78</td>
+                        <td>1st: 3, 2nd: 1, 3rd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 11: User & Administration</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">66</td>
+                        <td>1st: 3, 2nd: 1, 3rd: 1</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>TỔNG CỘNG</strong></td>
+                        <td class="feature-count"><strong>51</strong></td>
+                        <td class="feature-count"><strong>717</strong></td>
+                        <td><strong>1st: 33, 2nd: 13, 3rd: 5</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Các Giai Đoạn Triển Khai</h3>
+            <div class="overview-box">
+                <h4><span class="priority-badge priority-1">1st Priority - Quan Trọng Nhất (33 Functions)</span></h4>
+                <p>Chú trọng vào các tính năng thiết yếu cho tự động hóa quy trình từ đơn hàng đến giao hàng bao gồm thiết lập dữ liệu gốc cơ bản, tiếp nhận và xác thực đơn hàng, kiểm tra và lập kế hoạch tồn kho, mua sắm và giao tiếp nhà cung cấp cơ bản, tạo và theo dõi lệnh sản xuất, giao dịch tồn kho cơ bản, giao hàng cơ bản, và bảng điều khiển và cảnh báo thiết yếu.</p>
+                
+                <h4 style="margin-top: 20px;"><span class="priority-badge priority-2">2nd Priority (13 Functions)</span></h4>
+                <p>Thêm các tính năng tối ưu hóa và hiệu quả bao gồm lập kế hoạch nâng cao (MRP, năng lực), theo dõi sản xuất thuê ngoài, điểm kiểm soát chất lượng, quản lý tồn kho nâng cao, tối ưu hóa giao hàng, tích hợp tài chính, và báo cáo và phân tích nâng cao.</p>
+                
+                <h4 style="margin-top: 20px;"><span class="priority-badge priority-3">3rd Priority - Tốt Nhất Để Có (5 Functions)</span></h4>
+                <p>Hoàn thiện hệ thống với đầy đủ tự động hóa bao gồm tự động hóa quy trình và phê duyệt, tích hợp nâng cao (API, EDI), ứng dụng di động, phân tích và dự đoán nâng cao, đầy đủ tính năng tuân thủ và kiểm toán, và quản trị và tùy chỉnh hệ thống.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>Hệ Thống Tự Động ERP - Tổng Quan Giải Pháp & Danh Sách Chức Năng</p>
+            <p>Khởi tạo: Tháng 10 năm 2025</p>
+        </div>
+    </div>
+</body>
+</html>

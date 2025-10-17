@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Flow: Inventory & Quality Management - ERP Automation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .flowchart-container {
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .explanation-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .step-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        
+        .step-box h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .automation-point {
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f1f9f4;
+        }
+        
+        .automation-point h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        
+        .code-section {
+            margin: 30px 0;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            border-radius: 5px;
+            padding: 0;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-header {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .copy-button {
+            background: #2c5aa0;
+            color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .copy-button:hover {
+            background: #1e3f7a;
+        }
+        
+        .copy-button.copied {
+            background: #28a745;
+        }
+        
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            .copy-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <a href="index.html" class="back-link">← Back to System Overview</a>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>Business Flow: Inventory & Quality Management</h1>
+            <p>Real-time inventory tracking, quality control inspections, stock status management, and automated alerts</p>
+        </div>
+
+        <!-- Section 1: Visual Flowchart -->
+        <div class="section">
+            <h2>1. Visual Flowchart</h2>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    A[Goods received at warehouse] --> B[Scan & log receipt]
+    B --> C[System creates GRN]
+    C --> D[Stock status: Quarantine]
+    D --> E[Trigger QC inspection]
+    E --> F[QC performs inspection]
+    F --> G{QC result?}
+    G -- Pass --> H[Update stock status: Available]
+    H --> I[Update inventory quantities]
+    I --> J[Goods available for use]
+    G -- Fail --> K[Update stock status: Blocked]
+    K --> L[Segregate rejected goods]
+    L --> M[Notify vendor/supplier]
+    M --> N[Vendor action required]
+    J --> O[System monitors stock levels]
+    O --> P{Stock below min level?}
+    P -- Yes --> Q[Auto-generate low stock alert]
+    Q --> R[Notify procurement team]
+    R --> S[Trigger replenishment process]
+    P -- No --> T[Continue monitoring]
+    T --> O
+    J --> U[Material picking for orders]
+    U --> V[System reserves stock]
+    V --> W[Update available quantity]
+    W --> X[Stock issued from warehouse]
+    X --> Y[Update inventory on issue]
+    Y --> Z[Real-time stock balance]
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Flow Explanation -->
+        <div class="section">
+            <h2>2. Flow Chart Explanation</h2>
+            
+            <div class="explanation-box">
+                <p>This inventory and quality management workflow ensures accurate real-time inventory tracking with integrated quality control. All goods receipts are automatically logged, QC inspections are triggered systematically, and stock levels are monitored continuously. The system manages stock status transitions (Quarantine → Available/Blocked) and generates automated alerts when replenishment is needed.</p>
+            </div>
+            
+            <h3>Process Flow Steps</h3>
+            
+            <div class="step-box">
+                <h4>Step 1: Goods Received at Warehouse</h4>
+                <p><strong>Trigger:</strong> Physical goods arrive at receiving dock.</p>
+                <p><strong>Receipt sources:</strong></p>
+                <ul>
+                    <li>Vendor/supplier deliveries (purchased materials)</li>
+                    <li>Outsource production returns</li>
+                    <li>In-house production completions</li>
+                    <li>Customer returns</li>
+                    <li>Inter-warehouse transfers</li>
+                </ul>
+                <p><strong>Warehouse:</strong> Unloads and prepares for receiving process</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 2: Scan & Log Receipt</h4>
+                <p><strong>Action:</strong> Warehouse staff scans and logs incoming goods in system.</p>
+                <p><strong>Data captured:</strong></p>
+                <ul>
+                    <li>Purchase Order (PO) or Work Order reference</li>
+                    <li>Item code and description</li>
+                    <li>Quantity received</li>
+                    <li>Receipt date and time</li>
+                    <li>Receiving location</li>
+                    <li>Batch/lot number (if applicable)</li>
+                    <li>Packing list reference</li>
+                    <li>Initial visual condition notes</li>
+                </ul>
+                <p><strong>Methods:</strong></p>
+                <ul>
+                    <li>Barcode/QR code scanning (preferred)</li>
+                    <li>Mobile app entry</li>
+                    <li>Desktop system entry</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 3: System Creates GRN</h4>
+                <p><strong>Action:</strong> System automatically generates Goods Receipt Note (GRN).</p>
+                <p><strong>GRN document contains:</strong></p>
+                <ul>
+                    <li>Unique GRN number</li>
+                    <li>All receipt details from Step 2</li>
+                    <li>Comparison with PO/Work Order (expected vs received)</li>
+                    <li>Discrepancy notes (if quantity differs)</li>
+                    <li>Timestamp and receiving personnel</li>
+                </ul>
+                <p><strong>Automation:</strong> GRN created instantly upon logging receipt - no manual document preparation</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 4: Stock Status: Quarantine</h4>
+                <p><strong>Action:</strong> System automatically sets initial stock status to "Quarantine".</p>
+                <p><strong>Quarantine status means:</strong></p>
+                <ul>
+                    <li>Goods are physically received but NOT available for use</li>
+                    <li>Inventory quantity logged but not allocatable to orders</li>
+                    <li>Awaiting quality inspection approval</li>
+                    <li>Physically segregated in QC holding area</li>
+                </ul>
+                <p><strong>Purpose:</strong> Ensures only quality-approved goods enter production or sales inventory</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 5: Trigger QC Inspection</h4>
+                <p><strong>Action:</strong> System automatically triggers quality control workflow.</p>
+                <p><strong>Automated actions:</strong></p>
+                <ul>
+                    <li>QC inspection task created in system</li>
+                    <li>QC inspector notified (email/app notification)</li>
+                    <li>Inspection checklist auto-generated based on item type</li>
+                    <li>Priority assigned (urgent for production-critical items)</li>
+                    <li>SLA timer started (inspection must complete within X hours)</li>
+                </ul>
+                <p><strong>System:</strong> Tracks pending QC queue and overdue inspections</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 6: QC Performs Inspection</h4>
+                <p><strong>Action:</strong> Quality inspector performs physical inspection.</p>
+                <p><strong>QC activities:</strong></p>
+                <ul>
+                    <li>Visual inspection for defects, damage, contamination</li>
+                    <li>Dimensional measurements (if applicable)</li>
+                    <li>Material certification review</li>
+                    <li>Sample testing (destructive/non-destructive)</li>
+                    <li>Compliance verification with specifications</li>
+                    <li>Quantity count verification</li>
+                    <li>Packaging condition check</li>
+                </ul>
+                <p><strong>Inspector records:</strong> Results in system with pass/fail decision and notes</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 7: QC Result Decision</h4>
+                <p><strong>Decision:</strong> Does the material pass or fail quality inspection?</p>
+                <p><strong>Pass Criteria:</strong></p>
+                <ul>
+                    <li>Meets all specifications</li>
+                    <li>No defects found</li>
+                    <li>Quantity matches PO</li>
+                    <li>Proper documentation provided</li>
+                </ul>
+                <p><strong>Fail Criteria:</strong></p>
+                <ul>
+                    <li>Defects exceed acceptable limits</li>
+                    <li>Dimensions out of tolerance</li>
+                    <li>Missing certifications</li>
+                    <li>Quantity short/incorrect items</li>
+                    <li>Damaged packaging affecting product</li>
+                </ul>
+            </div>
+            
+            <h3>QC Pass Path</h3>
+            
+            <div class="step-box">
+                <h4>Step 8: Update Stock Status: Available</h4>
+                <p><strong>Action:</strong> System automatically changes stock status to "Available".</p>
+                <p><strong>Status change:</strong></p>
+                <ul>
+                    <li>From "Quarantine" → to "Available"</li>
+                    <li>Goods now allocatable to orders and production</li>
+                    <li>Can be picked for immediate use</li>
+                </ul>
+                <p><strong>Automation:</strong> Status update happens instantly when QC records "Pass" - no separate approval step</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 9: Update Inventory Quantities</h4>
+                <p><strong>Action:</strong> System updates inventory with approved quantities.</p>
+                <p><strong>Inventory updates:</strong></p>
+                <ul>
+                    <li>On-hand quantity increased</li>
+                    <li>Available quantity increased (on-hand minus reserved)</li>
+                    <li>Stock location assigned in warehouse</li>
+                    <li>Batch/lot traceability recorded</li>
+                    <li>Inventory value updated (for accounting)</li>
+                </ul>
+                <p><strong>Real-time:</strong> All inventory queries immediately reflect new stock</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 10: Goods Available for Use</h4>
+                <p><strong>Action:</strong> Materials are now usable for production or sales.</p>
+                <p><strong>System notifications:</strong></p>
+                <ul>
+                    <li>Production team: Materials available (if waiting for stock)</li>
+                    <li>Sales team: Goods ready for order fulfillment</li>
+                    <li>Planning team: Updated stock for MRP calculations</li>
+                </ul>
+                <p><strong>Triggers:</strong></p>
+                <ul>
+                    <li>Production work orders released (if on hold for materials)</li>
+                    <li>Sales orders can proceed to picking</li>
+                </ul>
+            </div>
+            
+            <h3>QC Fail Path</h3>
+            
+            <div class="step-box">
+                <h4>Step 11: Update Stock Status: Blocked</h4>
+                <p><strong>Action:</strong> System automatically sets stock status to "Blocked".</p>
+                <p><strong>Blocked status means:</strong></p>
+                <ul>
+                    <li>Goods are logged in system but NOT available for use</li>
+                    <li>Cannot be allocated to any orders or production</li>
+                    <li>Quantity visible in reports but flagged as unusable</li>
+                    <li>Awaiting vendor resolution</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 12: Segregate Rejected Goods</h4>
+                <p><strong>Action:</strong> Warehouse physically separates rejected materials.</p>
+                <p><strong>Physical segregation:</strong></p>
+                <ul>
+                    <li>Move to "Reject/Hold" area in warehouse</li>
+                    <li>Label with "QC Reject" tags</li>
+                    <li>Prevent accidental use in production</li>
+                    <li>Secure for vendor pickup or disposal</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 13: Notify Vendor/Supplier</h4>
+                <p><strong>Action:</strong> System automatically notifies vendor of quality rejection.</p>
+                <p><strong>Notification contains:</strong></p>
+                <ul>
+                    <li>PO and GRN reference numbers</li>
+                    <li>Item details and quantity rejected</li>
+                    <li>Specific defects/non-conformance description</li>
+                    <li>Photos of quality issues</li>
+                    <li>QC inspection report</li>
+                    <li>Required action (replacement, credit, rework)</li>
+                    <li>Deadline for vendor response</li>
+                </ul>
+                <p><strong>Delivery method:</strong> Vendor portal, email, or API notification</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 14: Vendor Action Required</h4>
+                <p><strong>Action:</strong> Vendor must resolve quality issue.</p>
+                <p><strong>Vendor resolution options:</strong></p>
+                <ul>
+                    <li><strong>Replacement:</strong> Ship new goods meeting specifications</li>
+                    <li><strong>Credit note:</strong> Issue credit for rejected materials</li>
+                    <li><strong>Rework/Repair:</strong> Fix defects and re-submit</li>
+                    <li><strong>Negotiated acceptance:</strong> Accept with price reduction (requires management approval)</li>
+                </ul>
+                <p><strong>System tracking:</strong> Monitors vendor response time and resolution status</p>
+            </div>
+            
+            <h3>Continuous Inventory Monitoring</h3>
+            
+            <div class="step-box">
+                <h4>Step 15: System Monitors Stock Levels</h4>
+                <p><strong>Action:</strong> System continuously monitors inventory levels in real-time.</p>
+                <p><strong>Monitoring parameters:</strong></p>
+                <ul>
+                    <li>Current on-hand quantity</li>
+                    <li>Available quantity (on-hand minus reserved)</li>
+                    <li>Minimum stock level (reorder point)</li>
+                    <li>Maximum stock level</li>
+                    <li>Safety stock level</li>
+                </ul>
+                <p><strong>Frequency:</strong> Real-time updates with every transaction</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 16: Stock Below Minimum Level Decision</h4>
+                <p><strong>Decision:</strong> Is current stock below minimum reorder point?</p>
+                <p><strong>Calculation:</strong></p>
+                <ul>
+                    <li>If Available Quantity ≤ Minimum Stock Level → Alert triggered</li>
+                    <li>System considers incoming POs (on-order quantity)</li>
+                    <li>Accounts for demand forecast</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 17: Auto-Generate Low Stock Alert</h4>
+                <p><strong>Action:</strong> System automatically creates low stock alert.</p>
+                <p><strong>Alert details:</strong></p>
+                <ul>
+                    <li>Item code and description</li>
+                    <li>Current stock quantity</li>
+                    <li>Minimum stock level</li>
+                    <li>Recommended reorder quantity</li>
+                    <li>Expected stockout date (if not replenished)</li>
+                    <li>Pending orders requiring this item</li>
+                </ul>
+                <p><strong>Alert severity:</strong> Critical (red), Warning (yellow), or Info (blue) based on urgency</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 18: Notify Procurement Team</h4>
+                <p><strong>Action:</strong> System notifies procurement team of replenishment need.</p>
+                <p><strong>Notifications sent via:</strong></p>
+                <ul>
+                    <li>Email alerts</li>
+                    <li>Dashboard notifications</li>
+                    <li>Mobile app push notifications</li>
+                    <li>Daily/weekly summary reports</li>
+                </ul>
+                <p><strong>Priority assignment:</strong> Based on stockout risk and item criticality</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 19: Trigger Replenishment Process</h4>
+                <p><strong>Action:</strong> Procurement takes action to replenish stock.</p>
+                <p><strong>Replenishment options:</strong></p>
+                <ul>
+                    <li>Auto-generate purchase requisition (if enabled)</li>
+                    <li>Manual PO creation by procurement</li>
+                    <li>Trigger production work order (for manufactured items)</li>
+                    <li>Inter-warehouse transfer (if available at other location)</li>
+                </ul>
+                <p><strong>System support:</strong> Suggests preferred vendor, lead time, and optimal order quantity</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 20: Continue Monitoring</h4>
+                <p><strong>Action:</strong> System continues real-time monitoring loop.</p>
+                <p><strong>Continuous process:</strong> Monitoring runs 24/7 with instant alerts when thresholds breached</p>
+            </div>
+            
+            <h3>Stock Reservation and Issue Process</h3>
+            
+            <div class="step-box">
+                <h4>Step 21: Material Picking for Orders</h4>
+                <p><strong>Action:</strong> Warehouse picks materials for customer orders or production.</p>
+                <p><strong>Picking triggered by:</strong></p>
+                <ul>
+                    <li>Customer sales order (for shipping)</li>
+                    <li>Production work order (for manufacturing)</li>
+                    <li>Transfer order (for inter-warehouse movements)</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 22: System Reserves Stock</h4>
+                <p><strong>Action:</strong> System reserves inventory for specific order.</p>
+                <p><strong>Reservation logic:</strong></p>
+                <ul>
+                    <li>On-hand quantity: Unchanged (still physically in warehouse)</li>
+                    <li>Reserved quantity: Increased by order requirement</li>
+                    <li>Available quantity: Decreased (not allocatable to other orders)</li>
+                </ul>
+                <p><strong>Automation:</strong> Reservation happens automatically when order is confirmed</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 23: Update Available Quantity</h4>
+                <p><strong>Action:</strong> System recalculates available inventory.</p>
+                <p><strong>Formula:</strong> Available = On-Hand - Reserved</p>
+                <p><strong>Real-time:</strong> Other users see reduced available stock immediately</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 24: Stock Issued from Warehouse</h4>
+                <p><strong>Action:</strong> Physical goods leave warehouse for customer or production floor.</p>
+                <p><strong>Issue documentation:</strong></p>
+                <ul>
+                    <li>Material issue note</li>
+                    <li>Picking list confirmation</li>
+                    <li>Scanned barcodes for traceability</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 25: Update Inventory on Issue</h4>
+                <p><strong>Action:</strong> System updates inventory for goods issue.</p>
+                <p><strong>Inventory updates:</strong></p>
+                <ul>
+                    <li>On-hand quantity: Decreased by issued quantity</li>
+                    <li>Reserved quantity: Decreased (reservation fulfilled)</li>
+                    <li>Available quantity: Recalculated</li>
+                    <li>Transaction history: Issue recorded with date, time, order reference</li>
+                </ul>
+                <p><strong>Automation:</strong> Inventory updated instantly when issue is logged</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 26: Real-Time Stock Balance</h4>
+                <p><strong>Action:</strong> System maintains accurate real-time inventory balance.</p>
+                <p><strong>Accuracy benefits:</strong></p>
+                <ul>
+                    <li>No manual stock cards or spreadsheets</li>
+                    <li>Instant visibility across all users</li>
+                    <li>Audit trail for all transactions</li>
+                    <li>Supports accurate planning and ordering decisions</li>
+                </ul>
+            </div>
+            
+            <h3>Key Automation Points</h3>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic GRN Generation</h4>
+                <p>Goods Receipt Notes created instantly upon logging receipt - no manual document preparation or typing required.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic QC Workflow Triggering</h4>
+                <p>Quality inspections triggered automatically upon receipt with proper checklists, notifications, and SLA tracking.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automated Stock Status Management</h4>
+                <p>Stock status transitions (Quarantine → Available/Blocked) happen automatically based on QC results - ensures only approved goods are usable.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Real-Time Inventory Updates</h4>
+                <p>All receipts, issues, and reservations update inventory instantly - on-hand, available, and reserved quantities always accurate in real-time.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automated Low Stock Alerts</h4>
+                <p>System monitors stock levels 24/7 and generates alerts automatically when minimum levels breached - proactive replenishment instead of reactive stockouts.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic Vendor Notifications</h4>
+                <p>Quality rejections automatically notify vendors with complete documentation - faster resolution and accountability.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Full Inventory Traceability</h4>
+                <p>Every transaction logged with timestamp, user, and reference documents - complete audit trail for compliance and investigation.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Mermaid Code -->
+        <div class="section code-section">
+            <h2>3. Mermaid Code Snippet</h2>
+            <p>Copy the code below to use this flowchart in your own documentation or tools that support Mermaid diagrams.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Mermaid Flowchart Code</span>
+                    <button class="copy-button" onclick="copyCode()">Copy Code</button>
+                </div>
+                <pre><code id="mermaid-code">flowchart TD
+    A[Goods received at warehouse] --> B[Scan & log receipt]
+    B --> C[System creates GRN]
+    C --> D[Stock status: Quarantine]
+    D --> E[Trigger QC inspection]
+    E --> F[QC performs inspection]
+    F --> G{QC result?}
+    G -- Pass --> H[Update stock status: Available]
+    H --> I[Update inventory quantities]
+    I --> J[Goods available for use]
+    G -- Fail --> K[Update stock status: Blocked]
+    K --> L[Segregate rejected goods]
+    L --> M[Notify vendor/supplier]
+    M --> N[Vendor action required]
+    J --> O[System monitors stock levels]
+    O --> P{Stock below min level?}
+    P -- Yes --> Q[Auto-generate low stock alert]
+    Q --> R[Notify procurement team]
+    R --> S[Trigger replenishment process]
+    P -- No --> T[Continue monitoring]
+    T --> O
+    J --> U[Material picking for orders]
+    U --> V[System reserves stock]
+    V --> W[Update available quantity]
+    W --> X[Stock issued from warehouse]
+    X --> Y[Update inventory on issue]
+    Y --> Z[Real-time stock balance]</code></pre>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>ERP Automation System - Business Flow Documentation</p>
+            <p>Generated: October 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Copy code function
+        function copyCode() {
+            const code = document.getElementById('mermaid-code').textContent;
+            const button = document.querySelector('.copy-button');
+            
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = 'Copy Code';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

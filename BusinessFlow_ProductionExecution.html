@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Flow: Production Execution - ERP Automation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .flowchart-container {
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .explanation-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .step-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        
+        .step-box h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .automation-point {
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f1f9f4;
+        }
+        
+        .automation-point h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        
+        .code-section {
+            margin: 30px 0;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            border-radius: 5px;
+            padding: 0;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-header {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .copy-button {
+            background: #2c5aa0;
+            color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .copy-button:hover {
+            background: #1e3f7a;
+        }
+        
+        .copy-button.copied {
+            background: #28a745;
+        }
+        
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            .copy-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <a href="index.html" class="back-link">← Back to System Overview</a>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>Business Flow: Production Execution</h1>
+            <p>In-house and outsource production management, material picking, QC checkpoints, and progress tracking</p>
+        </div>
+
+        <!-- Section 1: Visual Flowchart -->
+        <div class="section">
+            <h2>1. Visual Flowchart</h2>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    A[Work order created] --> B{In-house or outsource?}
+    B -- In-house --> C[Assign to production line]
+    B -- Outsource --> D[Send to vendor via portal]
+    C --> E[System generates material pick list]
+    E --> F[Warehouse picks materials]
+    F --> G[Materials issued to production]
+    G --> H[Production operator confirms start]
+    H --> I[Production in progress]
+    I --> J{Mid-process QC required?}
+    J -- Yes --> K[QC checkpoint inspection]
+    K --> L{QC pass?}
+    L -- No --> M[Stop production - investigate defect]
+    M --> N[Rework or scrap decision]
+    N --> I
+    L -- Yes --> O[Continue production]
+    J -- No --> O
+    O --> P[Production completed]
+    D --> Q[Vendor confirms receipt]
+    Q --> R[Vendor production in progress]
+    R --> S[Vendor ships completed goods]
+    S --> T[Goods received at warehouse]
+    T --> U[Final QC inspection]
+    U --> V{Final QC pass?}
+    V -- Yes --> W[Update finished goods inventory]
+    V -- No --> X[Reject & notify vendor]
+    P --> U
+    W --> Y[Goods available for shipping]
+    Y --> Z[Trigger shipping/invoicing]
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Flow Explanation -->
+        <div class="section">
+            <h2>2. Flow Chart Explanation</h2>
+            
+            <div class="explanation-box">
+                <p>This production execution workflow manages both in-house manufacturing and outsourced production. For in-house work, the system automates material picking, production tracking, and quality checkpoints. For outsourced production, vendor collaboration is streamlined through digital portals. All production paths converge at final QC before goods are released to inventory.</p>
+            </div>
+            
+            <h3>Process Flow Steps</h3>
+            
+            <div class="step-box">
+                <h4>Step 1: Work Order Created</h4>
+                <p><strong>Trigger:</strong> Work order generated from previous planning step.</p>
+                <p><strong>Work order contains:</strong></p>
+                <ul>
+                    <li>Item to be produced (BOM, semi-finished, or component)</li>
+                    <li>Quantity required</li>
+                    <li>Required completion date</li>
+                    <li>Production method (in-house or outsource)</li>
+                    <li>Bill of Materials (BOM) with component requirements</li>
+                    <li>Routing/process instructions</li>
+                </ul>
+                <p><strong>System:</strong> Work order status set to "Released for Production"</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 2: In-House or Outsource Decision</h4>
+                <p><strong>Decision:</strong> Is production done in-house or outsourced?</p>
+                <p><strong>Decision made during planning phase based on:</strong></p>
+                <ul>
+                    <li>Production capacity availability</li>
+                    <li>Technical capability and equipment</li>
+                    <li>Lead time requirements</li>
+                    <li>Cost considerations</li>
+                    <li>Quality control requirements</li>
+                </ul>
+                <p><strong>Path A:</strong> In-house production (Steps 3-20)</p>
+                <p><strong>Path B:</strong> Outsource production (Steps 21-25)</p>
+            </div>
+            
+            <h3>In-House Production Path</h3>
+            
+            <div class="step-box">
+                <h4>Step 3: Assign to Production Line</h4>
+                <p><strong>Action:</strong> Work order assigned to specific production line/work center.</p>
+                <p><strong>Assignment criteria:</strong></p>
+                <ul>
+                    <li>Line capability and equipment requirements</li>
+                    <li>Current workload and capacity</li>
+                    <li>Priority and due date</li>
+                    <li>Operator skills required</li>
+                </ul>
+                <p><strong>System:</strong> Updates production schedule and notifies production supervisor</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 4: System Generates Material Pick List</h4>
+                <p><strong>Action:</strong> System automatically creates pick list for warehouse.</p>
+                <p><strong>Pick list contains:</strong></p>
+                <ul>
+                    <li>All components/materials needed (from BOM)</li>
+                    <li>Required quantity for each component</li>
+                    <li>Storage locations in warehouse</li>
+                    <li>Batch/lot numbers if applicable</li>
+                    <li>Work order number for tracking</li>
+                </ul>
+                <p><strong>Automation:</strong> Pick list sent to warehouse team automatically - no manual creation</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 5: Warehouse Picks Materials</h4>
+                <p><strong>Action:</strong> Warehouse staff picks materials per pick list.</p>
+                <p><strong>Picking activities:</strong></p>
+                <ul>
+                    <li>Navigate to storage locations</li>
+                    <li>Verify material and quantity</li>
+                    <li>Scan barcodes for traceability</li>
+                    <li>Stage materials for production</li>
+                </ul>
+                <p><strong>System:</strong> Tracks picking progress and completion</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 6: Materials Issued to Production</h4>
+                <p><strong>Action:</strong> Materials transferred from warehouse to production floor.</p>
+                <p><strong>System records:</strong></p>
+                <ul>
+                    <li>Material issue transaction</li>
+                    <li>Inventory reduced for issued components</li>
+                    <li>Work-in-progress (WIP) inventory increased</li>
+                    <li>Issue date and time logged</li>
+                </ul>
+                <p><strong>Automation:</strong> Inventory automatically adjusted - no manual journal entries</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 7: Production Operator Confirms Start</h4>
+                <p><strong>Action:</strong> Operator confirms production has started.</p>
+                <p><strong>Operator inputs:</strong></p>
+                <ul>
+                    <li>Work order number</li>
+                    <li>Operator ID</li>
+                    <li>Start date and time</li>
+                    <li>Machine/equipment used</li>
+                </ul>
+                <p><strong>System:</strong> Work order status updated to "In Production"</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 8: Production in Progress</h4>
+                <p><strong>Action:</strong> Manufacturing/assembly work is performed.</p>
+                <p><strong>Tracking:</strong></p>
+                <ul>
+                    <li>Operator follows process instructions</li>
+                    <li>System tracks elapsed time</li>
+                    <li>Optional: Real-time progress updates from operators</li>
+                    <li>System monitors if production is on schedule</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 9: Mid-Process QC Required Decision</h4>
+                <p><strong>Decision:</strong> Does this item require mid-process quality inspection?</p>
+                <p><strong>Mid-process QC required for:</strong></p>
+                <ul>
+                    <li>Critical components with tight tolerances</li>
+                    <li>Multi-stage processes where early defect detection saves cost</li>
+                    <li>Customer-specified inspection points</li>
+                    <li>High-value items</li>
+                </ul>
+                <p><strong>If Yes:</strong> Proceed to QC checkpoint</p>
+                <p><strong>If No:</strong> Continue production to completion</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 10: QC Checkpoint Inspection</h4>
+                <p><strong>Action:</strong> Mid-process quality inspection performed.</p>
+                <p><strong>QC activities:</strong></p>
+                <ul>
+                    <li>Operator or QC inspector performs checks</li>
+                    <li>Measures dimensions, checks tolerances</li>
+                    <li>Visual inspection for defects</li>
+                    <li>Records results in system</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 11: Mid-Process QC Pass Decision</h4>
+                <p><strong>Decision:</strong> Does work-in-progress pass quality standards?</p>
+                <p><strong>If Yes (QC Pass):</strong> Continue production</p>
+                <p><strong>If No (QC Fail):</strong> Stop production and investigate</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 12: Stop Production - Investigate Defect</h4>
+                <p><strong>Action:</strong> Production halted to address quality issue.</p>
+                <p><strong>Investigation activities:</strong></p>
+                <ul>
+                    <li>Identify root cause of defect</li>
+                    <li>Check material quality</li>
+                    <li>Verify machine settings</li>
+                    <li>Review operator technique</li>
+                </ul>
+                <p><strong>System:</strong> Non-conformance report (NCR) generated</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 13: Rework or Scrap Decision</h4>
+                <p><strong>Decision:</strong> Can defective items be reworked or must be scrapped?</p>
+                <p><strong>If Rework:</strong></p>
+                <ul>
+                    <li>Assign rework operation</li>
+                    <li>Return to production (Step 8)</li>
+                    <li>System tracks rework quantity and cost</li>
+                </ul>
+                <p><strong>If Scrap:</strong></p>
+                <ul>
+                    <li>Record scrap quantity</li>
+                    <li>Adjust WIP inventory</li>
+                    <li>May require additional material issue to meet target quantity</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 14: Continue Production</h4>
+                <p><strong>Action:</strong> Production proceeds to completion after QC pass.</p>
+                <p><strong>Activities:</strong></p>
+                <ul>
+                    <li>Complete remaining production steps</li>
+                    <li>Final assembly or finishing operations</li>
+                    <li>Packaging if required</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 15: Production Completed</h4>
+                <p><strong>Action:</strong> Operator confirms production is finished.</p>
+                <p><strong>Operator records:</strong></p>
+                <ul>
+                    <li>Actual quantity produced (good + reject)</li>
+                    <li>Completion date and time</li>
+                    <li>Any production notes or issues</li>
+                </ul>
+                <p><strong>System:</strong> Work order status updated to "Completed - Pending Final QC"</p>
+            </div>
+            
+            <h3>Outsource Production Path</h3>
+            
+            <div class="step-box">
+                <h4>Step 16: Send to Vendor via Portal</h4>
+                <p><strong>Action:</strong> Work order/production request sent to outsource vendor.</p>
+                <p><strong>Information shared:</strong></p>
+                <ul>
+                    <li>Product specifications and drawings</li>
+                    <li>Required quantity</li>
+                    <li>Delivery deadline</li>
+                    <li>Quality requirements</li>
+                    <li>Purchase order (PO) reference</li>
+                </ul>
+                <p><strong>Transmission method:</strong> Vendor portal, API, or email</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 17: Vendor Confirms Receipt</h4>
+                <p><strong>Action:</strong> Vendor acknowledges work order and confirms acceptance.</p>
+                <p><strong>Vendor confirms:</strong></p>
+                <ul>
+                    <li>Can meet specifications</li>
+                    <li>Delivery date is feasible</li>
+                    <li>Production will commence</li>
+                </ul>
+                <p><strong>System:</strong> Tracks vendor acknowledgment and expected delivery date</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 18: Vendor Production in Progress</h4>
+                <p><strong>Action:</strong> Vendor performs production at their facility.</p>
+                <p><strong>Tracking:</strong></p>
+                <ul>
+                    <li>Optional: Vendor provides progress updates via portal</li>
+                    <li>System monitors if vendor is on schedule</li>
+                    <li>Alerts sent if delays expected</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 19: Vendor Ships Completed Goods</h4>
+                <p><strong>Action:</strong> Vendor ships finished goods to company warehouse.</p>
+                <p><strong>Shipping documentation:</strong></p>
+                <ul>
+                    <li>Packing list with quantities</li>
+                    <li>Shipping waybill/tracking number</li>
+                    <li>Quality certificates if required</li>
+                    <li>Delivery note</li>
+                </ul>
+                <p><strong>System:</strong> Tracks shipment status</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 20: Goods Received at Warehouse</h4>
+                <p><strong>Action:</strong> Outsourced production received at receiving dock.</p>
+                <p><strong>Receiving activities:</strong></p>
+                <ul>
+                    <li>Unload and count quantity</li>
+                    <li>Match with work order/PO</li>
+                    <li>Check for shipping damage</li>
+                    <li>Log receipt in system</li>
+                </ul>
+            </div>
+            
+            <h3>Final QC and Inventory Update (Both Paths Converge)</h3>
+            
+            <div class="step-box">
+                <h4>Step 21: Final QC Inspection</h4>
+                <p><strong>Action:</strong> Final quality inspection before accepting to inventory.</p>
+                <p><strong>QC inspection:</strong></p>
+                <ul>
+                    <li>Complete dimensional and functional checks</li>
+                    <li>Visual inspection for defects</li>
+                    <li>Compliance with specifications</li>
+                    <li>Sample testing if required</li>
+                    <li>Documentation review</li>
+                </ul>
+                <p><strong>System:</strong> QC inspector records results with pass/fail decision</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 22: Final QC Pass Decision</h4>
+                <p><strong>Decision:</strong> Does finished product pass final quality inspection?</p>
+                <p><strong>If Yes (QC Pass):</strong> Accept to finished goods inventory</p>
+                <p><strong>If No (QC Fail):</strong> Reject and take corrective action</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 23: Update Finished Goods Inventory</h4>
+                <p><strong>Action:</strong> System updates inventory with approved finished goods.</p>
+                <p><strong>Automated inventory updates:</strong></p>
+                <ul>
+                    <li>Finished goods quantity increased</li>
+                    <li>Work-in-progress (WIP) inventory decreased (for in-house)</li>
+                    <li>Stock status set to "Available"</li>
+                    <li>Location assigned in warehouse</li>
+                    <li>Batch/lot number recorded for traceability</li>
+                </ul>
+                <p><strong>System:</strong> Work order closed with actual costs recorded</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 24: Reject & Notify Vendor (Exception Path)</h4>
+                <p><strong>Action:</strong> Quality rejection for outsourced production.</p>
+                <p><strong>System actions:</strong></p>
+                <ul>
+                    <li>Stock blocked from use</li>
+                    <li>Non-conformance report (NCR) generated</li>
+                    <li>Vendor notified automatically with defect details</li>
+                    <li>Vendor required to provide replacement or resolution</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 25: Goods Available for Shipping</h4>
+                <p><strong>Action:</strong> Finished goods are ready for customer orders.</p>
+                <p><strong>System updates:</strong></p>
+                <ul>
+                    <li>Inventory visible and allocatable to orders</li>
+                    <li>Production plan updated</li>
+                    <li>Sales team notified goods are ready</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 26: Trigger Shipping/Invoicing</h4>
+                <p><strong>Action:</strong> System automatically triggers next workflow.</p>
+                <p><strong>If goods produced for specific customer order:</strong></p>
+                <ul>
+                    <li>Shipping workflow initiated</li>
+                    <li>Pick/pack operations scheduled</li>
+                    <li>Customer notified goods ready</li>
+                </ul>
+                <p><strong>If goods produced to stock:</strong></p>
+                <ul>
+                    <li>Available for future order allocation</li>
+                    <li>Stock levels updated for planning</li>
+                </ul>
+            </div>
+            
+            <h3>Key Automation Points</h3>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic Material Pick List Generation</h4>
+                <p>System creates complete pick lists from BOM automatically - warehouse receives exact materials needed with locations, no manual list creation.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Real-Time Inventory Updates</h4>
+                <p>Material issue and finished goods receipt update inventory automatically - WIP, raw materials, and finished goods always accurate in real-time.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Digital Vendor Collaboration</h4>
+                <p>Outsource work orders sent digitally via portal or API. Vendor progress tracked automatically reducing manual follow-up.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Integrated QC Checkpoints</h4>
+                <p>Quality inspections triggered automatically at defined checkpoints. QC results recorded in system with full traceability.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automated Work Order Closure</h4>
+                <p>When production completes and passes QC, work order closes automatically with actual costs and quantities recorded - no manual closure process.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Exception-Based Production Management</h4>
+                <p>Production flows automatically from start to finish. Management only intervenes for QC failures or delays, not for routine tracking.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Mermaid Code -->
+        <div class="section code-section">
+            <h2>3. Mermaid Code Snippet</h2>
+            <p>Copy the code below to use this flowchart in your own documentation or tools that support Mermaid diagrams.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Mermaid Flowchart Code</span>
+                    <button class="copy-button" onclick="copyCode()">Copy Code</button>
+                </div>
+                <pre><code id="mermaid-code">flowchart TD
+    A[Work order created] --> B{In-house or outsource?}
+    B -- In-house --> C[Assign to production line]
+    B -- Outsource --> D[Send to vendor via portal]
+    C --> E[System generates material pick list]
+    E --> F[Warehouse picks materials]
+    F --> G[Materials issued to production]
+    G --> H[Production operator confirms start]
+    H --> I[Production in progress]
+    I --> J{Mid-process QC required?}
+    J -- Yes --> K[QC checkpoint inspection]
+    K --> L{QC pass?}
+    L -- No --> M[Stop production - investigate defect]
+    M --> N[Rework or scrap decision]
+    N --> I
+    L -- Yes --> O[Continue production]
+    J -- No --> O
+    O --> P[Production completed]
+    D --> Q[Vendor confirms receipt]
+    Q --> R[Vendor production in progress]
+    R --> S[Vendor ships completed goods]
+    S --> T[Goods received at warehouse]
+    T --> U[Final QC inspection]
+    U --> V{Final QC pass?}
+    V -- Yes --> W[Update finished goods inventory]
+    V -- No --> X[Reject & notify vendor]
+    P --> U
+    W --> Y[Goods available for shipping]
+    Y --> Z[Trigger shipping/invoicing]</code></pre>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>ERP Automation System - Business Flow Documentation</p>
+            <p>Generated: October 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Copy code function
+        function copyCode() {
+            const code = document.getElementById('mermaid-code').textContent;
+            const button = document.querySelector('.copy-button');
+            
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = 'Copy Code';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

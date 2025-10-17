@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Flow: Procurement & Outsourcing - ERP Automation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .flowchart-container {
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .explanation-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .step-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        
+        .step-box h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .automation-point {
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f1f9f4;
+        }
+        
+        .automation-point h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        
+        .code-section {
+            margin: 30px 0;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            border-radius: 5px;
+            padding: 0;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-header {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .copy-button {
+            background: #2c5aa0;
+            color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .copy-button:hover {
+            background: #1e3f7a;
+        }
+        
+        .copy-button.copied {
+            background: #28a745;
+        }
+        
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            .copy-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <a href="index.html" class="back-link">← Back to System Overview</a>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>Business Flow: Procurement & Outsourcing</h1>
+            <p>Automated vendor RFQ/PO generation, vendor portal collaboration, and goods receipt tracking</p>
+        </div>
+
+        <!-- Section 1: Visual Flowchart -->
+        <div class="section">
+            <h2>1. Visual Flowchart</h2>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    A[Procurement need identified] --> B[System auto-generates RFQ/PO]
+    B --> C[Send to vendor via portal/API/email]
+    C --> D[Vendor reviews RFQ/PO]
+    D --> E{Vendor accepts?}
+    E -- Yes --> F[Vendor confirms lead time & price]
+    F --> G[System updates order plan]
+    G --> H[Vendor ships goods]
+    E -- No --> I[Vendor suggests alternative]
+    I --> J[Manual review by procurement]
+    J --> K{Accept alternative?}
+    K -- Yes --> F
+    K -- No --> L[Re-negotiate or find new vendor]
+    L --> B
+    H --> M[Goods received at warehouse]
+    M --> N[System logs receipt]
+    N --> O[Trigger QC inspection]
+    O --> P{QC pass?}
+    P -- Yes --> Q[Update inventory]
+    Q --> R[Goods available for use]
+    R --> S[Trigger next production step]
+    P -- No --> T[QC reject - block stock]
+    T --> U[Notify vendor of quality issue]
+    U --> V[Vendor action required]
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Flow Explanation -->
+        <div class="section">
+            <h2>2. Flow Chart Explanation</h2>
+            
+            <div class="explanation-box">
+                <p>This procurement workflow automates the entire purchasing process from RFQ/PO generation to goods receipt and quality control. The system generates purchase documents automatically, communicates with vendors through digital portals, tracks delivery status, and manages quality inspections. Exception-based workflow means procurement team only intervenes when vendors propose alternatives or reject orders.</p>
+            </div>
+            
+            <h3>Process Flow Steps</h3>
+            
+            <div class="step-box">
+                <h4>Step 1: Procurement Need Identified</h4>
+                <p><strong>Trigger:</strong> Procurement requirement from previous planning step (Automated Order Analysis & Planning).</p>
+                <p><strong>Sources:</strong></p>
+                <ul>
+                    <li>Outsourcing decision from production planning</li>
+                    <li>Raw material shortage identified</li>
+                    <li>Replenishment order from inventory management</li>
+                    <li>Manual purchase request from users</li>
+                </ul>
+                <p><strong>System:</strong> Procurement requirement is queued for processing</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 2: Auto-Generate RFQ/PO</h4>
+                <p><strong>Action:</strong> System automatically generates Request for Quotation (RFQ) or Purchase Order (PO).</p>
+                <p><strong>Document type logic:</strong></p>
+                <ul>
+                    <li><strong>RFQ:</strong> For new items, price comparison, or when vendor pricing not confirmed</li>
+                    <li><strong>PO:</strong> For regular items with agreed pricing and established vendors</li>
+                </ul>
+                <p><strong>Auto-populated information:</strong></p>
+                <ul>
+                    <li>Item specifications from master data</li>
+                    <li>Required quantity and unit of measure</li>
+                    <li>Requested delivery date</li>
+                    <li>Delivery location and instructions</li>
+                    <li>Quality requirements and acceptance criteria</li>
+                    <li>Payment terms and conditions</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 3: Send to Vendor via Digital Channels</h4>
+                <p><strong>Action:</strong> System transmits RFQ/PO to vendor through automated channels.</p>
+                <p><strong>Delivery methods (priority order):</strong></p>
+                <ul>
+                    <li><strong>Vendor Portal:</strong> Direct integration for real-time collaboration</li>
+                    <li><strong>API Integration:</strong> System-to-system communication for automated vendors</li>
+                    <li><strong>Email:</strong> PDF document sent to vendor's purchasing email</li>
+                </ul>
+                <p><strong>System tracking:</strong></p>
+                <ul>
+                    <li>Sent timestamp recorded</li>
+                    <li>Delivery confirmation tracked (read receipts)</li>
+                    <li>PO status updated to "Awaiting Vendor Response"</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 4: Vendor Reviews RFQ/PO</h4>
+                <p><strong>Action:</strong> Vendor receives and reviews the procurement request.</p>
+                <p><strong>Vendor evaluates:</strong></p>
+                <ul>
+                    <li>Product specifications and requirements</li>
+                    <li>Quantity and delivery timeline</li>
+                    <li>Pricing and payment terms</li>
+                    <li>Production capacity and material availability</li>
+                </ul>
+                <p><strong>System:</strong> Waits for vendor response with timeout reminders</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 5: Vendor Acceptance Decision</h4>
+                <p><strong>Decision:</strong> Does vendor accept the RFQ/PO as-is?</p>
+                <p><strong>If Yes (Accepted):</strong> Vendor confirms they can fulfill the order with original terms</p>
+                <p><strong>If No (Rejected or Alternative Proposed):</strong> Vendor cannot meet requirements and suggests changes</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 6: Vendor Confirms Lead Time & Price</h4>
+                <p><strong>Action:</strong> Vendor provides confirmed delivery date and final pricing.</p>
+                <p><strong>Vendor confirms:</strong></p>
+                <ul>
+                    <li>Unit price and total cost</li>
+                    <li>Lead time (in days/weeks)</li>
+                    <li>Expected delivery date</li>
+                    <li>Any special conditions (minimum order quantity, shipping method)</li>
+                </ul>
+                <p><strong>System:</strong> Captures vendor confirmation data automatically via portal or manual entry</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 7: System Updates Order Plan</h4>
+                <p><strong>Action:</strong> System updates production and delivery plans with confirmed vendor lead time.</p>
+                <p><strong>Automated updates:</strong></p>
+                <ul>
+                    <li>Material expected arrival date recorded</li>
+                    <li>Production schedule adjusted if needed</li>
+                    <li>Customer delivery date recalculated</li>
+                    <li>PO status updated to "Confirmed - In Transit"</li>
+                </ul>
+                <p><strong>Notifications sent to:</strong></p>
+                <ul>
+                    <li>Procurement: PO confirmed</li>
+                    <li>Warehouse: Expected goods receipt date</li>
+                    <li>Production: Material availability update</li>
+                    <li>Sales: Any impact on delivery date</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 8: Vendor Suggests Alternative (Exception Path)</h4>
+                <p><strong>Action:</strong> Vendor proposes alternative specifications, quantities, or delivery dates.</p>
+                <p><strong>Common alternatives:</strong></p>
+                <ul>
+                    <li>Different delivery date (longer/shorter lead time)</li>
+                    <li>Alternative product specifications</li>
+                    <li>Different quantity (MOQ - Minimum Order Quantity)</li>
+                    <li>Price adjustment request</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 9: Manual Review by Procurement</h4>
+                <p><strong>Action:</strong> Procurement team manually reviews vendor's alternative proposal.</p>
+                <p><strong>Procurement evaluates:</strong></p>
+                <ul>
+                    <li>Impact on production schedule</li>
+                    <li>Impact on customer delivery date</li>
+                    <li>Cost implications</li>
+                    <li>Alternative sourcing options</li>
+                </ul>
+                <p><strong>System support:</strong> Provides impact analysis and alternatives</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 10: Accept Alternative Decision</h4>
+                <p><strong>Decision:</strong> Should we accept vendor's alternative proposal?</p>
+                <p><strong>If Yes:</strong> Proceed with vendor confirmation (Step 6)</p>
+                <p><strong>If No:</strong> Re-negotiate or find alternative vendor</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 11: Re-Negotiate or Find New Vendor</h4>
+                <p><strong>Action:</strong> Procurement team takes action to resolve issue.</p>
+                <p><strong>Options:</strong></p>
+                <ul>
+                    <li>Negotiate with current vendor for better terms</li>
+                    <li>Cancel PO and source from alternative vendor</li>
+                    <li>Adjust internal requirements if possible</li>
+                    <li>Escalate to management for approval</li>
+                </ul>
+                <p><strong>System:</strong> Returns to auto-generate RFQ/PO step with updated parameters</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 12: Vendor Ships Goods</h4>
+                <p><strong>Action:</strong> Vendor ships ordered goods to warehouse.</p>
+                <p><strong>Tracking:</strong></p>
+                <ul>
+                    <li>Vendor updates PO status to "Shipped"</li>
+                    <li>Shipping documents (packing list, waybill) uploaded to portal</li>
+                    <li>Tracking number provided for logistics visibility</li>
+                </ul>
+                <p><strong>System:</strong> Monitors shipment status and sends alerts if delayed</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 13: Goods Received at Warehouse</h4>
+                <p><strong>Action:</strong> Physical goods arrive at receiving dock.</p>
+                <p><strong>Warehouse activities:</strong></p>
+                <ul>
+                    <li>Unload and identify incoming shipment</li>
+                    <li>Match with expected PO</li>
+                    <li>Count quantity received</li>
+                    <li>Check for physical damage</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 14: System Logs Receipt</h4>
+                <p><strong>Action:</strong> Warehouse staff logs goods receipt in system.</p>
+                <p><strong>Recorded information:</strong></p>
+                <ul>
+                    <li>PO number and line items</li>
+                    <li>Quantity received vs ordered</li>
+                    <li>Receipt date and time</li>
+                    <li>Receiving location</li>
+                    <li>Batch/lot numbers if applicable</li>
+                    <li>Initial condition notes</li>
+                </ul>
+                <p><strong>System generates:</strong> Goods Receipt Note (GRN) document</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 15: Trigger QC Inspection</h4>
+                <p><strong>Action:</strong> System automatically triggers quality control inspection.</p>
+                <p><strong>QC workflow initiated:</strong></p>
+                <ul>
+                    <li>QC inspector notified of pending inspection</li>
+                    <li>Inspection checklist auto-generated based on item type</li>
+                    <li>Stock status set to "Quarantine - Pending QC"</li>
+                    <li>Goods physically segregated in QC area</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 16: QC Pass/Fail Decision</h4>
+                <p><strong>Decision:</strong> Does the material pass quality inspection?</p>
+                <p><strong>QC inspection criteria:</strong></p>
+                <ul>
+                    <li>Visual inspection for defects</li>
+                    <li>Dimensional measurements</li>
+                    <li>Material certificates verification</li>
+                    <li>Sample testing if required</li>
+                    <li>Compliance with specifications</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 17: Update Inventory (QC Pass)</h4>
+                <p><strong>Action:</strong> System updates inventory with approved goods.</p>
+                <p><strong>Automated updates:</strong></p>
+                <ul>
+                    <li>Inventory quantity increased</li>
+                    <li>Stock status changed to "Available"</li>
+                    <li>PO status updated to "Received & Approved"</li>
+                    <li>Stock location assigned</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 18: Goods Available for Use</h4>
+                <p><strong>Action:</strong> Materials are available for production or sales.</p>
+                <p><strong>System actions:</strong></p>
+                <ul>
+                    <li>Materials can be picked for production orders</li>
+                    <li>Inventory visible in stock queries</li>
+                    <li>Accounting records updated for goods value</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 19: Trigger Next Production Step</h4>
+                <p><strong>Action:</strong> System automatically triggers dependent production activities.</p>
+                <p><strong>Triggered workflows:</strong></p>
+                <ul>
+                    <li>Production work orders released (if waiting for materials)</li>
+                    <li>Assembly/packaging operations notified</li>
+                    <li>Production schedule updated</li>
+                    <li>Delivery date confirmations sent to customers</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 20: QC Reject - Block Stock (Exception Path)</h4>
+                <p><strong>Action:</strong> Materials fail QC and are blocked from use.</p>
+                <p><strong>System actions:</strong></p>
+                <ul>
+                    <li>Stock status set to "Blocked - QC Reject"</li>
+                    <li>Inventory NOT updated (materials not available)</li>
+                    <li>Physical goods segregated in reject area</li>
+                    <li>Non-conformance report (NCR) generated</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 21: Notify Vendor of Quality Issue</h4>
+                <p><strong>Action:</strong> System automatically notifies vendor of rejection.</p>
+                <p><strong>Notification includes:</strong></p>
+                <ul>
+                    <li>PO and item details</li>
+                    <li>Reason for rejection (defect description)</li>
+                    <li>Photos of quality issues</li>
+                    <li>QC inspection report</li>
+                    <li>Required vendor action (replacement/credit/rework)</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 22: Vendor Action Required</h4>
+                <p><strong>Action:</strong> Vendor must resolve quality issue.</p>
+                <p><strong>Vendor options:</strong></p>
+                <ul>
+                    <li>Ship replacement goods (return to Step 12)</li>
+                    <li>Issue credit note for rejected materials</li>
+                    <li>Arrange rework or repair</li>
+                    <li>Negotiate acceptance with discount</li>
+                </ul>
+                <p><strong>System:</strong> Tracks vendor response and resolution status</p>
+            </div>
+            
+            <h3>Key Automation Points</h3>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic RFQ/PO Generation</h4>
+                <p>Purchase documents are created automatically with complete specifications from master data - no manual typing or template filling required.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Digital Vendor Communication</h4>
+                <p>RFQs/POs sent electronically via portal, API, or email. Vendor responses captured automatically reducing manual data entry and communication delays.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic Plan Updates</h4>
+                <p>When vendor confirms lead time, all dependent schedules (production, delivery) are updated automatically across the entire system.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Goods Receipt Integration</h4>
+                <p>Warehouse logs receipt once, system automatically updates inventory, triggers QC, and notifies all relevant teams.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automated QC Workflow</h4>
+                <p>Quality control is triggered automatically upon receipt with proper checklists, inspection tracking, and stock status management.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Exception-Based Vendor Management</h4>
+                <p>Procurement team only intervenes when vendors reject or propose alternatives. Standard acceptances flow through automatically, saving 80%+ of manual review time.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Quality Issue Notifications</h4>
+                <p>Vendors are notified automatically of quality rejections with complete documentation, ensuring fast resolution and accountability.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Mermaid Code -->
+        <div class="section code-section">
+            <h2>3. Mermaid Code Snippet</h2>
+            <p>Copy the code below to use this flowchart in your own documentation or tools that support Mermaid diagrams.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Mermaid Flowchart Code</span>
+                    <button class="copy-button" onclick="copyCode()">Copy Code</button>
+                </div>
+                <pre><code id="mermaid-code">flowchart TD
+    A[Procurement need identified] --> B[System auto-generates RFQ/PO]
+    B --> C[Send to vendor via portal/API/email]
+    C --> D[Vendor reviews RFQ/PO]
+    D --> E{Vendor accepts?}
+    E -- Yes --> F[Vendor confirms lead time & price]
+    F --> G[System updates order plan]
+    G --> H[Vendor ships goods]
+    E -- No --> I[Vendor suggests alternative]
+    I --> J[Manual review by procurement]
+    J --> K{Accept alternative?}
+    K -- Yes --> F
+    K -- No --> L[Re-negotiate or find new vendor]
+    L --> B
+    H --> M[Goods received at warehouse]
+    M --> N[System logs receipt]
+    N --> O[Trigger QC inspection]
+    O --> P{QC pass?}
+    P -- Yes --> Q[Update inventory]
+    Q --> R[Goods available for use]
+    R --> S[Trigger next production step]
+    P -- No --> T[QC reject - block stock]
+    T --> U[Notify vendor of quality issue]
+    U --> V[Vendor action required]</code></pre>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>ERP Automation System - Business Flow Documentation</p>
+            <p>Generated: October 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Copy code function
+        function copyCode() {
+            const code = document.getElementById('mermaid-code').textContent;
+            const button = document.querySelector('.copy-button');
+            
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = 'Copy Code';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

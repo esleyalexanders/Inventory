@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated End-to-End Business Flow - ERP Automation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .flowchart-container {
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .explanation-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .integration-point {
+            border-left: 4px solid #2c5aa0;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f5f9ff;
+        }
+        
+        .integration-point h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .automation-point {
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f1f9f4;
+        }
+        
+        .automation-point h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        
+        .legend-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+            font-size: 13px;
+        }
+        
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid #999;
+        }
+        
+        .code-section {
+            margin: 30px 0;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            border-radius: 5px;
+            padding: 0;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-header {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .copy-button {
+            background: #2c5aa0;
+            color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .copy-button:hover {
+            background: #1e3f7a;
+        }
+        
+        .copy-button.copied {
+            background: #28a745;
+        }
+        
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            .copy-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <a href="index.html" class="back-link">← Back to System Overview</a>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>Integrated End-to-End Business Flow</h1>
+            <p>Complete order-to-delivery automation showing how all processes work together seamlessly</p>
+        </div>
+
+        <!-- Section 1: Complete Visual Flowchart -->
+        <div class="section">
+            <h2>1. Complete Order-to-Delivery Flow</h2>
+            
+            <div class="explanation-box">
+                <p><strong>This diagram shows the complete integrated workflow</strong> from customer order intake through planning, procurement, production, quality control, shipping, and invoicing. All phases are automated and connected, with intelligent decision points that route work to the appropriate path. Exception handling is built in at every stage to ensure issues are flagged and resolved quickly.</p>
+            </div>
+            
+            <div class="legend-box">
+                <h4>Flow Diagram Legend:</h4>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #e3f2fd; border-color: #1976d2;"></span>
+                    <span>Automated Process</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #fff3e0; border-color: #f57c00;"></span>
+                    <span>Decision Point</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #ffebee; border-color: #c62828;"></span>
+                    <span>Exception/Alert</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #e8f5e9; border-color: #388e3c;"></span>
+                    <span>Complete/Success</span>
+                </div>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    %% PHASE 1: ORDER INTAKE
+    A[Customer submits PO] --> B[System validates PO]
+    B --> C{Valid & customer OK?}
+    C -- No --> D[Alert sales/finance for review]
+    C -- Yes --> E[Create order record]
+    
+    %% PHASE 2: PLANNING & ANALYSIS
+    E --> F[System checks BOM stock]
+    F --> G{BOM stock sufficient?}
+    G -- Yes --> H[Reserve BOM & trigger shipping]
+    G -- No --> I[Check semi-finished stock]
+    I --> J{Semi-finished sufficient?}
+    J -- Yes --> K[Plan final assembly]
+    J -- No --> L[Check component stock]
+    L --> M{Can in-house make components on time?}
+    M -- Yes --> N[Auto-generate in-house production plan]
+    M -- No --> O[Auto-generate vendor RFQ/PO]
+    
+    %% PHASE 3: PROCUREMENT (if needed)
+    O --> P[Send RFQ/PO to vendor]
+    P --> Q[Vendor confirms lead time]
+    Q --> R{Lead time acceptable?}
+    R -- No --> S[Alert planner for review]
+    R -- Yes --> T[Vendor ships components]
+    T --> U[Receive & QC components]
+    U --> V{QC pass?}
+    V -- No --> W[Block stock & alert]
+    V -- Yes --> X[Update inventory to available]
+    X --> N
+    
+    %% PHASE 4: PRODUCTION
+    N --> Y{Production type?}
+    Y -- In-house --> Z[Generate work order & pick list]
+    Z --> AA[Production tracks progress]
+    AA --> AB[In-process QC checks]
+    Y -- Outsource --> AC[Send work order to vendor]
+    AC --> AD[Vendor updates progress]
+    AD --> AE[Vendor delivers goods]
+    
+    %% PHASE 5: QUALITY & INVENTORY
+    AB --> AF{Final QC pass?}
+    AE --> AF
+    K --> AF
+    AF -- No --> AG[Rework/scrap & alert]
+    AF -- Yes --> AH[Update inventory: BOM available]
+    AG --> AA
+    
+    %% PHASE 6: SHIPPING & INVOICING
+    AH --> AI[Check order fulfillment]
+    H --> AI
+    AI --> AJ[Generate pick/pack list]
+    AJ --> AK[Pick & pack goods]
+    AK --> AL[Generate shipping docs]
+    AL --> AM[Ship to customer]
+    AM --> AN[Auto-trigger invoice]
+    AN --> AO[Notify customer with tracking]
+    AM --> AP[Update delivery status]
+    AP --> AQ{Delivery confirmed?}
+    AQ -- Yes --> AR[Close order]
+    AQ -- No --> AS[Monitor & alert if delayed]
+    
+    %% PHASE 7: CONTINUOUS MONITORING
+    AR --> AT[Update dashboards & reports]
+    AS --> AT
+    AT --> AU[Auto-generate exception alerts]
+    AU --> AV[Management reviews KPIs]
+    
+    classDef automated fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef exception fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef complete fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    
+    class B,E,F,I,L,N,O,P,Q,T,U,X,Z,AA,AB,AC,AD,AE,AH,AI,AJ,AK,AL,AM,AN,AO,AP,AT automated
+    class C,G,J,M,R,V,Y,AF,AQ decision
+    class D,S,W,AG,AS,AU exception
+    class AR,AV complete
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Simplified High-Level View -->
+        <div class="section">
+            <h2>2. Simplified High-Level View</h2>
+            
+            <div class="explanation-box">
+                <p>This simplified view shows the main phases of the order-to-delivery process. When stock is available, orders can ship directly. When stock is not available, the system automatically routes through procurement or production, quality control, and inventory update before shipping.</p>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart LR
+    A[Order Intake] --> B[Planning & Analysis]
+    B --> C{Stock Available?}
+    C -- Yes --> D[Ship Direct]
+    C -- No --> E[Procurement/Production]
+    E --> F[Quality Control]
+    F --> G[Inventory Update]
+    G --> H[Shipping & Invoicing]
+    D --> H
+    H --> I[Dashboards & Reports]
+    
+    classDef phase fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    class A,B,C,D,E,F,G,H,I phase
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Key Integration Points -->
+        <div class="section">
+            <h2>3. Key Integration Points</h2>
+            
+            <div class="explanation-box">
+                <p>The power of this integrated system comes from seamless handoffs between processes. Each phase automatically triggers the next, with data flowing through the entire system without manual intervention.</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>1. Order → Planning</h4>
+                <p><strong>Trigger:</strong> Automatic when order is validated</p>
+                <p><strong>Data passed:</strong> Customer requirements, delivery date, BOM specifications</p>
+                <p><strong>Action:</strong> System immediately checks stock availability and determines fulfillment path</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>2. Planning → Procurement</h4>
+                <p><strong>Trigger:</strong> Automatic RFQ/PO generation if shortage detected</p>
+                <p><strong>Data passed:</strong> Component requirements, quantities, delivery deadlines</p>
+                <p><strong>Action:</strong> Digital RFQ/PO sent to vendors via portal/API/email</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>3. Procurement → Production</h4>
+                <p><strong>Trigger:</strong> Components flow directly to production plan when received and QC approved</p>
+                <p><strong>Data passed:</strong> Material availability dates, inventory locations, batch/lot numbers</p>
+                <p><strong>Action:</strong> Production work orders released automatically when materials available</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>4. Production → QC → Inventory</h4>
+                <p><strong>Trigger:</strong> Production completion triggers QC inspection</p>
+                <p><strong>Data passed:</strong> Quantities produced, batch numbers, production timestamps</p>
+                <p><strong>Action:</strong> QC results automatically update stock status (Available/Blocked)</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>5. Inventory → Shipping</h4>
+                <p><strong>Trigger:</strong> Automatic fulfillment check when finished goods available</p>
+                <p><strong>Data passed:</strong> Stock availability, order priorities, delivery schedules</p>
+                <p><strong>Action:</strong> Pick/pack lists generated automatically for warehouse</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>6. Shipping → Finance</h4>
+                <p><strong>Trigger:</strong> Auto-invoice on shipment or delivery confirmation</p>
+                <p><strong>Data passed:</strong> Shipped quantities, pricing, customer billing info, delivery dates</p>
+                <p><strong>Action:</strong> Invoice created and sent to customer automatically</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>7. All Phases → Dashboards</h4>
+                <p><strong>Trigger:</strong> Real-time data feeds from every transaction</p>
+                <p><strong>Data passed:</strong> Order status, inventory levels, production progress, delivery tracking, financial metrics</p>
+                <p><strong>Action:</strong> Dashboards update automatically; exception alerts generated when thresholds breached</p>
+            </div>
+        </div>
+
+        <!-- Section 4: Automation Benefits -->
+        <div class="section">
+            <h2>4. Automation Benefits</h2>
+            
+            <div class="automation-point">
+                <h4>✓ Zero Manual Handoffs</h4>
+                <p>System manages all transitions between processes automatically. No emails, phone calls, or meetings required to move work from one stage to the next. Each phase completion triggers the next phase without human intervention.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Exception-Based Management</h4>
+                <p>Users only handle approvals, escalations, and issues. Routine order processing flows through automatically. Management focuses on exceptions (quality failures, delays, customer issues) rather than status tracking.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Real-Time Visibility</h4>
+                <p>Every stakeholder sees current status across the entire order-to-delivery process. Sales knows production status, production knows when materials will arrive, warehouse knows what to ship, finance knows what to invoice.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Vendor Integration</h4>
+                <p>Outsource partners are part of the workflow, not external black boxes. Vendors receive work orders digitally, update progress in real-time, and deliveries are automatically tracked. Quality issues are communicated instantly.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Intelligent Alerts</h4>
+                <p>Proactive notifications for delays, quality issues, low stock, and delivery problems. System monitors every order and raises alerts before problems escalate. No more surprises or last-minute scrambling.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Single Source of Truth</h4>
+                <p>All data in one centralized system eliminates conflicting spreadsheets and email chains. Everyone works from the same data. Inventory levels, order status, and delivery dates are always consistent.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ End-to-End Traceability</h4>
+                <p>Complete audit trail from customer PO through every production step to final delivery and payment. Every transaction timestamped with user ID. Full compliance and quality traceability for certifications and customer audits.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Scalability Without Headcount</h4>
+                <p>System handles 10x order volume with the same team. Automation scales infinitely - no need to hire more planners, data entry clerks, or coordinators. Team focuses on value-added work instead of routine processing.</p>
+            </div>
+        </div>
+
+        <!-- Section 5: Process Phases Overview -->
+        <div class="section">
+            <h2>5. Process Phases Overview</h2>
+            
+            <h3>Phase 1: Order Intake & Validation</h3>
+            <ul>
+                <li>Customer PO received via portal, email, or API</li>
+                <li>System validates data quality and completeness</li>
+                <li>Customer credit check and account status verification</li>
+                <li>Order created and assigned unique ID</li>
+                <li><strong>Outcome:</strong> Validated order ready for planning</li>
+            </ul>
+            
+            <h3>Phase 2: Planning & Analysis</h3>
+            <ul>
+                <li>Intelligent multi-level stock checking (BOM → semi-finished → components)</li>
+                <li>In-house vs outsource production decision</li>
+                <li>Automatic production plan or vendor RFQ/PO generation</li>
+                <li>Material available date and delivery date calculation</li>
+                <li><strong>Outcome:</strong> Complete fulfillment plan with dates and resource allocation</li>
+            </ul>
+            
+            <h3>Phase 3: Procurement & Outsourcing (if needed)</h3>
+            <ul>
+                <li>Digital RFQ/PO sent to vendors</li>
+                <li>Vendor lead time confirmation via portal/API</li>
+                <li>Goods receipt and QC inspection</li>
+                <li>Inventory update when materials approved</li>
+                <li><strong>Outcome:</strong> Required materials available for production</li>
+            </ul>
+            
+            <h3>Phase 4: Production Execution</h3>
+            <ul>
+                <li>Work orders generated for in-house or outsource production</li>
+                <li>Material picking and issue to production</li>
+                <li>Production progress tracking and mid-process QC</li>
+                <li>Vendor collaboration for outsourced work</li>
+                <li><strong>Outcome:</strong> Finished goods ready for final QC</li>
+            </ul>
+            
+            <h3>Phase 5: Quality Control & Inventory</h3>
+            <ul>
+                <li>Final QC inspection with pass/fail decision</li>
+                <li>Stock status management (Quarantine → Available/Blocked)</li>
+                <li>Inventory update with approved quantities</li>
+                <li>Quality issue escalation to vendors if needed</li>
+                <li><strong>Outcome:</strong> Quality-approved goods available for shipment</li>
+            </ul>
+            
+            <h3>Phase 6: Shipping & Invoicing</h3>
+            <ul>
+                <li>Pick/pack list generation and warehouse execution</li>
+                <li>Shipping documentation and carrier integration</li>
+                <li>Automatic invoice generation upon shipment</li>
+                <li>Customer notification with tracking information</li>
+                <li>Delivery confirmation and order closure</li>
+                <li><strong>Outcome:</strong> Customer receives goods and invoice, payment tracking initiated</li>
+            </ul>
+            
+            <h3>Phase 7: Reporting & Continuous Monitoring</h3>
+            <ul>
+                <li>Real-time dashboard updates across all processes</li>
+                <li>Exception alerts for delays, quality issues, stockouts</li>
+                <li>Automated scheduled reports (daily/weekly/monthly)</li>
+                <li>KPI monitoring and trend analysis</li>
+                <li><strong>Outcome:</strong> Management visibility and proactive decision-making</li>
+            </ul>
+        </div>
+
+        <!-- Section 6: Mermaid Code Snippets -->
+        <div class="section code-section">
+            <h2>6. Mermaid Code Snippets</h2>
+            
+            <h3>Complete Flow Diagram</h3>
+            <p>Copy the code below to use the complete integrated flowchart in your own documentation.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Complete Order-to-Delivery Flow</span>
+                    <button class="copy-button" onclick="copyCode('complete-flow')">Copy Code</button>
+                </div>
+                <pre><code id="complete-flow">flowchart TD
+    %% PHASE 1: ORDER INTAKE
+    A[Customer submits PO] --> B[System validates PO]
+    B --> C{Valid & customer OK?}
+    C -- No --> D[Alert sales/finance for review]
+    C -- Yes --> E[Create order record]
+    
+    %% PHASE 2: PLANNING & ANALYSIS
+    E --> F[System checks BOM stock]
+    F --> G{BOM stock sufficient?}
+    G -- Yes --> H[Reserve BOM & trigger shipping]
+    G -- No --> I[Check semi-finished stock]
+    I --> J{Semi-finished sufficient?}
+    J -- Yes --> K[Plan final assembly]
+    J -- No --> L[Check component stock]
+    L --> M{Can in-house make components on time?}
+    M -- Yes --> N[Auto-generate in-house production plan]
+    M -- No --> O[Auto-generate vendor RFQ/PO]
+    
+    %% PHASE 3: PROCUREMENT (if needed)
+    O --> P[Send RFQ/PO to vendor]
+    P --> Q[Vendor confirms lead time]
+    Q --> R{Lead time acceptable?}
+    R -- No --> S[Alert planner for review]
+    R -- Yes --> T[Vendor ships components]
+    T --> U[Receive & QC components]
+    U --> V{QC pass?}
+    V -- No --> W[Block stock & alert]
+    V -- Yes --> X[Update inventory to available]
+    X --> N
+    
+    %% PHASE 4: PRODUCTION
+    N --> Y{Production type?}
+    Y -- In-house --> Z[Generate work order & pick list]
+    Z --> AA[Production tracks progress]
+    AA --> AB[In-process QC checks]
+    Y -- Outsource --> AC[Send work order to vendor]
+    AC --> AD[Vendor updates progress]
+    AD --> AE[Vendor delivers goods]
+    
+    %% PHASE 5: QUALITY & INVENTORY
+    AB --> AF{Final QC pass?}
+    AE --> AF
+    K --> AF
+    AF -- No --> AG[Rework/scrap & alert]
+    AF -- Yes --> AH[Update inventory: BOM available]
+    AG --> AA
+    
+    %% PHASE 6: SHIPPING & INVOICING
+    AH --> AI[Check order fulfillment]
+    H --> AI
+    AI --> AJ[Generate pick/pack list]
+    AJ --> AK[Pick & pack goods]
+    AK --> AL[Generate shipping docs]
+    AL --> AM[Ship to customer]
+    AM --> AN[Auto-trigger invoice]
+    AN --> AO[Notify customer with tracking]
+    AM --> AP[Update delivery status]
+    AP --> AQ{Delivery confirmed?}
+    AQ -- Yes --> AR[Close order]
+    AQ -- No --> AS[Monitor & alert if delayed]
+    
+    %% PHASE 7: CONTINUOUS MONITORING
+    AR --> AT[Update dashboards & reports]
+    AS --> AT
+    AT --> AU[Auto-generate exception alerts]
+    AU --> AV[Management reviews KPIs]
+    
+    classDef automated fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef exception fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef complete fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    
+    class B,E,F,I,L,N,O,P,Q,T,U,X,Z,AA,AB,AC,AD,AE,AH,AI,AJ,AK,AL,AM,AN,AO,AP,AT automated
+    class C,G,J,M,R,V,Y,AF,AQ decision
+    class D,S,W,AG,AS,AU exception
+    class AR,AV complete</code></pre>
+            </div>
+            
+            <h3>Simplified High-Level View</h3>
+            <p>Copy the code below for the simplified view diagram.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Simplified High-Level Flow</span>
+                    <button class="copy-button" onclick="copyCode('simple-flow')">Copy Code</button>
+                </div>
+                <pre><code id="simple-flow">flowchart LR
+    A[Order Intake] --> B[Planning & Analysis]
+    B --> C{Stock Available?}
+    C -- Yes --> D[Ship Direct]
+    C -- No --> E[Procurement/Production]
+    E --> F[Quality Control]
+    F --> G[Inventory Update]
+    G --> H[Shipping & Invoicing]
+    D --> H
+    H --> I[Dashboards & Reports]
+    
+    classDef phase fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    class A,B,C,D,E,F,G,H,I phase</code></pre>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>ERP Automation System - Integrated Business Flow Documentation</p>
+            <p>Generated: October 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Copy code function with parameter for different code blocks
+        function copyCode(elementId) {
+            const code = document.getElementById(elementId).textContent;
+            const button = event.target;
+            
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = 'Copy Code';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

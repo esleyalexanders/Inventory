@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Automation System - Solution Overview & Function List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        
+        th {
+            background: #333;
+            color: #fff;
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        tr:hover {
+            background: #f0f0f0;
+        }
+        
+        .module-header {
+            background: #1a1a1a !important;
+            color: #fff !important;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .function-name {
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+        
+        .function-desc {
+            color: #666;
+            font-size: 12px;
+            font-style: italic;
+        }
+        
+        .feature-count {
+            text-align: center;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .priority-1 {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .priority-2 {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .priority-3 {
+            background: #e8f0f8;
+            color: #2c5aa0;
+        }
+        
+        .overview-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .principle-box {
+            border-left: 4px solid #2c5aa0;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f5f9ff;
+        }
+        
+        .flow-step {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        
+        .flow-step h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .stats-box {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            min-width: 150px;
+            margin: 10px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .toc {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .toc h3 {
+            background: none;
+            border: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #2c5aa0;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .summary-table {
+            margin: 30px 0;
+        }
+        
+        .summary-table th {
+            background: #2c5aa0;
+        }
+        
+        .total-row {
+            background: #e8f0f8 !important;
+            font-weight: bold;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>ERP Automation System</h1>
+            <p>System Solution Overview & Comprehensive Function List</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#vision">1. Vision & Objective</a></li>
+                <li><a href="#principles">2. Key Solution Principles</a></li>
+                <li><a href="#architecture">3. High-Level System Architecture</a></li>
+                <li><a href="#as-is-flow">4. As-Is Business Flow (Current Operations)</a></li>
+                <li><a href="#business-flow">5. Automated Business Flow (To-Be)</a></li>
+                <li><a href="#features">6. Key Features & Modules</a></li>
+                <li><a href="#pain-points">7. Pain Points Addressed</a></li>
+                <li><a href="#function-list">8. Comprehensive Function & Feature List</a></li>
+                <li><a href="#summary">9. Summary Statistics</a></li>
+            </ul>
+        </div>
+
+        <!-- Section 1: Vision & Objective -->
+        <div class="section" id="vision">
+            <h2>1. Vision & Objective</h2>
+            <div class="overview-box">
+                <p><strong>Automate and digitize the entire order-to-delivery process</strong>, eliminating manual spreadsheets, emails, and ad-hoc communications. The system will provide real-time visibility, automated planning, and seamless collaboration across all departments and with outsource vendors.</p>
+            </div>
+        </div>
+
+        <!-- Section 2: Key Solution Principles -->
+        <div class="section" id="principles">
+            <h2>2. Key Solution Principles</h2>
+            <div class="principle-box">
+                <h4>Automation First</h4>
+                <p>Replace manual steps with automated workflows and system triggers.</p>
+            </div>
+            <div class="principle-box">
+                <h4>Real-Time Data</h4>
+                <p>All inventory, production, and order data is live and accessible.</p>
+            </div>
+            <div class="principle-box">
+                <h4>Exception Management</h4>
+                <p>Users only intervene for approvals, exceptions, or escalations.</p>
+            </div>
+            <div class="principle-box">
+                <h4>Integration</h4>
+                <p>Connects internal teams and external vendors in a single platform.</p>
+            </div>
+            <div class="principle-box">
+                <h4>User-Friendly</h4>
+                <p>Intuitive dashboards, guided workflows, and minimal data entry.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Architecture -->
+        <div class="section" id="architecture">
+            <h2>3. High-Level System Architecture</h2>
+            <ul>
+                <li><strong>Web-based ERP Application</strong> - Modular, role-based access</li>
+                <li><strong>Centralized Database</strong> - Inventory, orders, BOM, vendors, production, QC</li>
+                <li><strong>Workflow Engine</strong> - Automated triggers, approvals, notifications</li>
+                <li><strong>Integration Layer</strong> - APIs for outsource vendors, email/SMS, accounting</li>
+                <li><strong>Reporting & Dashboard Module</strong> - Real-time KPIs, alerts, analytics</li>
+            </ul>
+        </div>
+
+        <!-- Section 4: As-Is Business Flow (Current Operations) -->
+        <div class="section" id="as-is-flow">
+            <h2>4. As-Is Business Flow (Current Operations)</h2>
+            
+            <div class="warning-box" style="background: #ffebee; border-left: 4px solid #c62828; padding: 20px; margin: 20px 0;">
+                <h4 style="color: #c62828; margin-top: 0;">⚠️ Current State Challenges</h4>
+                <p>The business currently operates with manual processes, Excel spreadsheets, emails, phone calls, and chat messages. There is no centralized system providing real-time visibility. This creates significant inefficiencies, coordination challenges, and data accuracy issues.</p>
+            </div>
+            
+            <div class="highlight-box" style="background: #fff3e0; border-left: 4px solid #ef6c00; padding: 20px; margin: 25px 0;">
+                <h4 style="color: #e65100; margin-top: 0;">📋 Current Operations Overview</h4>
+                <p style="font-size: 15px; line-height: 1.7; margin-bottom: 15px;">
+                    Today's operations rely heavily on manual coordination between departments. Orders arrive via email, stock checks require calling warehouse staff, planning is done in spreadsheets, and production progress is tracked via chat messages. The As-Is flow documentation shows the current reality with all its pain points and inefficiencies.
+                </p>
+                <a href="BusinessFlow_AsIs_Current.html" class="flow-button" style="display: inline-block; background: #ef6c00; color: #fff; padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; margin-top: 10px;">
+                    View Current As-Is Business Flow →
+                </a>
+            </div>
+            
+            <h3 style="font-size: 16px; font-weight: bold; margin: 25px 0 15px 0; color: #666;">Key Pain Points in Current Operations:</h3>
+            <ul style="margin: 10px 0 15px 25px; font-size: 14px;">
+                <li>Manual data entry across multiple spreadsheets with high error risk</li>
+                <li>No real-time inventory visibility - must email/call warehouse for stock status</li>
+                <li>Lead time uncertainty from outsourcing vendors (email-based coordination)</li>
+                <li>Capacity planning based on guesswork, not system data</li>
+                <li>Informal stock reservations via email causing allocation conflicts</li>
+                <li>Scattered communications (email/chat/phone) with no centralized record</li>
+                <li>Delayed quality feedback loops - defects reported verbally or via chat</li>
+                <li>Management lacks consolidated dashboard - relies on ad-hoc manual reports</li>
+            </ul>
+        </div>
+
+        <!-- Section 5: Automated Business Flow (To-Be) -->
+        <div class="section" id="business-flow">
+            <h2>5. Automated Business Flow (To-Be)</h2>
+            
+            <div class="overview-box" style="background: #e8f0f8; border-color: #2c5aa0;">
+                <h4 style="color: #2c5aa0; margin-top: 0;">📊 Integrated End-to-End Flow</h4>
+                <p style="margin-bottom: 15px;">See how all business processes work together in one seamless, automated workflow from customer order to delivery and payment.</p>
+                <a href="BusinessFlow_IntegratedComplete.html" style="display: inline-block; padding: 10px 20px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 14px; font-weight: bold;">View Complete Integrated Flow →</a>
+            </div>
+            
+            <h3 style="margin-top: 30px;">Individual Business Flow Details:</h3>
+            
+            <div class="flow-step">
+                <h4>1. Customer Order Intake</h4>
+                <ul>
+                    <li>Customer PO entered or uploaded via portal/API.</li>
+                    <li>System validates data, checks customer status, and triggers planning.</li>
+                </ul>
+                <a href="BusinessFlow_CustomerOrderIntake.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">View Detailed Flow →</a>
+            </div>
+
+            <div class="flow-step">
+                <h4>2. Automated Order Analysis & Planning</h4>
+                <ul>
+                    <li>System checks finished goods, semi-finished, and component stock in real time.</li>
+                    <li>If in-house can meet demand, auto-generate production plan.</li>
+                    <li>If not, system auto-suggests outsourcing and generates vendor RFQ/PO.</li>
+                    <li>Material available date and delivery date calculated automatically.</li>
+                </ul>
+                <a href="BusinessFlow_AutomatedOrderAnalysisPlanning.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">View Detailed Flow →</a>
+            </div>
+
+            <div class="flow-step">
+                <h4>3. Procurement & Outsourcing</h4>
+                <ul>
+                    <li>System sends digital RFQ/PO to vendors.</li>
+                    <li>Vendor confirms lead time and delivery via portal/email/API.</li>
+                    <li>System updates plan and notifies relevant users if delays or issues.</li>
+                </ul>
+                <a href="BusinessFlow_ProcurementOutsourcing.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">View Detailed Flow →</a>
+            </div>
+
+            <div class="flow-step">
+                <h4>4. Production Execution</h4>
+                <ul>
+                    <li>Digital work orders for in-house and outsource jobs.</li>
+                    <li>Material picking, production progress, and QC tracked in system.</li>
+                    <li>Outsource partners update status and delivery via portal/API.</li>
+                </ul>
+                <a href="BusinessFlow_ProductionExecution.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">View Detailed Flow →</a>
+            </div>
+
+            <div class="flow-step">
+                <h4>5. Inventory & Quality Management</h4>
+                <ul>
+                    <li>All receipts, issues, and transfers logged in real time.</li>
+                    <li>QC results entered or uploaded; system blocks non-conforming stock.</li>
+                    <li>Automated alerts for low stock, delays, or quality issues.</li>
+                </ul>
+                <a href="BusinessFlow_InventoryQualityManagement.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">View Detailed Flow →</a>
+            </div>
+
+            <div class="flow-step">
+                <h4>6. Shipping & Invoicing</h4>
+                <ul>
+                    <li>System generates pick/pack lists, shipping docs, and triggers invoice on shipment/delivery.</li>
+                    <li>Customer notified automatically with tracking and documentation.</li>
+                </ul>
+                <a href="BusinessFlow_ShippingInvoicing.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">View Detailed Flow →</a>
+            </div>
+
+            <div class="flow-step">
+                <h4>7. Reporting & Dashboards</h4>
+                <ul>
+                    <li>Real-time dashboards for management, operations, and finance.</li>
+                    <li>Automated daily/weekly/monthly reports and exception alerts.</li>
+                </ul>
+                <a href="BusinessFlow_ReportingDashboards.html" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #2c5aa0; color: #fff; text-decoration: none; border-radius: 3px; font-size: 13px;">View Detailed Flow →</a>
+            </div>
+        </div>
+
+        <!-- Section 6: Key Features & Modules -->
+        <div class="section" id="features">
+            <h2>6. Key Features & Modules</h2>
+            <ul>
+                <li><strong>Master Data Management:</strong> Components, BOM, vendors, customers, packaging.</li>
+                <li><strong>Order Management:</strong> PO entry, validation, status tracking.</li>
+                <li><strong>Inventory Management:</strong> Real-time stock, reservations, alerts.</li>
+                <li><strong>Production Planning & Execution:</strong> Automated scheduling, work orders, progress tracking.</li>
+                <li><strong>Procurement & Outsourcing:</strong> Digital RFQ/PO, vendor collaboration, lead time tracking.</li>
+                <li><strong>Quality Control:</strong> Digital QC records, non-conformance management.</li>
+                <li><strong>Shipping & Logistics:</strong> Pick/pack, shipment, delivery confirmation.</li>
+                <li><strong>Finance Integration:</strong> Automated invoicing, cost tracking, revenue recognition.</li>
+                <li><strong>Dashboards & Analytics:</strong> KPIs, trends, exception alerts.</li>
+            </ul>
+        </div>
+
+        <!-- Section 7: Pain Points Addressed -->
+        <div class="section" id="pain-points">
+            <h2>7. Pain Points Addressed</h2>
+            <ul>
+                <li>✓ No more manual spreadsheets or double entry.</li>
+                <li>✓ Automated stock checks, planning, and vendor engagement.</li>
+                <li>✓ Real-time status for every order, job, and inventory item.</li>
+                <li>✓ Exception-based management: users focus on issues, not routine tasks.</li>
+                <li>✓ Seamless outsource vendor integration and performance tracking.</li>
+                <li>✓ Management has instant access to actionable data and trends.</li>
+            </ul>
+        </div>
+
+        <!-- Section 8: Function List -->
+        <div class="section" id="function-list">
+            <h2>8. Comprehensive Function & Feature List</h2>
+            
+            <!-- Statistics Overview -->
+            <div class="stats-box">
+                <div class="stat-item">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Modules</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">51</div>
+                    <div class="stat-label">Functions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">652</div>
+                    <div class="stat-label">Features</div>
+                </div>
+            </div>
+
+            <!-- Module 1: Master Data Management -->
+            <h3>Module 1: Master Data Management</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.1 - Component Master</div>
+                            <div class="function-desc">18 features</div>
+                        </td>
+                        <td>Create and maintain component/material master data including specifications, suppliers, lead times, stock levels, and cost tracking.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.2 - BOM Master</div>
+                            <div class="function-desc">22 features</div>
+                        </td>
+                        <td>Create and maintain product structures (Bill of Materials) with components, quantities, versions, routing, production capacity, and cost calculations.</td>
+                        <td class="feature-count">22</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.3 - Packaging Master</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Define packaging rules and specifications including standard/custom packaging, carton dimensions, weights, and pallet configurations.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.4 - Vendor Master</div>
+                            <div class="function-desc">18 features</div>
+                        </td>
+                        <td>Maintain vendor/supplier information including capabilities, lead times, capacity, performance metrics, portal credentials, and compliance tracking.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F1.5 - Customer Master</div>
+                            <div class="function-desc">18 features</div>
+                        </td>
+                        <td>Maintain customer information including credit status, payment terms, shipping addresses, pricing, packaging requirements, and portal access.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 2: Order Management -->
+            <h3>Module 2: Order Management</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F2.1 - Order Intake</div>
+                            <div class="function-desc">18 features</div>
+                        </td>
+                        <td>Receive and validate customer orders via multiple channels (manual, file upload, API, portal) with automatic validation and planning trigger.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F2.2 - Order Status Tracking</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Monitor and track order lifecycle with real-time status, progress tracking, customer portal visibility, and comprehensive search capabilities.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F2.3 - Order Modification</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Handle order changes and cancellations with impact analysis, approval workflows, automatic re-planning, and stock reservation release.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 3: Planning & Analysis -->
+            <h3>Module 3: Planning & Analysis</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.1 - Stock Availability Check</div>
+                            <div class="function-desc">12 features</div>
+                        </td>
+                        <td>Real-time stock checking across BOM, semi-finished, and components with ATP calculation, multi-location support, and aging analysis.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.2 - Production Planning</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Automated production plan generation with in-house vs outsource prioritization, capacity balancing, scheduling, and what-if scenarios.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.3 - MRP Engine</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Material Requirements Planning with BOM explosion, net requirements calculation, time-phasing, procurement recommendations, and exception alerts.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.4 - Delivery Date Calculation</div>
+                            <div class="function-desc">16 features</div>
+                        </td>
+                        <td>Calculate realistic delivery commitments considering vendor lead times, production duration, capacity, QC, packaging, and shipping time.</td>
+                        <td class="feature-count">16</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F3.5 - Capacity Planning</div>
+                            <div class="function-desc">13 features</div>
+                        </td>
+                        <td>Manage production capacity by line/cell with utilization tracking, overload identification, overtime/outsourcing suggestions, and what-if scenarios.</td>
+                        <td class="feature-count">13</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 4: Procurement & Outsourcing -->
+            <h3>Module 4: Procurement & Outsourcing</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F4.1 - RFQ/PO Generation</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Automatically generate RFQ/PO from material shortages with vendor selection, quantity/date calculations, pricing, and approval workflows.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F4.2 - Vendor Portal</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Digital vendor communication via email, API, and portal for RFQ/PO distribution, lead time confirmation, status updates, and document exchange.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F4.3 - Lead Time Management</div>
+                            <div class="function-desc">10 features</div>
+                        </td>
+                        <td>Track vendor delivery commitments with requested vs confirmed comparison, alerts, alternative vendor suggestions, and performance scoring.</td>
+                        <td class="feature-count">10</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F4.4 - PO Tracking</div>
+                            <div class="function-desc">12 features</div>
+                        </td>
+                        <td>Monitor procurement order status with dashboard, alerts on overdue deliveries, partial delivery tracking, change/cancellation workflows.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 5: Production Execution -->
+            <h3>Module 5: Production Execution</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.1 - Work Order Management</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Create and manage production work orders with auto-generation, line assignment, scheduling, status tracking, approval, and release workflows.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.2 - Material Picking</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Manage material allocation and issuance with pick lists, stock reservations, barcode scanning, consumption tracking, and batch/lot traceability.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.3 - Production Progress</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Monitor production execution with real-time tracking, WIP management, downtime recording, efficiency/OEE calculations, and mobile app support.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.4 - Outsource Production</div>
+                            <div class="function-desc">15 features</div>
+                        </td>
+                        <td>Manage outsourced production with work order generation, vendor selection, material transfers, status tracking, goods return, and performance monitoring.</td>
+                        <td class="feature-count">15</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F5.5 - In-Process QC</div>
+                            <div class="function-desc">12 features</div>
+                        </td>
+                        <td>Quality checks during production with checkpoint definitions, measurement recording, pass/fail decisions, NCR generation, and mobile data entry.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 6: Inventory Management -->
+            <h3>Module 6: Inventory Management</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.1 - Goods Receipt</div>
+                            <div class="function-desc">17 features</div>
+                        </td>
+                        <td>Record incoming goods from vendors and production with PO matching, batch/lot tracking, QC triggering, GRN generation, and mobile/barcode support.</td>
+                        <td class="feature-count">17</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.2 - Stock Tracking</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Real-time inventory visibility by location, component, status (available/reserved/on-hold/WIP) with batch tracking, aging, valuation, and cycle counts.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.3 - Stock Reservation</div>
+                            <div class="function-desc">12 features</div>
+                        </td>
+                        <td>Reserve and allocate stock for orders and work orders with double-booking prevention, automatic release, priority rules, and audit trails.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.4 - Inventory Alerts</div>
+                            <div class="function-desc">12 features</div>
+                        </td>
+                        <td>Automated inventory alerts for low stock, stock-outs, overstock, slow-moving items, expiring inventory, and configurable thresholds/recipients.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F6.5 - Inventory Transfers</div>
+                            <div class="function-desc">11 features</div>
+                        </td>
+                        <td>Manage stock transfers between locations including outsource vendors with in-transit tracking, approval workflows, and transfer documentation.</td>
+                        <td class="feature-count">11</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 7: Quality Control -->
+            <h3>Module 7: Quality Control</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F7.1 - Incoming QC</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Inspect incoming materials with inspection plans, measurement recording, pass/fail decisions, stock approval/blocking, NCR generation, and vendor returns.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F7.2 - In-Process QC</div>
+                            <div class="function-desc">8 features</div>
+                        </td>
+                        <td>Quality control during production with automated checkpoint triggers, real-time measurements, pass/fail decisions, alerts, and SPC charts.</td>
+                        <td class="feature-count">8</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F7.3 - Final QC</div>
+                            <div class="function-desc">13 features</div>
+                        </td>
+                        <td>Inspect finished goods before shipment with functionality testing, packaging checks, shipment approval/blocking, and quality certificate generation.</td>
+                        <td class="feature-count">13</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F7.4 - NCR Management</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Manage quality issues with NCR creation, corrective action tracking, rework/scrap decisions, root cause analysis, and CAPA (Corrective and Preventive Action).</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 8: Shipping & Logistics -->
+            <h3>Module 8: Shipping & Logistics</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.1 - Pick List Generation</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Generate and manage picking lists with batch picking, route optimization, wave/zone picking support, mobile app, and barcode scanning.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.2 - Packing & Labeling</div>
+                            <div class="function-desc">12 features</div>
+                        </td>
+                        <td>Pack goods using packaging rules with carton calculation, barcode label generation, weight/volume calculation, and packing list generation.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.3 - Shipment Management</div>
+                            <div class="function-desc">15 features</div>
+                        </td>
+                        <td>Create shipments with carrier selection, document generation (BOL, invoice, packing list), carrier integration, tracking, and customer notifications.</td>
+                        <td class="feature-count">15</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.4 - Delivery Confirmation</div>
+                            <div class="function-desc">12 features</div>
+                        </td>
+                        <td>Track and confirm delivery with carrier API integration, POD capture, actual delivery recording, automatic invoice triggering, and performance tracking.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F8.5 - Shipping Exceptions</div>
+                            <div class="function-desc">11 features</div>
+                        </td>
+                        <td>Manage shipping issues including delays, delivery failures, returns, damaged goods, expedited requests, and exception escalation workflows.</td>
+                        <td class="feature-count">11</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 9: Finance Integration -->
+            <h3>Module 9: Finance Integration</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.1 - COGS Calculation</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Calculate cost of goods sold with material, labor, overhead, outsource, and packaging costs including standard vs actual comparison and variance analysis.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.2 - Automated Invoicing</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Generate invoices automatically on shipment/delivery with pricing, taxes, partial invoicing, PDF generation, email distribution, and accounting integration.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.3 - Revenue Recognition</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Track revenue and receivables by order, customer, product, and period with AR aging, overdue alerts, payment tracking, and revenue forecasting.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.4 - PO Accounting</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Manage vendor invoices and payables with 3-way matching, approval workflows, payment scheduling, reconciliation, and AP aging reports.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F9.5 - Profitability Analysis</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Analyze profit margins by order, product, customer, and period with cost variance analysis, high/low margin identification, and break-even analysis.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-3">3rd Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 10: Dashboards & Reporting -->
+            <h3>Module 10: Dashboards & Reporting</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.1 - Real-Time Dashboards</div>
+                            <div class="function-desc">16 features</div>
+                        </td>
+                        <td>Interactive dashboards for orders, inventory, production, finance, vendors, quality, and shipping with role-based customization and drill-down capabilities.</td>
+                        <td class="feature-count">16</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.2 - Standard Reports</div>
+                            <div class="function-desc">18 features</div>
+                        </td>
+                        <td>Pre-built reports for inventory, orders, production, vendors, quality, shipping, and finance with scheduled generation and export capabilities.</td>
+                        <td class="feature-count">18</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.3 - Exception Alerts</div>
+                            <div class="function-desc">16 features</div>
+                        </td>
+                        <td>Automated alerts for stock issues, delays, quality failures, capacity constraints, credit holds with configurable thresholds, recipients, and escalation.</td>
+                        <td class="feature-count">16</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.4 - Analytics & Trends</div>
+                            <div class="function-desc">16 features</div>
+                        </td>
+                        <td>Advanced analytics including sales trends, demand forecasting, inventory trends, production trends, quality trends, ABC/Pareto analysis, and custom queries.</td>
+                        <td class="feature-count">16</td>
+                        <td><span class="priority-badge priority-3">3rd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F10.5 - Audit Trail</div>
+                            <div class="function-desc">12 features</div>
+                        </td>
+                        <td>Track all transactions and user actions with timestamps, before/after values, search/filter capabilities, compliance reporting, and immutable logs.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Module 11: User & System Administration -->
+            <h3>Module 11: User & System Administration</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Function</th>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 12%;">Features</th>
+                        <th style="width: 13%;">Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.1 - User Management</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Manage users and access control with role-based permissions, MFA, password policies, activity tracking, and session management.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.2 - Workflow Configuration</div>
+                            <div class="function-desc">13 features</div>
+                        </td>
+                        <td>Configure approval workflows and notifications for orders, POs, NCRs, changes with approval levels, triggers, escalation rules, and templates.</td>
+                        <td class="feature-count">13</td>
+                        <td><span class="priority-badge priority-2">2nd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.3 - Integration Management</div>
+                            <div class="function-desc">12 features</div>
+                        </td>
+                        <td>Manage external integrations with vendors, carriers, accounting systems via API, EDI, email/SMS with monitoring, error handling, and health dashboard.</td>
+                        <td class="feature-count">12</td>
+                        <td><span class="priority-badge priority-3">3rd Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.4 - System Configuration</div>
+                            <div class="function-desc">14 features</div>
+                        </td>
+                        <td>Configure system parameters including company info, numbering sequences, defaults, currencies, UoM, calendars, locations, taxes, and branding.</td>
+                        <td class="feature-count">14</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="function-name">F11.5 - Data Import/Export</div>
+                            <div class="function-desc">13 features</div>
+                        </td>
+                        <td>Bulk data operations for master data and transactions with validation, error reporting, templates, scheduled exports, and data integrity checks.</td>
+                        <td class="feature-count">13</td>
+                        <td><span class="priority-badge priority-1">1st Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 9: Summary Statistics -->
+        <div class="section" id="summary">
+            <h2>9. Summary Statistics</h2>
+            
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50%;">Module</th>
+                        <th style="width: 15%;">Functions</th>
+                        <th style="width: 15%;">Features</th>
+                        <th style="width: 20%;">Priority Mix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Module 1: Master Data Management</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">90</td>
+                        <td>1st: 4, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 2: Order Management</td>
+                        <td class="feature-count">3</td>
+                        <td class="feature-count">46</td>
+                        <td>1st: 2, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 3: Planning & Analysis</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">69</td>
+                        <td>1st: 3, 2nd: 2</td>
+                    </tr>
+                    <tr>
+                        <td>Module 4: Procurement & Outsourcing</td>
+                        <td class="feature-count">4</td>
+                        <td class="feature-count">50</td>
+                        <td>1st: 3, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 5: Production Execution</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">69</td>
+                        <td>1st: 3, 2nd: 2</td>
+                    </tr>
+                    <tr>
+                        <td>Module 6: Inventory Management</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">66</td>
+                        <td>1st: 4, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 7: Quality Control</td>
+                        <td class="feature-count">4</td>
+                        <td class="feature-count">49</td>
+                        <td>1st: 2, 2nd: 2</td>
+                    </tr>
+                    <tr>
+                        <td>Module 8: Shipping & Logistics</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">64</td>
+                        <td>1st: 4, 2nd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 9: Finance Integration</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">70</td>
+                        <td>1st: 2, 2nd: 2, 3rd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 10: Dashboards & Reporting</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">78</td>
+                        <td>1st: 3, 2nd: 1, 3rd: 1</td>
+                    </tr>
+                    <tr>
+                        <td>Module 11: User & Administration</td>
+                        <td class="feature-count">5</td>
+                        <td class="feature-count">66</td>
+                        <td>1st: 3, 2nd: 1, 3rd: 1</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>TOTAL</strong></td>
+                        <td class="feature-count"><strong>51</strong></td>
+                        <td class="feature-count"><strong>717</strong></td>
+                        <td><strong>1st: 33, 2nd: 13, 3rd: 5</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Implementation Phases</h3>
+            <div class="overview-box">
+                <h4><span class="priority-badge priority-1">1st Priority - Most Important (33 Functions)</span></h4>
+                <p>Focus on essential features for order-to-delivery automation including basic master data setup, order intake and validation, stock checking and planning, basic procurement and vendor communication, work order creation and tracking, basic inventory transactions, basic shipping, and essential dashboards and alerts.</p>
+                
+                <h4 style="margin-top: 20px;"><span class="priority-badge priority-2">2nd Priority (13 Functions)</span></h4>
+                <p>Add optimization and efficiency features including advanced planning (MRP, capacity), outsource production tracking, quality control checkpoints, advanced inventory management, shipping optimization, financial integration, and advanced reporting and analytics.</p>
+                
+                <h4 style="margin-top: 20px;"><span class="priority-badge priority-3">3rd Priority - Nice to Have (5 Functions)</span></h4>
+                <p>Complete system with full automation including workflow automation and approvals, advanced integrations (API, EDI), mobile applications, advanced analytics and forecasting, full compliance and audit features, and system administration and customization.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>ERP Automation System - Solution Overview & Function List</p>
+            <p>Generated: October 2025</p>
+        </div>
+    </div>
+</body>
+</html>

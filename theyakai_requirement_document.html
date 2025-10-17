@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yak Travel - Product Requirements Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+        }
+        
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 6px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        th {
+            background: #333;
+            color: #fff;
+            padding: 12px;
+            text-align: left;
+            font-weight: normal;
+        }
+        
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .requirement-box {
+            border: 1px solid #999;
+            padding: 20px;
+            margin: 20px 0;
+            background: #fafafa;
+        }
+        
+        .feature-box {
+            border: 2px solid #666;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f8f8f8;
+        }
+        
+        .tech-note {
+            border-left: 4px solid #666;
+            padding: 15px;
+            margin: 20px 0;
+            background: #f5f5f5;
+            font-size: 13px;
+        }
+        
+        .algorithm-box {
+            border: 2px solid #000;
+            padding: 20px;
+            margin: 25px 0;
+            background: #f0f0f0;
+        }
+        
+        .pod-section {
+            border: 1px solid #666;
+            margin: 20px 0;
+        }
+        
+        .pod-header {
+            background: #666;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+        }
+        
+        .pod-content {
+            padding: 20px;
+        }
+        
+        strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>YAK TRAVEL - PRODUCT REQUIREMENTS DOCUMENT</h1>
+            <p style="margin-top: 10px; color: #666;">
+                AI-Powered Travel Planning Platform - Technical Specification
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>1. PRODUCT VISION</h2>
+            
+            <h3>Core Value Proposition</h3>
+            <p>A web application that generates complete travel itineraries in 60 seconds using natural language input. The platform serves both domestic and international travel planning with a unique proximity optimization algorithm that minimizes travel time between activities.</p>
+            
+            <div class="requirement-box">
+                <h4>Key Differentiators</h4>
+                <ul>
+                    <li><strong>Proximity Algorithm:</strong> Activities grouped within walkable distances to minimize transit time</li>
+                    <li><strong>60-Second Generation:</strong> Complete itinerary in under one minute</li>
+                    <li><strong>Natural Language Input:</strong> No complex forms or dropdowns</li>
+                    <li><strong>Universal Coverage:</strong> Any destination worldwide</li>
+                    <li><strong>Community Validation:</strong> User-contributed tips and confirmations</li>
+                </ul>
+            </div>
+
+            <h3>Three Product Pods</h3>
+            <div class="feature-box">
+                <p><strong>Pod 1: Travel Planning Core</strong> - Main itinerary generation for any destination</p>
+                <p><strong>Pod 2: Weekend Discovery</strong> - Local getaway suggestions for weekly engagement</p>
+                <p><strong>Pod 3: Daily Assistant</strong> - Travel tips and nearby discovery for daily use</p>
+                <p style="margin-top: 15px;"><strong>Additional:</strong> B2B Agency Dashboard for professional travel agents</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. POD 1: TRAVEL PLANNING CORE</h2>
+            
+            <h3>User Journey</h3>
+            
+            <div class="requirement-box">
+                <h4>Step 1: Natural Language Input</h4>
+                <ul>
+                    <li>Single text field accepting trip descriptions (5-500 characters)</li>
+                    <li>No login required to start</li>
+                    <li>Support for any destination globally</li>
+                    <li>Examples:
+                        <ul>
+                            <li>"Weekend in Nashville for country music"</li>
+                            <li>"10 days in Japan during cherry blossom season"</li>
+                            <li>"California coastal road trip, 1 week"</li>
+                            <li>"Family vacation to Italy in summer"</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>Step 2: Understanding & Preferences</h4>
+                <ul>
+                    <li>System extracts: destination(s), duration, travel style, interests, group type</li>
+                    <li>Quick confirmation screen with parsed interpretation</li>
+                    <li>Maximum 3 preference questions:
+                        <ul>
+                            <li>Travel pace: Relaxed / Moderate / Packed</li>
+                            <li>Accommodation: Budget / Mid-Range / Luxury</li>
+                            <li>Focus: Culture / Adventure / Food / Relaxation</li>
+                        </ul>
+                    </li>
+                    <li>Visual cards for selection (not dropdowns)</li>
+                    <li>Skip option available</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>Step 3: AI Generation Process</h4>
+                <ul>
+                    <li>Animated map showing destinations being connected</li>
+                    <li>Progress messages building anticipation</li>
+                    <li>60-second maximum generation time</li>
+                    <li>Backend processes:
+                        <ul>
+                            <li>LLM service integration (optimal provider to be determined)</li>
+                            <li>Complete itinerary generation with all components</li>
+                            <li>Proximity algorithm application</li>
+                            <li>Accommodation options fetching</li>
+                            <li>Time and distance calculations</li>
+                            <li>Community confidence score addition</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="algorithm-box">
+                <h4>THE PROXIMITY ALGORITHM - Core Differentiator</h4>
+                <p><strong>This is the key feature that makes Yak unique.</strong></p>
+                
+                <p><strong>Requirements:</strong></p>
+                <ul>
+                    <li><strong>5-Kilometer Rule:</strong> Each day's activities within 5km radius where applicable</li>
+                    <li><strong>Neighborhood Clustering:</strong> Group attractions by actual districts</li>
+                    <li><strong>Walking Priority:</strong> Prefer walking when under 20 minutes</li>
+                    <li><strong>Logical Flow:</strong> Morning to evening progression makes sense</li>
+                    <li><strong>No Backtracking:</strong> Never cross same point twice in a day</li>
+                    <li><strong>Energy Modeling:</strong> Intense activities in morning, relaxed in evening</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Implementation:</strong></p>
+                <ul>
+                    <li>Use maps API to calculate actual walking distances</li>
+                    <li>Cluster attractions using geographic districts</li>
+                    <li>Account for opening hours in sequencing</li>
+                    <li>Include meal times at logical points</li>
+                    <li>Show total daily walking distance</li>
+                </ul>
+            </div>
+
+            <h3>Complete Itinerary Display</h3>
+            
+            <div class="requirement-box">
+                <h4>Layout Components</h4>
+                <ul>
+                    <li>Split view: Map and Schedule</li>
+                    <li>Day selector tabs or dropdown</li>
+                    <li>Morning, afternoon, evening blocks</li>
+                    <li>For each activity:
+                        <ul>
+                            <li>Time allocation (e.g., "9:00 AM - 11:00 AM")</li>
+                            <li>Name and type of place</li>
+                            <li>One-line description</li>
+                            <li>Walking time to next location</li>
+                            <li>Confidence indicator (community validated)</li>
+                            <li>Price range indicator</li>
+                            <li>Quick actions: alternatives, directions, more info</li>
+                        </ul>
+                    </li>
+                    <li>Daily summary: neighborhood focus, total walking, costs, highlights</li>
+                </ul>
+            </div>
+
+            <h3>Additional Core Features</h3>
+            
+            <div class="feature-box">
+                <h4>Transportation Between Cities</h4>
+                <ul>
+                    <li>Multi-modal options comparison (flight, train, bus, car)</li>
+                    <li>Duration, cost estimate, convenience rating for each</li>
+                    <li>Recommended option highlighted with reasoning</li>
+                    <li>Booking platform links</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>Accommodation Recommendations</h4>
+                <ul>
+                    <li>Neighborhood analysis for each city</li>
+                    <li>Three options per budget tier</li>
+                    <li>Location relative to planned activities</li>
+                    <li>Safety, convenience, character descriptions</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>Community Validation System</h4>
+                <ul>
+                    <li>Confidence scores on each recommendation</li>
+                    <li>Based on: validation count, recency, consistency</li>
+                    <li>User-contributed tips displayed inline</li>
+                    <li>Social proof indicators</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>Trip Modification</h4>
+                <ul>
+                    <li>Swap activities for alternatives (3 options provided)</li>
+                    <li>Delete activities with automatic schedule adjustment</li>
+                    <li>Add custom activities with address lookup</li>
+                    <li>Reorder with proximity warnings</li>
+                    <li>Change dates with regeneration of time-sensitive elements</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>Export & Sharing</h4>
+                <ul>
+                    <li>Multiple export formats (format options to be determined)</li>
+                    <li>Calendar integration (ICS)</li>
+                    <li>Share links with read-only access</li>
+                    <li>Email formatted itinerary</li>
+                    <li>Print-optimized view</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. POD 2: WEEKEND DISCOVERY</h2>
+            
+            <div class="pod-section">
+                <div class="pod-header">Purpose: Drive Weekly Engagement</div>
+                <div class="pod-content">
+                    <h4>Core Features</h4>
+                    <ul>
+                        <li>Dedicated "Weekend Getaways" section</li>
+                        <li>Auto-detect user location (with manual override)</li>
+                        <li>Show 5-8 destinations within 3-hour radius</li>
+                        <li>Each destination card displays:
+                            <ul>
+                                <li>Hero image</li>
+                                <li>Distance/time from user</li>
+                                <li>Hook phrase (e.g., "Perfect for wine lovers")</li>
+                                <li>Seasonal relevance</li>
+                                <li>Price indicator</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Generated Content</h4>
+                    <ul>
+                        <li>Simple 2-day itinerary</li>
+                        <li>Saturday morning to Sunday evening</li>
+                        <li>3-4 activities per day</li>
+                        <li>Restaurant recommendations</li>
+                        <li>Hotel suggestion</li>
+                        <li>Total estimated cost</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. POD 3: DAILY ASSISTANT</h2>
+            
+            <div class="pod-section">
+                <div class="pod-header">Purpose: Daily Touchpoints & Habit Formation</div>
+                <div class="pod-content">
+                    <h4>Trip Countdown (For Saved Trips)</h4>
+                    <ul>
+                        <li>Dashboard display: "Japan in 47 days"</li>
+                        <li>Weekly prep tips</li>
+                        <li>Weather forecast (within 10 days)</li>
+                        <li>Packing suggestions (3 days before)</li>
+                        <li>Check-in reminders (24 hours before)</li>
+                    </ul>
+                    
+                    <h4>Daily Travel Tip</h4>
+                    <ul>
+                        <li>One tip daily on dashboard</li>
+                        <li>Rotating categories: Packing, Safety, Culture, Food, Budget</li>
+                    </ul>
+                    
+                    <h4>Nearby Discovery</h4>
+                    <ul>
+                        <li>"Explore Nearby" feature</li>
+                        <li>3 interesting places within 30 minutes</li>
+                        <li>Restaurants, attractions, or events</li>
+                    </ul>
+                    
+                    <h4>Quick Actions Menu</h4>
+                    <ul>
+                        <li>Plan a Trip - Main input</li>
+                        <li>Weekend Ideas - Pod 2 access</li>
+                        <li>My Trips - Saved itineraries</li>
+                        <li>Explore Nearby - Local discovery</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>5. COMMUNITY FEATURES</h2>
+            
+            <h3>User Contribution System</h3>
+            
+            <div class="requirement-box">
+                <h4>Content Types</h4>
+                <ul>
+                    <li><strong>Tips:</strong> 20-200 character advice for specific places</li>
+                    <li><strong>Photos:</strong> Up to 5 per location, auto-compressed</li>
+                    <li><strong>Validations:</strong> One-click confirm/dispute</li>
+                    <li><strong>Updates:</strong> Report closures, price changes</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Moderation System</h4>
+                <ul>
+                    <li>Admin dashboard for review</li>
+                    <li>Auto-flag suspicious content</li>
+                    <li>Approve/Reject/Edit options</li>
+                    <li>Bulk actions for efficiency</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Gamification</h4>
+                <ul>
+                    <li>Points system: Tips (+10), Photos (+5), Validations (+2)</li>
+                    <li>Visible point totals on profiles</li>
+                    <li>Contributor leaderboard</li>
+                    <li>Achievement badges</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>6. B2B TRAVEL AGENCY DASHBOARD</h2>
+            
+            <h3>Professional Features</h3>
+            
+            <div class="feature-box">
+                <h4>Client Management</h4>
+                <ul>
+                    <li>Client list with search and filters</li>
+                    <li>Trip status tracking</li>
+                    <li>Support for multiple active trips</li>
+                    <li>Archive system for completed trips</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Enhanced Trip Builder</h4>
+                <ul>
+                    <li>Same AI generation as consumer version</li>
+                    <li>Additional fields for client info and notes</li>
+                    <li>Commission tracking</li>
+                    <li>Markup options on pricing</li>
+                    <li>Client preference storage</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Template Library</h4>
+                <ul>
+                    <li>Save successful trips as templates</li>
+                    <li>Categorization system</li>
+                    <li>Quick duplicate and modify</li>
+                    <li>Template sharing within agency</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>White-Label Exports</h4>
+                <ul>
+                    <li>Agency branding on all exports</li>
+                    <li>Custom color schemes</li>
+                    <li>No platform branding visible</li>
+                    <li>Branded share links</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Multi-User Support</h4>
+                <ul>
+                    <li>Multiple agent accounts per agency</li>
+                    <li>Role-based access control</li>
+                    <li>Activity logging for audit trail</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>7. USER ACCOUNTS & SUBSCRIPTIONS</h2>
+            
+            <h3>Account Management</h3>
+            
+            <div class="requirement-box">
+                <h4>Registration Options</h4>
+                <ul>
+                    <li>Google OAuth integration</li>
+                    <li>Apple Sign-In</li>
+                    <li>Email + Password</li>
+                    <li>Required information: email, name, home location</li>
+                </ul>
+            </div>
+            
+            <h3>Subscription Tiers</h3>
+            
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Free</th>
+                    <th>Explorer</th>
+                    <th>Pro</th>
+                </tr>
+                <tr>
+                    <td>Generate Itineraries</td>
+                    <td>1 per month</td>
+                    <td>Unlimited</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Save Trips</td>
+                    <td>3 maximum</td>
+                    <td>Unlimited</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Modify Itineraries</td>
+                    <td>Basic</td>
+                    <td>Full</td>
+                    <td>Full</td>
+                </tr>
+                <tr>
+                    <td>Weekend Discovery</td>
+                    <td>View only</td>
+                    <td>Full access</td>
+                    <td>Full access</td>
+                </tr>
+                <tr>
+                    <td>Export Options</td>
+                    <td>None</td>
+                    <td>Basic</td>
+                    <td>All formats</td>
+                </tr>
+                <tr>
+                    <td>Community Features</td>
+                    <td>Read only</td>
+                    <td>Contribute</td>
+                    <td>Contribute</td>
+                </tr>
+                <tr>
+                    <td>Budget Tracking</td>
+                    <td>Basic</td>
+                    <td>Full</td>
+                    <td>Full</td>
+                </tr>
+                <tr>
+                    <td>Priority Support</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>Yes</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>8. TECHNICAL ARCHITECTURE</h2>
+            
+            <h3>Recommended Technology Stack</h3>
+            
+            <div class="tech-note">
+                <p><strong>Note:</strong> The following stack is recommended but open for discussion based on development team expertise and project requirements.</p>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Frontend Technologies</h4>
+                <ul>
+                    <li>React-based framework (Next.js or similar)</li>
+                    <li>Responsive CSS framework</li>
+                    <li>State management solution</li>
+                    <li>Mapping library for interactive maps</li>
+                    <li>Progressive Web App capabilities</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Backend Technologies</h4>
+                <ul>
+                    <li>Node.js or equivalent runtime</li>
+                    <li>PostgreSQL or similar relational database</li>
+                    <li>Authentication system</li>
+                    <li>RESTful or GraphQL API</li>
+                    <li>Cloud storage solution</li>
+                </ul>
+            </div>
+            
+            <h3>Key Integrations</h3>
+            
+            <div class="tech-note">
+                <p><strong>Note:</strong> Specific providers to be determined based on performance, cost, and feature requirements.</p>
+            </div>
+            
+            <table>
+                <tr>
+                    <th>Service Type</th>
+                    <th>Purpose</th>
+                    <th>Key Requirements</th>
+                </tr>
+                <tr>
+                    <td>LLM Service</td>
+                    <td>Natural language processing and generation</td>
+                    <td>Parse input, generate structured itineraries, customization</td>
+                </tr>
+                <tr>
+                    <td>Maps API</td>
+                    <td>Mapping and distance calculations</td>
+                    <td>Display maps, calculate walking times, geocoding</td>
+                </tr>
+                <tr>
+                    <td>Payment Processing</td>
+                    <td>Subscription billing</td>
+                    <td>Recurring payments, customer portal, multiple tiers</td>
+                </tr>
+                <tr>
+                    <td>Email Service</td>
+                    <td>Transactional emails</td>
+                    <td>Welcome emails, receipts, trip sharing</td>
+                </tr>
+                <tr>
+                    <td>Analytics</td>
+                    <td>User behavior tracking</td>
+                    <td>Conversion funnels, feature usage, performance</td>
+                </tr>
+            </table>
+            
+            <h3>Performance Requirements</h3>
+            
+            <ul>
+                <li><strong>Page Load:</strong> Under 2 seconds on 4G</li>
+                <li><strong>Itinerary Generation:</strong> 30-60 seconds maximum</li>
+                <li><strong>Search/Filter:</strong> Under 500ms response</li>
+                <li><strong>Mobile Performance:</strong> Smooth scrolling and interactions</li>
+                <li><strong>Concurrent Users:</strong> Support minimum 1,000</li>
+                <li><strong>Uptime:</strong> 99.5% minimum</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>9. DATA MODELS</h2>
+            
+            <h3>Core Data Entities</h3>
+            
+            <div class="requirement-box">
+                <h4>User Entity</h4>
+                <ul>
+                    <li>Authentication credentials</li>
+                    <li>Profile information</li>
+                    <li>Preferences and settings</li>
+                    <li>Subscription status</li>
+                    <li>Points and badges</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Trip Entity</h4>
+                <ul>
+                    <li>User association</li>
+                    <li>Destinations and dates</li>
+                    <li>Complete itinerary data</li>
+                    <li>Modifications history</li>
+                    <li>Share settings</li>
+                    <li>Budget information</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Activity/Location Entity</h4>
+                <ul>
+                    <li>Name and description</li>
+                    <li>Geographic coordinates</li>
+                    <li>Opening hours</li>
+                    <li>Price information</li>
+                    <li>Category tags</li>
+                    <li>Confidence scores</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Community Content Entity</h4>
+                <ul>
+                    <li>Tips text</li>
+                    <li>Photos metadata</li>
+                    <li>User attribution</li>
+                    <li>Validation counts</li>
+                    <li>Moderation status</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Agency Account Entity</h4>
+                <ul>
+                    <li>Agency information</li>
+                    <li>Multiple agents</li>
+                    <li>Client records</li>
+                    <li>Templates</li>
+                    <li>Branding configuration</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>10. DEVELOPMENT REQUIREMENTS & SCOPE</h2>
+            
+            <h3>Project Scope</h3>
+            
+            <div class="requirement-box">
+                <h4>MVP Definition</h4>
+                <ul>
+                    <li>This document represents the complete MVP scope</li>
+                    <li>All features listed are required for initial launch</li>
+                    <li>Single success metric: Full production deployment, working and monetizable</li>
+                    <li>Must support all geographic regions globally</li>
+                </ul>
+            </div>
+
+            <h3>Design & UI Requirements</h3>
+            
+            <div class="requirement-box">
+                <h4>UI/UX Development Process</h4>
+                <ul>
+                    <li><strong>Collaboration:</strong> Development team must work directly with Yak.AI to confirm all UX and UI decisions</li>
+                    <li><strong>Priority:</strong> UI represents a large portion of the project work</li>
+                    <li><strong>Resources:</strong> Development partner must provide dedicated UI/UX resources</li>
+                    <li><strong>Existing Assets:</strong> Some design assets exist but require refinement and expansion</li>
+                    <li><strong>Process:</strong> UI/UX confirmation will be first phase of project</li>
+                </ul>
+            </div>
+
+            <h3>Testing & Quality Assurance</h3>
+            
+            <div class="requirement-box">
+                <h4>Testing Requirements</h4>
+                <ul>
+                    <li><strong>Scope:</strong> Full testing coverage required</li>
+                    <li><strong>Acceptance Criteria:</strong> Product must be complete, stable, and monetizable</li>
+                    <li>Unit testing for all business logic</li>
+                    <li>Integration testing for all APIs and services</li>
+                    <li>End-to-end testing for critical user journeys</li>
+                    <li>Cross-browser and mobile device testing</li>
+                    <li>Load testing for expected user volumes</li>
+                    <li>Security testing for basic vulnerabilities</li>
+                </ul>
+            </div>
+
+            <h3>Infrastructure & Deployment</h3>
+            
+            <div class="requirement-box">
+                <h4>Environment Setup</h4>
+                <ul>
+                    <li>Development partner responsible for setting up all environments:</li>
+                    <li>Development environment</li>
+                    <li>Staging environment</li>
+                    <li>Production environment</li>
+                    <li>Backup and disaster recovery systems</li>
+                    <li>Global content delivery (all geographies)</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Cost Estimations Required</h4>
+                <ul>
+                    <li><strong>Infrastructure Costs:</strong> Monthly hosting and service estimates</li>
+                    <li><strong>AI/LLM Usage:</strong> Per-user and per-generation cost projections</li>
+                    <li>Cost estimates for 100, 1,000, and 10,000 users</li>
+                    <li>Recommendations for cost optimization</li>
+                </ul>
+            </div>
+
+            <h3>Security & Compliance</h3>
+            
+            <div class="requirement-box">
+                <h4>Basic Requirements</h4>
+                <ul>
+                    <li>HTTPS everywhere</li>
+                    <li>Secure authentication and session management</li>
+                    <li>Basic GDPR compliance (data export, deletion)</li>
+                    <li>PCI compliance for payment processing</li>
+                    <li>Standard security best practices</li>
+                    <li>Note: Advanced compliance features can be added post-MVP</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>11. PROPOSAL REQUIREMENTS</h2>
+            
+            <h3>Information Required from Development Partners</h3>
+            
+            <div class="requirement-box">
+                <h4>Team & Resources</h4>
+                <ul>
+                    <li>Dedicated UI/UX designer allocation</li>
+                    <li>Frontend and backend developer resources</li>
+                    <li>QA/testing resources</li>
+                    <li>Project management approach</li>
+                    <li>Availability for collaboration with Yak.AI team</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Technical Approach</h4>
+                <ul>
+                    <li>Proposed technology stack with justification</li>
+                    <li>LLM provider comparison and recommendations</li>
+                    <li>Infrastructure architecture proposal</li>
+                    <li>Scalability approach</li>
+                    <li>Cost optimization strategies</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Project Execution</h4>
+                <ul>
+                    <li>Development methodology</li>
+                    <li>Communication and reporting structure</li>
+                    <li>Milestone and deliverable schedule (negotiable)</li>
+                    <li>Testing and QA process</li>
+                    <li>Deployment strategy</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Cost Breakdown Required</h4>
+                <ul>
+                    <li>UI/UX design phase</li>
+                    <li>Development phases</li>
+                    <li>Testing and QA</li>
+                    <li>Infrastructure setup</li>
+                    <li>Post-launch support period</li>
+                    <li>Ongoing infrastructure cost estimates</li>
+                    <li>AI/LLM usage cost projections</li>
+                </ul>
+            </div>
+            
+            <div class="requirement-box">
+                <h4>Post-Launch Support</h4>
+                <ul>
+                    <li>Bug fix period terms</li>
+                    <li>Maintenance options</li>
+                    <li>Enhancement process</li>
+                    <li>Documentation and knowledge transfer</li>
+                    <li>Training for Yak.AI team</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

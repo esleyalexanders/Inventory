@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Flow: Shipping & Invoicing - ERP Automation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .flowchart-container {
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .explanation-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .step-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        
+        .step-box h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .automation-point {
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f1f9f4;
+        }
+        
+        .automation-point h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        
+        .code-section {
+            margin: 30px 0;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            border-radius: 5px;
+            padding: 0;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-header {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .copy-button {
+            background: #2c5aa0;
+            color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .copy-button:hover {
+            background: #1e3f7a;
+        }
+        
+        .copy-button.copied {
+            background: #28a745;
+        }
+        
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            .copy-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <a href="index.html" class="back-link">← Back to System Overview</a>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>Business Flow: Shipping & Invoicing</h1>
+            <p>Automated pick/pack operations, shipping documentation, invoice generation, and delivery tracking</p>
+        </div>
+
+        <!-- Section 1: Visual Flowchart -->
+        <div class="section">
+            <h2>1. Visual Flowchart</h2>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    A[Order ready to ship] --> B[System generates pick list]
+    B --> C[Warehouse picks goods]
+    C --> D[Scan & confirm picked quantity]
+    D --> E{Picked qty = ordered qty?}
+    E -- Yes --> F[System generates packing list]
+    E -- No --> G[Flag shortage/variance]
+    G --> H[Notify sales team]
+    H --> I[Manual review & decision]
+    I --> J{Proceed with partial ship?}
+    J -- Yes --> F
+    J -- No --> K[Cancel/postpone shipment]
+    F --> L[Pack goods]
+    L --> M[System generates shipping docs]
+    M --> N[Select carrier & print labels]
+    N --> O[Handover to carrier]
+    O --> P[System logs shipment]
+    P --> Q[Update order status: Shipped]
+    Q --> R[System auto-generates invoice]
+    R --> S[Invoice sent to customer]
+    S --> T[System tracks delivery]
+    T --> U{Delivery confirmed?}
+    U -- Yes --> V[Update order status: Delivered]
+    V --> W[Trigger payment tracking]
+    W --> X[Monitor payment due date]
+    X --> Y{Payment received?}
+    Y -- Yes --> Z[Close order & update AR]
+    Y -- No --> AA[Send payment reminder]
+    AA --> AB{Overdue?}
+    AB -- Yes --> AC[Escalate to collections]
+    AB -- No --> X
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Flow Explanation -->
+        <div class="section">
+            <h2>2. Flow Chart Explanation</h2>
+            
+            <div class="explanation-box">
+                <p>This shipping and invoicing workflow automates the entire order fulfillment process from pick/pack to delivery and payment collection. The system generates picking lists automatically, manages shipping documentation, creates invoices upon shipment, and tracks delivery and payment status. Exception-based workflow means warehouse and accounting teams only intervene for variances or payment issues.</p>
+            </div>
+            
+            <h3>Process Flow Steps</h3>
+            
+            <div class="step-box">
+                <h4>Step 1: Order Ready to Ship</h4>
+                <p><strong>Trigger:</strong> Order approved and goods available for shipment.</p>
+                <p><strong>Prerequisites met:</strong></p>
+                <ul>
+                    <li>Customer order validated and confirmed</li>
+                    <li>Finished goods available in inventory (stock status: Available)</li>
+                    <li>Customer credit limit approved (if applicable)</li>
+                    <li>Requested delivery date approaching or ready for immediate ship</li>
+                    <li>No holds or blocks on customer account</li>
+                </ul>
+                <p><strong>System:</strong> Order status is "Ready for Picking"</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 2: System Generates Pick List</h4>
+                <p><strong>Action:</strong> System automatically creates warehouse pick list.</p>
+                <p><strong>Pick list contains:</strong></p>
+                <ul>
+                    <li>Sales order number and customer name</li>
+                    <li>All items to be shipped with quantities</li>
+                    <li>Storage locations in warehouse (bin/shelf/rack)</li>
+                    <li>Batch/lot numbers if applicable</li>
+                    <li>Picking sequence (optimized for warehouse layout)</li>
+                    <li>Special handling instructions</li>
+                </ul>
+                <p><strong>Automation:</strong> Pick list generated automatically - no manual preparation required</p>
+                <p><strong>Optimization:</strong> System groups multiple orders for efficient batch picking if enabled</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 3: Warehouse Picks Goods</h4>
+                <p><strong>Action:</strong> Warehouse staff picks items per pick list.</p>
+                <p><strong>Picking activities:</strong></p>
+                <ul>
+                    <li>Navigate to storage locations following pick sequence</li>
+                    <li>Retrieve items from shelves/bins</li>
+                    <li>Verify item code and description</li>
+                    <li>Count quantity to be picked</li>
+                    <li>Stage picked goods in packing area</li>
+                </ul>
+                <p><strong>Tools:</strong> Mobile scanner, pick list printout, or pick-by-light system</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 4: Scan & Confirm Picked Quantity</h4>
+                <p><strong>Action:</strong> Picker scans items and confirms actual picked quantity.</p>
+                <p><strong>Confirmation process:</strong></p>
+                <ul>
+                    <li>Scan item barcode to verify correct product</li>
+                    <li>Enter or confirm picked quantity</li>
+                    <li>System validates against ordered quantity</li>
+                    <li>Timestamp and picker ID recorded</li>
+                </ul>
+                <p><strong>System:</strong> Compares picked vs ordered quantity</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 5: Picked Quantity Match Decision</h4>
+                <p><strong>Decision:</strong> Does picked quantity match ordered quantity?</p>
+                <p><strong>If Yes (Exact Match):</strong> Proceed to packing (normal flow)</p>
+                <p><strong>If No (Shortage or Overage):</strong> Flag variance for review</p>
+                <p><strong>Common variance reasons:</strong></p>
+                <ul>
+                    <li>Insufficient stock available (inventory error)</li>
+                    <li>Damaged goods discovered during picking</li>
+                    <li>Wrong item in storage location</li>
+                    <li>Picker error (wrong quantity counted)</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 6: Flag Shortage/Variance</h4>
+                <p><strong>Action:</strong> System flags the quantity discrepancy.</p>
+                <p><strong>System records:</strong></p>
+                <ul>
+                    <li>Ordered quantity vs picked quantity</li>
+                    <li>Shortage amount</li>
+                    <li>Item(s) affected</li>
+                    <li>Picker notes/reason for variance</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 7: Notify Sales Team</h4>
+                <p><strong>Action:</strong> System automatically alerts sales team of shortage.</p>
+                <p><strong>Notification contains:</strong></p>
+                <ul>
+                    <li>Customer name and order number</li>
+                    <li>Items short and quantity variance</li>
+                    <li>Reason for shortage</li>
+                    <li>Options for resolution</li>
+                </ul>
+                <p><strong>Delivery method:</strong> Email, dashboard alert, or mobile notification</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 8: Manual Review & Decision</h4>
+                <p><strong>Action:</strong> Sales team reviews shortage and determines action.</p>
+                <p><strong>Review considerations:</strong></p>
+                <ul>
+                    <li>Customer priority and relationship</li>
+                    <li>Impact of partial shipment</li>
+                    <li>Availability of shortage items (when can we get them)</li>
+                    <li>Customer preference (wait for complete order or accept partial)</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 9: Partial Ship Decision</h4>
+                <p><strong>Decision:</strong> Should we ship partial order or wait for complete availability?</p>
+                <p><strong>If Yes (Partial Ship):</strong></p>
+                <ul>
+                    <li>Adjust order quantity to picked quantity</li>
+                    <li>Create backorder for shortage items</li>
+                    <li>Notify customer of partial shipment</li>
+                    <li>Proceed to packing</li>
+                </ul>
+                <p><strong>If No (Wait for Complete):</strong></p>
+                <ul>
+                    <li>Cancel or postpone shipment</li>
+                    <li>Return picked goods to inventory</li>
+                    <li>Wait for shortage items to become available</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 10: Cancel/Postpone Shipment</h4>
+                <p><strong>Action:</strong> Shipment is held until shortage resolved.</p>
+                <p><strong>System actions:</strong></p>
+                <ul>
+                    <li>Release stock reservation (return to available inventory)</li>
+                    <li>Order status updated to "On Hold - Awaiting Stock"</li>
+                    <li>Customer notified of delay</li>
+                    <li>Expected ship date updated</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 11: System Generates Packing List</h4>
+                <p><strong>Action:</strong> System automatically creates packing list for shipment.</p>
+                <p><strong>Packing list contains:</strong></p>
+                <ul>
+                    <li>Customer name and delivery address</li>
+                    <li>Sales order number and date</li>
+                    <li>Complete list of items being shipped with quantities</li>
+                    <li>Item descriptions and part numbers</li>
+                    <li>Total weight and dimensions (if applicable)</li>
+                    <li>Special handling instructions</li>
+                </ul>
+                <p><strong>Automation:</strong> Packing list auto-generated from picked quantities - no manual typing</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 12: Pack Goods</h4>
+                <p><strong>Action:</strong> Warehouse staff packs goods for shipment.</p>
+                <p><strong>Packing activities:</strong></p>
+                <ul>
+                    <li>Select appropriate packaging (box, pallet, crate)</li>
+                    <li>Pack items securely with protective materials</li>
+                    <li>Include packing list in shipment</li>
+                    <li>Seal and label package</li>
+                    <li>Weigh and measure packed shipment</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 13: System Generates Shipping Docs</h4>
+                <p><strong>Action:</strong> System automatically creates shipping documentation.</p>
+                <p><strong>Shipping documents include:</strong></p>
+                <ul>
+                    <li>Delivery note/waybill</li>
+                    <li>Commercial invoice (for export shipments)</li>
+                    <li>Packing list (customer copy)</li>
+                    <li>Certificate of origin (if required)</li>
+                    <li>Customs declaration (for international shipments)</li>
+                </ul>
+                <p><strong>Automation:</strong> All documents populated from order data - no manual data entry</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 14: Select Carrier & Print Labels</h4>
+                <p><strong>Action:</strong> System assigns carrier and generates shipping labels.</p>
+                <p><strong>Carrier selection logic:</strong></p>
+                <ul>
+                    <li>Customer's preferred carrier (if specified)</li>
+                    <li>Delivery location and service level</li>
+                    <li>Package weight and dimensions</li>
+                    <li>Cost optimization rules</li>
+                </ul>
+                <p><strong>Label generation:</strong></p>
+                <ul>
+                    <li>Carrier-specific label format</li>
+                    <li>Tracking number assigned</li>
+                    <li>Destination address and barcode</li>
+                    <li>Service level (standard, express, overnight)</li>
+                </ul>
+                <p><strong>Integration:</strong> Direct carrier API integration for label generation (FedEx, UPS, DHL, etc.)</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 15: Handover to Carrier</h4>
+                <p><strong>Action:</strong> Physical shipment handed over to logistics carrier.</p>
+                <p><strong>Handover process:</strong></p>
+                <ul>
+                    <li>Carrier pickup or drop-off at carrier depot</li>
+                    <li>Carrier scans and accepts shipment</li>
+                    <li>Proof of handover received</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 16: System Logs Shipment</h4>
+                <p><strong>Action:</strong> System records shipment details and tracking info.</p>
+                <p><strong>Shipment record includes:</strong></p>
+                <ul>
+                    <li>Shipment date and time</li>
+                    <li>Carrier name and service level</li>
+                    <li>Tracking number</li>
+                    <li>Package count, weight, and dimensions</li>
+                    <li>Shipped quantities per item</li>
+                    <li>Shipping personnel ID</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 17: Update Order Status: Shipped</h4>
+                <p><strong>Action:</strong> System automatically updates order status.</p>
+                <p><strong>Status updates:</strong></p>
+                <ul>
+                    <li>Order status: "Shipped"</li>
+                    <li>Ship date recorded</li>
+                    <li>Inventory reduced (goods removed from warehouse)</li>
+                    <li>Tracking number linked to order</li>
+                </ul>
+                <p><strong>Notifications sent to:</strong></p>
+                <ul>
+                    <li>Customer: Shipment confirmation with tracking number</li>
+                    <li>Sales rep: Order shipped notification</li>
+                    <li>Accounting: Trigger for invoice generation</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 18: System Auto-Generates Invoice</h4>
+                <p><strong>Action:</strong> Invoice created automatically upon shipment.</p>
+                <p><strong>Invoice details auto-populated:</strong></p>
+                <ul>
+                    <li>Customer billing information from master data</li>
+                    <li>Items shipped with quantities and unit prices</li>
+                    <li>Subtotal, taxes, shipping charges</li>
+                    <li>Payment terms (net 30, net 60, etc.)</li>
+                    <li>Invoice date (shipment date)</li>
+                    <li>Due date calculated from payment terms</li>
+                    <li>Invoice number (auto-generated sequential)</li>
+                </ul>
+                <p><strong>Automation:</strong> No manual invoice typing - all data from sales order and shipment</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 19: Invoice Sent to Customer</h4>
+                <p><strong>Action:</strong> Invoice delivered to customer automatically.</p>
+                <p><strong>Delivery methods:</strong></p>
+                <ul>
+                    <li><strong>Email:</strong> PDF invoice to customer's billing email</li>
+                    <li><strong>Customer Portal:</strong> Posted to online portal for download</li>
+                    <li><strong>EDI:</strong> Electronic Data Interchange for large customers</li>
+                    <li><strong>Print & Mail:</strong> For customers requiring paper invoices</li>
+                </ul>
+                <p><strong>System:</strong> Tracks invoice sent date and delivery confirmation</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 20: System Tracks Delivery</h4>
+                <p><strong>Action:</strong> System monitors shipment delivery status via carrier tracking.</p>
+                <p><strong>Tracking updates:</strong></p>
+                <ul>
+                    <li>In transit status updates</li>
+                    <li>Expected delivery date</li>
+                    <li>Delivery exceptions (delays, issues)</li>
+                    <li>Delivery confirmation (signed receipt)</li>
+                </ul>
+                <p><strong>Integration:</strong> Automatic tracking updates via carrier API</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 21: Delivery Confirmed Decision</h4>
+                <p><strong>Decision:</strong> Has carrier confirmed successful delivery?</p>
+                <p><strong>Confirmed:</strong> Carrier provides proof of delivery (signature, photo, GPS)</p>
+                <p><strong>Not Confirmed:</strong> Shipment still in transit or delivery attempted but failed</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 22: Update Order Status: Delivered</h4>
+                <p><strong>Action:</strong> System updates order to delivered status.</p>
+                <p><strong>Status updates:</strong></p>
+                <ul>
+                    <li>Order status: "Delivered"</li>
+                    <li>Actual delivery date recorded</li>
+                    <li>Proof of delivery (POD) saved in system</li>
+                    <li>Delivery recipient name captured</li>
+                </ul>
+                <p><strong>Notifications:</strong></p>
+                <ul>
+                    <li>Sales team: Order successfully delivered</li>
+                    <li>Customer service: For customer inquiries reference</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 23: Trigger Payment Tracking</h4>
+                <p><strong>Action:</strong> System activates payment monitoring workflow.</p>
+                <p><strong>Payment tracking initiated:</strong></p>
+                <ul>
+                    <li>Invoice recorded in Accounts Receivable (AR)</li>
+                    <li>Payment due date calculated</li>
+                    <li>Automated payment reminders scheduled</li>
+                    <li>AR aging bucket assigned (current, 30 days, 60 days, 90+ days)</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 24: Monitor Payment Due Date</h4>
+                <p><strong>Action:</strong> System monitors invoice payment status daily.</p>
+                <p><strong>Monitoring activities:</strong></p>
+                <ul>
+                    <li>Countdown to payment due date</li>
+                    <li>Check for payment receipt</li>
+                    <li>Calculate days overdue if past due date</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 25: Payment Received Decision</h4>
+                <p><strong>Decision:</strong> Has customer paid the invoice?</p>
+                <p><strong>Payment methods tracked:</strong></p>
+                <ul>
+                    <li>Bank transfer/wire</li>
+                    <li>Check deposit</li>
+                    <li>Credit card payment</li>
+                    <li>Online payment portal</li>
+                </ul>
+                <p><strong>If Yes (Payment Received):</strong> Close order and update AR</p>
+                <p><strong>If No (Not Paid):</strong> Send payment reminder</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 26: Close Order & Update AR</h4>
+                <p><strong>Action:</strong> Order closed and payment recorded.</p>
+                <p><strong>System updates:</strong></p>
+                <ul>
+                    <li>Invoice status: "Paid"</li>
+                    <li>Payment date and amount recorded</li>
+                    <li>Payment method noted</li>
+                    <li>Accounts Receivable balance reduced</li>
+                    <li>Cash/bank account increased</li>
+                    <li>Order lifecycle complete</li>
+                </ul>
+                <p><strong>Analytics:</strong> Payment captured for cash flow reporting and DSO (Days Sales Outstanding) calculation</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 27: Send Payment Reminder</h4>
+                <p><strong>Action:</strong> System sends automated payment reminder to customer.</p>
+                <p><strong>Reminder schedule:</strong></p>
+                <ul>
+                    <li>Friendly reminder: 3-5 days before due date</li>
+                    <li>Due date reminder: On due date if not paid</li>
+                    <li>Overdue reminder: 7 days, 14 days, 30 days past due</li>
+                </ul>
+                <p><strong>Reminder contains:</strong></p>
+                <ul>
+                    <li>Invoice number and amount</li>
+                    <li>Original due date</li>
+                    <li>Days overdue (if applicable)</li>
+                    <li>Payment instructions</li>
+                    <li>Invoice copy attached</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 28: Overdue Decision</h4>
+                <p><strong>Decision:</strong> Is invoice overdue beyond grace period?</p>
+                <p><strong>Grace period:</strong> Typically 30-60 days depending on customer terms</p>
+                <p><strong>If Yes (Seriously Overdue):</strong> Escalate to collections</p>
+                <p><strong>If No (Within Grace):</strong> Continue monitoring and reminders</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 29: Escalate to Collections</h4>
+                <p><strong>Action:</strong> Overdue invoice escalated for intensive collection efforts.</p>
+                <p><strong>Collections actions:</strong></p>
+                <ul>
+                    <li>Personal phone call from AR manager</li>
+                    <li>Customer account put on credit hold (no new orders)</li>
+                    <li>Dispute resolution if customer claims issues</li>
+                    <li>Payment plan negotiation</li>
+                    <li>Legal action consideration (for large amounts)</li>
+                    <li>Bad debt provision (if uncollectible)</li>
+                </ul>
+                <p><strong>System:</strong> Flags customer for credit review and future order approval</p>
+            </div>
+            
+            <h3>Key Automation Points</h3>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic Pick List Generation</h4>
+                <p>Pick lists created automatically from sales orders with optimized picking sequence and locations - no manual list preparation.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automated Shipping Documentation</h4>
+                <p>Packing lists, delivery notes, and shipping labels generated automatically - all documents populated from order data with no manual typing.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Carrier Integration & Tracking</h4>
+                <p>Direct integration with carriers (FedEx, UPS, DHL) for automated label generation, tracking number assignment, and delivery status updates.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic Invoice Generation</h4>
+                <p>Invoices created automatically upon shipment with all details from sales order - no manual invoice typing or calculation errors.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automated Customer Notifications</h4>
+                <p>Customers receive shipment confirmations, tracking numbers, and invoices automatically via email or portal - no manual communication required.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Real-Time Delivery Tracking</h4>
+                <p>System monitors delivery status automatically via carrier APIs - provides visibility without manual tracking number checks.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automated Payment Reminders</h4>
+                <p>Payment reminders sent automatically based on due dates and aging - reduces manual follow-up and improves cash collection.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Exception-Based Fulfillment</h4>
+                <p>Orders flow automatically from picking to delivery to payment. Teams only intervene for quantity variances, delivery failures, or payment issues.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Mermaid Code -->
+        <div class="section code-section">
+            <h2>3. Mermaid Code Snippet</h2>
+            <p>Copy the code below to use this flowchart in your own documentation or tools that support Mermaid diagrams.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Mermaid Flowchart Code</span>
+                    <button class="copy-button" onclick="copyCode()">Copy Code</button>
+                </div>
+                <pre><code id="mermaid-code">flowchart TD
+    A[Order ready to ship] --> B[System generates pick list]
+    B --> C[Warehouse picks goods]
+    C --> D[Scan & confirm picked quantity]
+    D --> E{Picked qty = ordered qty?}
+    E -- Yes --> F[System generates packing list]
+    E -- No --> G[Flag shortage/variance]
+    G --> H[Notify sales team]
+    H --> I[Manual review & decision]
+    I --> J{Proceed with partial ship?}
+    J -- Yes --> F
+    J -- No --> K[Cancel/postpone shipment]
+    F --> L[Pack goods]
+    L --> M[System generates shipping docs]
+    M --> N[Select carrier & print labels]
+    N --> O[Handover to carrier]
+    O --> P[System logs shipment]
+    P --> Q[Update order status: Shipped]
+    Q --> R[System auto-generates invoice]
+    R --> S[Invoice sent to customer]
+    S --> T[System tracks delivery]
+    T --> U{Delivery confirmed?}
+    U -- Yes --> V[Update order status: Delivered]
+    V --> W[Trigger payment tracking]
+    W --> X[Monitor payment due date]
+    X --> Y{Payment received?}
+    Y -- Yes --> Z[Close order & update AR]
+    Y -- No --> AA[Send payment reminder]
+    AA --> AB{Overdue?}
+    AB -- Yes --> AC[Escalate to collections]
+    AB -- No --> X</code></pre>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>ERP Automation System - Business Flow Documentation</p>
+            <p>Generated: October 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Copy code function
+        function copyCode() {
+            const code = document.getElementById('mermaid-code').textContent;
+            const button = document.querySelector('.copy-button');
+            
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = 'Copy Code';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

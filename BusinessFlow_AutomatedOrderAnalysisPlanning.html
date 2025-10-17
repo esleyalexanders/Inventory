@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Flow: Automated Order Analysis & Planning - ERP Automation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .flowchart-container {
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .explanation-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .step-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        
+        .step-box h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .automation-point {
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f1f9f4;
+        }
+        
+        .automation-point h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        
+        .code-section {
+            margin: 30px 0;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            border-radius: 5px;
+            padding: 0;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-header {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .copy-button {
+            background: #2c5aa0;
+            color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .copy-button:hover {
+            background: #1e3f7a;
+        }
+        
+        .copy-button.copied {
+            background: #28a745;
+        }
+        
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            .copy-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <a href="index.html" class="back-link">← Back to System Overview</a>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>Business Flow: Automated Order Analysis & Planning</h1>
+            <p>Intelligent stock checking, production planning, and delivery date calculation</p>
+        </div>
+
+        <!-- Section 1: Visual Flowchart -->
+        <div class="section">
+            <h2>1. Visual Flowchart</h2>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    A[Order received & validated] --> B[System checks BOM stock]
+    B --> C{BOM stock sufficient?}
+    C -- Yes --> D[Reserve BOM for order]
+    D --> E[Trigger shipping/invoicing]
+    C -- No --> F[System checks semi-finished stock]
+    F --> G{Semi-finished stock sufficient?}
+    G -- Yes --> H[Plan final assembly]
+    H --> I[Trigger production work order]
+    G -- No --> J[System checks component stock]
+    J --> K{Can in-house make enough components on time?}
+    K -- Yes --> L[Auto-generate in-house production plan]
+    L --> M[Trigger production work order]
+    K -- No --> N[System auto-suggests outsourcing]
+    N --> O[Generate vendor RFQ/PO]
+    O --> P[Vendor confirms lead time]
+    P --> Q[System calculates material available date]
+    Q --> R[System calculates delivery date]
+    R --> S[Update order plan & notify users]
+    M --> Q
+    I --> Q
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Flow Explanation -->
+        <div class="section">
+            <h2>2. Flow Chart Explanation</h2>
+            
+            <div class="explanation-box">
+                <p>This intelligent planning workflow analyzes each order and determines the optimal fulfillment strategy. The system checks stock availability at multiple levels (BOM, semi-finished, components), prioritizes in-house production, and automatically generates production plans or outsourcing requests. Material available dates and delivery dates are calculated automatically based on lead times and production capacity.</p>
+            </div>
+            
+            <h3>Process Flow Steps</h3>
+            
+            <div class="step-box">
+                <h4>Step 1: Order Reception</h4>
+                <p><strong>Action:</strong> Order received and validated from previous step (Order Intake).</p>
+                <p><strong>System:</strong> Order is ready for planning analysis with validated customer and BOM data.</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 2: BOM Stock Check</h4>
+                <p><strong>Action:</strong> System automatically checks finished goods (BOM) inventory.</p>
+                <p><strong>System checks:</strong></p>
+                <ul>
+                    <li>Current on-hand quantity of BOM</li>
+                    <li>Available quantity (on-hand minus reserved for other orders)</li>
+                    <li>Real-time stock status across all locations</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 3: BOM Stock Decision</h4>
+                <p><strong>Decision:</strong> Is BOM stock sufficient for this order?</p>
+                <p><strong>If Yes (Stock Available):</strong></p>
+                <ul>
+                    <li>System reserves BOM quantity for this order</li>
+                    <li>Stock status updated to "Reserved"</li>
+                    <li>Triggers shipping and invoicing process (fastest fulfillment path)</li>
+                    <li>Order can ship immediately or per requested date</li>
+                </ul>
+                <p><strong>If No (Insufficient Stock):</strong> Proceeds to check semi-finished goods</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 4: Semi-Finished Stock Check</h4>
+                <p><strong>Action:</strong> System checks semi-finished goods inventory.</p>
+                <p><strong>System checks:</strong></p>
+                <ul>
+                    <li>Semi-finished components that can be assembled into final BOM</li>
+                    <li>Available quantity considering other commitments</li>
+                    <li>Assembly time required for final production</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 5: Semi-Finished Stock Decision</h4>
+                <p><strong>Decision:</strong> Is semi-finished stock sufficient?</p>
+                <p><strong>If Yes (Semi-Finished Available):</strong></p>
+                <ul>
+                    <li>System plans final assembly/packaging work</li>
+                    <li>Generates production work order for assembly</li>
+                    <li>Calculates assembly time and completion date</li>
+                </ul>
+                <p><strong>If No (Insufficient Semi-Finished):</strong> Proceeds to component stock check</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 6: Component Stock Check</h4>
+                <p><strong>Action:</strong> System checks raw component/material inventory.</p>
+                <p><strong>System checks:</strong></p>
+                <ul>
+                    <li>All components required per BOM structure</li>
+                    <li>Available quantity of each component</li>
+                    <li>Incoming components (pending POs)</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 7: In-House Production Feasibility</h4>
+                <p><strong>Decision:</strong> Can in-house production make enough components on time?</p>
+                <p><strong>System evaluates:</strong></p>
+                <ul>
+                    <li>In-house production capacity availability</li>
+                    <li>Production time required per component</li>
+                    <li>Current production schedule and workload</li>
+                    <li>Customer's requested delivery date</li>
+                </ul>
+                <p><strong>If Yes (In-House Can Meet Deadline):</strong></p>
+                <ul>
+                    <li>System auto-generates in-house production plan</li>
+                    <li>Creates production work orders for components</li>
+                    <li>Allocates capacity and schedules production</li>
+                    <li><strong>Priority:</strong> In-house production is always preferred</li>
+                </ul>
+                <p><strong>If No (In-House Cannot Meet Deadline):</strong> System suggests outsourcing</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 8: Outsourcing Recommendation</h4>
+                <p><strong>Action:</strong> System automatically suggests outsourcing to vendors.</p>
+                <p><strong>System logic:</strong></p>
+                <ul>
+                    <li>Identifies components that need outsourcing</li>
+                    <li>Selects appropriate vendors based on capability and lead time</li>
+                    <li>Calculates required quantities</li>
+                    <li>Note: Components can ONLY be sourced via outsource vendors (not direct purchase)</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 9: Vendor RFQ/PO Generation</h4>
+                <p><strong>Action:</strong> System generates RFQ (Request for Quotation) or PO (Purchase Order) to vendor.</p>
+                <p><strong>Automated actions:</strong></p>
+                <ul>
+                    <li>Auto-populate component specifications from master data</li>
+                    <li>Calculate required quantities and delivery dates</li>
+                    <li>Send to vendor via portal, API, or email</li>
+                    <li>Track PO status in system</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 10: Vendor Lead Time Confirmation</h4>
+                <p><strong>Action:</strong> Vendor reviews and confirms lead time.</p>
+                <p><strong>Vendor provides:</strong></p>
+                <ul>
+                    <li>Confirmed delivery date</li>
+                    <li>Lead time in days/weeks</li>
+                    <li>Any special conditions or constraints</li>
+                </ul>
+                <p><strong>System:</strong> Captures vendor response and updates planning data</p>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 11: Material Available Date Calculation</h4>
+                <p><strong>Action:</strong> System calculates when all materials will be available.</p>
+                <p><strong>Calculation logic:</strong></p>
+                <ul>
+                    <li>For in-house production: Production completion date</li>
+                    <li>For outsourced components: Vendor delivery date</li>
+                    <li>Material Available Date = Latest date among all components</li>
+                    <li>Considers all dependencies and lead times</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 12: Delivery Date Calculation</h4>
+                <p><strong>Action:</strong> System calculates final delivery date to customer.</p>
+                <p><strong>Calculation formula:</strong></p>
+                <ul>
+                    <li>Delivery Date = Material Available Date + Production Time + QC Time + Packaging Time + Shipping Time</li>
+                    <li>Includes buffer days for safety</li>
+                    <li>Considers non-working days (weekends, holidays)</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h4>Step 13: Plan Update & Notification</h4>
+                <p><strong>Action:</strong> System updates order plan and notifies all stakeholders.</p>
+                <p><strong>System updates:</strong></p>
+                <ul>
+                    <li>Order status with production plan details</li>
+                    <li>Expected material available date</li>
+                    <li>Calculated delivery date</li>
+                </ul>
+                <p><strong>Notifications sent to:</strong></p>
+                <ul>
+                    <li>Sales team: Delivery date for customer communication</li>
+                    <li>Production team: Work orders and schedule</li>
+                    <li>Procurement team: POs and vendor tracking</li>
+                    <li>Warehouse: Expected material receipts</li>
+                    <li>Customer (optional): Order acknowledgment with delivery date</li>
+                </ul>
+            </div>
+            
+            <h3>Key Automation Points</h3>
+            
+            <div class="automation-point">
+                <h4>✓ Real-Time Multi-Level Stock Checking</h4>
+                <p>System automatically checks BOM → Semi-Finished → Components in sequence, finding the fastest fulfillment path without manual inventory lookups.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Intelligent In-House vs Outsource Decision</h4>
+                <p>System prioritizes in-house production and only suggests outsourcing when capacity or time constraints exist. Decision is data-driven based on real capacity and lead times.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic Production Plan Generation</h4>
+                <p>Work orders for in-house production are generated automatically with proper quantities, scheduling, and material allocations - no manual planning required.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automated Vendor RFQ/PO Creation</h4>
+                <p>When outsourcing is needed, RFQs and POs are generated automatically with complete specifications and sent to vendors digitally.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Automatic Date Calculations</h4>
+                <p>Material available dates and delivery dates are calculated automatically considering all lead times, production times, and dependencies - provides accurate commitments to customers.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Comprehensive Stakeholder Notifications</h4>
+                <p>All relevant teams receive automatic notifications with the information they need - sales gets delivery dates, production gets work orders, procurement gets POs.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Mermaid Code -->
+        <div class="section code-section">
+            <h2>3. Mermaid Code Snippet</h2>
+            <p>Copy the code below to use this flowchart in your own documentation or tools that support Mermaid diagrams.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Mermaid Flowchart Code</span>
+                    <button class="copy-button" onclick="copyCode()">Copy Code</button>
+                </div>
+                <pre><code id="mermaid-code">flowchart TD
+    A[Order received & validated] --> B[System checks BOM stock]
+    B --> C{BOM stock sufficient?}
+    C -- Yes --> D[Reserve BOM for order]
+    D --> E[Trigger shipping/invoicing]
+    C -- No --> F[System checks semi-finished stock]
+    F --> G{Semi-finished stock sufficient?}
+    G -- Yes --> H[Plan final assembly]
+    H --> I[Trigger production work order]
+    G -- No --> J[System checks component stock]
+    J --> K{Can in-house make enough components on time?}
+    K -- Yes --> L[Auto-generate in-house production plan]
+    L --> M[Trigger production work order]
+    K -- No --> N[System auto-suggests outsourcing]
+    N --> O[Generate vendor RFQ/PO]
+    O --> P[Vendor confirms lead time]
+    P --> Q[System calculates material available date]
+    Q --> R[System calculates delivery date]
+    R --> S[Update order plan & notify users]
+    M --> Q
+    I --> Q</code></pre>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>ERP Automation System - Business Flow Documentation</p>
+            <p>Generated: October 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Copy code function
+        function copyCode() {
+            const code = document.getElementById('mermaid-code').textContent;
+            const button = document.querySelector('.copy-button');
+            
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = 'Copy Code';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
