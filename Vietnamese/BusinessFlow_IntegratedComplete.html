@@ -3,139 +3,714 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quy Trình: Tích Hợp & Hoàn Chỉnh - Tự Động ERP</title>
+    <title>Quy Trình Kinh Doanh Tích Hợp Từ Đầu Đến Cuối - Tự Động Hóa ERP</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, Helvetica, sans-serif; line-height: 1.6; color: #000; background: #fff; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        .header { border-bottom: 3px solid #000; padding-bottom: 20px; margin-bottom: 40px; }
-        .header h1 { font-size: 28px; font-weight: bold; margin-bottom: 10px; color: #1a1a1a; }
-        .header p { font-size: 16px; color: #666; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #2c5aa0; text-decoration: none; font-size: 14px; }
-        .back-link:hover { text-decoration: underline; }
-        .section { margin-bottom: 40px; }
-        h2 { font-size: 22px; font-weight: bold; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #333; color: #1a1a1a; }
-        h3 { font-size: 18px; font-weight: bold; margin: 25px 0 15px 0; padding: 12px; background: #f5f5f5; border-left: 4px solid #666; }
-        h4 { font-size: 16px; font-weight: bold; margin: 20px 0 10px 0; color: #333; }
-        p { margin-bottom: 12px; font-size: 14px; }
-        ul { margin: 10px 0 15px 25px; font-size: 14px; }
-        li { margin: 8px 0; }
-        .flowchart-container { background: #f8f8f8; border: 2px solid #ddd; border-radius: 5px; padding: 30px; margin: 30px 0; text-align: center; overflow-x: auto; }
-        .mermaid { display: inline-block; text-align: left; }
-        .explanation-box { border: 2px solid #666; padding: 25px; margin: 20px 0; background: #f8f8f8; border-radius: 5px; }
-        .step-box { background: #fff; border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-left: 4px solid #2c5aa0; }
-        .step-box h4 { color: #2c5aa0; margin-top: 0; }
-        .automation-point { border-left: 4px solid #28a745; padding: 15px 20px; margin: 15px 0; background: #f1f9f4; }
-        .automation-point h4 { color: #28a745; margin-top: 0; }
-        .code-section { margin: 30px 0; }
-        .code-container { background: #2d2d2d; border-radius: 5px; padding: 0; margin: 20px 0; position: relative; }
-        .code-header { background: #1a1a1a; padding: 10px 20px; border-radius: 5px 5px 0 0; display: flex; justify-content: space-between; align-items: center; }
-        .code-title { color: #fff; font-size: 14px; font-weight: bold; }
-        .copy-button { background: #2c5aa0; color: #fff; border: none; padding: 6px 15px; border-radius: 3px; cursor: pointer; font-size: 12px; transition: background 0.3s; }
-        .copy-button:hover { background: #1e3f7a; }
-        .copy-button.copied { background: #28a745; }
-        pre { margin: 0; padding: 20px; overflow-x: auto; }
-        code { font-family: 'Courier New', monospace; font-size: 13px; color: #f8f8f2; line-height: 1.5; }
-        .legend { background: #fff; border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 5px; }
-        .legend h4 { margin-top: 0; margin-bottom: 15px; }
-        .legend-item { display: inline-block; margin-right: 30px; margin-bottom: 10px; }
-        .legend-color { display: inline-block; width: 30px; height: 20px; border-radius: 3px; margin-right: 8px; vertical-align: middle; }
-        .color-manual { background: #fff3e0; border: 2px solid #ef6c00; }
-        .color-decision { background: #ffebee; border: 2px solid #c62828; }
-        .color-system { background: #e3f2fd; border: 2px solid #1976d2; }
-        @media print { .container { max-width: 100%; } .copy-button { display: none; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .flowchart-container {
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .explanation-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .integration-point {
+            border-left: 4px solid #2c5aa0;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f5f9ff;
+        }
+        
+        .integration-point h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        
+        .automation-point {
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f1f9f4;
+        }
+        
+        .automation-point h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        
+        .legend-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+            font-size: 13px;
+        }
+        
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid #999;
+        }
+        
+        .code-section {
+            margin: 30px 0;
+        }
+        
+        .code-container {
+            background: #2d2d2d;
+            border-radius: 5px;
+            padding: 0;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-header {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .copy-button {
+            background: #2c5aa0;
+            color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .copy-button:hover {
+            background: #1e3f7a;
+        }
+        
+        .copy-button.copied {
+            background: #28a745;
+        }
+        
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .container {
+                max-width: 100%;
+            }
+            
+            .copy-button {
+                display: none;
+            }
+        }
     </style>
-    <!-- ...existing code for translated content... -->
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>QUY TRÌNH: TÍCH HỢP & HOÀN CHỈNH</h1>
-        <p style="margin-top: 10px; color: #666;">Quy trình tích hợp toàn bộ hệ thống ERP và vận hành hoàn chỉnh</p>
-    </div>
-    <a class="back-link" href="../index.html">← Quay lại Trang chính</a>
-    <div class="section">
-        <h2>1. Mục tiêu quy trình</h2>
-        <p>Tích hợp các quy trình sản xuất, kho, bán hàng, báo cáo thành một hệ thống hoàn chỉnh, đồng bộ dữ liệu và vận hành tự động.</p>
-    </div>
-    <div class="section">
-        <h2>2. Sơ đồ luồng quy trình</h2>
-        <div class="flowchart-container">
-            <div class="mermaid">
-                graph TD
-                A[Đơn hàng khách hàng] --> B[Phân tích & lập kế hoạch]
-                B --> C[Thu mua/gia công ngoài]
-                C --> D[Thực hiện sản xuất]
-                D --> E[Kiểm tra chất lượng & nhập kho]
-                E --> F[Giao hàng & xuất hóa đơn]
-                F --> G[Báo cáo & bảng điều khiển]
-                G --> H[Quản lý ra quyết định]
+    <div class="container">
+        <!-- Back Link -->
+        <a href="index.html" class="back-link">← Quay lại Tổng Quan Hệ Thống</a>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>Quy Trình Kinh Doanh Tích Hợp Từ Đầu Đến Cuối</h1>
+            <p>Tự động hóa hoàn chỉnh từ đơn hàng đến giao hàng, cho thấy tất cả các quy trình hoạt động liền mạch với nhau</p>
+        </div>
+
+        <!-- Section 1: Complete Visual Flowchart -->
+        <div class="section">
+            <h2>1. Quy Trình Hoàn Chỉnh Từ Đơn Hàng Đến Giao Hàng</h2>
+            
+            <div class="explanation-box">
+                <p><strong>Sơ đồ này thể hiện quy trình tích hợp hoàn chỉnh</strong> từ tiếp nhận đơn hàng khách hàng qua lập kế hoạch, thu mua, sản xuất, kiểm tra chất lượng, giao hàng và xuất hóa đơn. Tất cả các giai đoạn được tự động hóa và kết nối với nhau, với các điểm quyết định thông minh để chuyển công việc đến đúng luồng xử lý. Xử lý ngoại lệ được tích hợp sẵn ở mọi giai đoạn để đảm bảo các vấn đề được đánh dấu và giải quyết nhanh chóng.</p>
+            </div>
+            
+            <div class="legend-box">
+                <h4>Chú Giải Sơ Đồ:</h4>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #e3f2fd; border-color: #1976d2;"></span>
+                    <span>Quy Trình Tự Động</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #fff3e0; border-color: #f57c00;"></span>
+                    <span>Điểm Quyết Định</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #ffebee; border-color: #c62828;"></span>
+                    <span>Ngoại Lệ/Cảnh Báo</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #e8f5e9; border-color: #388e3c;"></span>
+                    <span>Hoàn Thành/Thành Công</span>
+                </div>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    %% GIAI ĐOẠN 1: TIẾP NHẬN ĐỐN HÀNG
+    A[Khách hàng gửi PO] --> B[Hệ thống xác thực PO]
+    B --> C{PO hợp lệ & khách hàng OK?}
+    C -- Không --> D[Cảnh báo sale/tài chính kiểm tra]
+    C -- Có --> E[Tạo bản ghi đơn hàng]
+    
+    %% GIAI ĐOẠN 2: LẬP KẾ HOẠCH & PHÂN TÍCH
+    E --> F[Hệ thống kiểm tra tồn kho BOM]
+    F --> G{Tồn kho BOM đủ?}
+    G -- Có --> H[Dự trữ BOM & kích hoạt giao hàng]
+    G -- Không --> I[Kiểm tra tồn kho bán thành phẩm]
+    I --> J{Bán thành phẩm đủ?}
+    J -- Có --> K[Lập kế hoạch lắp ráp cuối]
+    J -- Không --> L[Kiểm tra tồn kho component]
+    L --> M{Có thể sản xuất component nội bộ kịp thời?}
+    M -- Có --> N[Tự động tạo kế hoạch sản xuất nội bộ]
+    M -- Không --> O[Tự động tạo RFQ/PO cho vendor]
+    
+    %% GIAI ĐOẠN 3: THU MUA (nếu cần)
+    O --> P[Gửi RFQ/PO cho vendor]
+    P --> Q[Vendor xác nhận thời gian giao hàng]
+    Q --> R{Thời gian chấp nhận được?}
+    R -- Không --> S[Cảnh báo planner kiểm tra]
+    R -- Có --> T[Vendor giao component]
+    T --> U[Nhận hàng & QC component]
+    U --> V{QC đạt?}
+    V -- Không --> W[Khóa kho & cảnh báo]
+    V -- Có --> X[Cập nhật tồn kho thành sẵn sàng]
+    X --> N
+    
+    %% GIAI ĐOẠN 4: SẢN XUẤT
+    N --> Y{Loại sản xuất?}
+    Y -- Nội bộ --> Z[Tạo lệnh sản xuất & pick list]
+    Z --> AA[Sản xuất theo dõi tiến độ]
+    AA --> AB[Kiểm tra QC trong quá trình]
+    Y -- Outsource --> AC[Gửi lệnh sản xuất cho vendor]
+    AC --> AD[Vendor cập nhật tiến độ]
+    AD --> AE[Vendor giao hàng]
+    
+    %% GIAI ĐOẠN 5: CHẤT LƯỢNG & TỒN KHO
+    AB --> AF{QC cuối đạt?}
+    AE --> AF
+    K --> AF
+    AF -- Không --> AG[Làm lại/loại bỏ & cảnh báo]
+    AF -- Có --> AH[Cập nhật tồn kho: BOM sẵn sàng]
+    AG --> AA
+    
+    %% GIAI ĐOẠN 6: GIAO HÀNG & XUẤT HÓA ĐƠN
+    AH --> AI[Kiểm tra đáp ứng đơn hàng]
+    H --> AI
+    AI --> AJ[Tạo pick/pack list]
+    AJ --> AK[Lấy & đóng gói hàng]
+    AK --> AL[Tạo chứng từ giao hàng]
+    AL --> AM[Giao hàng cho khách]
+    AM --> AN[Tự động kích hoạt hóa đơn]
+    AN --> AO[Thông báo khách với mã tracking]
+    AM --> AP[Cập nhật trạng thái giao hàng]
+    AP --> AQ{Giao hàng xác nhận?}
+    AQ -- Có --> AR[Đóng đơn hàng]
+    AQ -- Không --> AS[Giám sát & cảnh báo nếu trễ]
+    
+    %% GIAI ĐOẠN 7: GIÁM SÁT LIÊN TỤC
+    AR --> AT[Cập nhật dashboard & báo cáo]
+    AS --> AT
+    AT --> AU[Tự động tạo cảnh báo ngoại lệ]
+    AU --> AV[Ban quản lý xem xét KPI]
+    
+    classDef automated fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef exception fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef complete fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    
+    class B,E,F,I,L,N,O,P,Q,T,U,X,Z,AA,AB,AC,AD,AE,AH,AI,AJ,AK,AL,AM,AN,AO,AP,AT automated
+    class C,G,J,M,R,V,Y,AF,AQ decision
+    class D,S,W,AG,AS,AU exception
+    class AR,AV complete
+                </div>
             </div>
         </div>
-        <div class="legend">
-            <h4>Chú thích màu sắc:</h4>
-            <span class="legend-item"><span class="legend-color color-manual"></span> Thao tác thủ công</span>
-            <span class="legend-item"><span class="legend-color color-decision"></span> Quyết định</span>
-            <span class="legend-item"><span class="legend-color color-system"></span> Tự động hệ thống</span>
+
+        <!-- Section 2: Simplified High-Level View -->
+        <div class="section">
+            <h2>2. Góc Nhìn Tổng Quan Đơn Giản Hóa</h2>
+            
+            <div class="explanation-box">
+                <p>Góc nhìn đơn giản hóa này thể hiện các giai đoạn chính của quy trình từ đơn hàng đến giao hàng. Khi có hàng tồn kho, đơn hàng có thể giao trực tiếp. Khi không có tồn kho, hệ thống tự động chuyển qua thu mua hoặc sản xuất, kiểm tra chất lượng và cập nhật tồn kho trước khi giao hàng.</p>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart LR
+    A[Tiếp Nhận Đơn Hàng] --> B[Lập Kế Hoạch & Phân Tích]
+    B --> C{Có Hàng Tồn Kho?}
+    C -- Có --> D[Giao Trực Tiếp]
+    C -- Không --> E[Thu Mua/Sản Xuất]
+    E --> F[Kiểm Tra Chất Lượng]
+    F --> G[Cập Nhật Tồn Kho]
+    G --> H[Giao Hàng & Xuất Hóa Đơn]
+    D --> H
+    H --> I[Dashboard & Báo Cáo]
+    
+    classDef phase fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    class A,B,C,D,E,F,G,H,I phase
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Key Integration Points -->
+        <div class="section">
+            <h2>3. Các Điểm Tích Hợp Chính</h2>
+            
+            <div class="explanation-box">
+                <p>Sức mạnh của hệ thống tích hợp này đến từ việc chuyển giao liền mạch giữa các quy trình. Mỗi giai đoạn tự động kích hoạt giai đoạn tiếp theo, với dữ liệu chảy qua toàn bộ hệ thống mà không cần can thiệp thủ công.</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>1. Đơn Hàng → Lập Kế Hoạch</h4>
+                <p><strong>Kích hoạt:</strong> Tự động khi đơn hàng được xác thực</p>
+                <p><strong>Dữ liệu truyền:</strong> Yêu cầu khách hàng, ngày giao hàng, thông số kỹ thuật BOM</p>
+                <p><strong>Hành động:</strong> Hệ thống ngay lập tức kiểm tra tình trạng tồn kho và xác định luồng xử lý</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>2. Lập Kế Hoạch → Thu Mua</h4>
+                <p><strong>Kích hoạt:</strong> Tự động tạo RFQ/PO nếu phát hiện thiếu hàng</p>
+                <p><strong>Dữ liệu truyền:</strong> Yêu cầu component, số lượng, thời hạn giao hàng</p>
+                <p><strong>Hành động:</strong> RFQ/PO số hóa gửi cho vendor qua portal/API/email</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>3. Thu Mua → Sản Xuất</h4>
+                <p><strong>Kích hoạt:</strong> Component chuyển trực tiếp vào kế hoạch sản xuất khi nhận hàng và QC phê duyệt</p>
+                <p><strong>Dữ liệu truyền:</strong> Ngày sẵn sàng vật tư, vị trí tồn kho, số batch/lot</p>
+                <p><strong>Hành động:</strong> Lệnh sản xuất được phát hành tự động khi vật tư sẵn sàng</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>4. Sản Xuất → QC → Tồn Kho</h4>
+                <p><strong>Kích hoạt:</strong> Hoàn thành sản xuất kích hoạt kiểm tra QC</p>
+                <p><strong>Dữ liệu truyền:</strong> Số lượng sản xuất, số batch, thời gian sản xuất</p>
+                <p><strong>Hành động:</strong> Kết quả QC tự động cập nhật trạng thái kho (Sẵn sàng/Khóa)</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>5. Tồn Kho → Giao Hàng</h4>
+                <p><strong>Kích hoạt:</strong> Tự động kiểm tra đáp ứng khi thành phẩm sẵn sàng</p>
+                <p><strong>Dữ liệu truyền:</strong> Tình trạng tồn kho, ưu tiên đơn hàng, lịch giao hàng</p>
+                <p><strong>Hành động:</strong> Pick/pack list tự động tạo cho kho</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>6. Giao Hàng → Tài Chính</h4>
+                <p><strong>Kích hoạt:</strong> Tự động xuất hóa đơn khi giao hàng hoặc xác nhận giao hàng</p>
+                <p><strong>Dữ liệu truyền:</strong> Số lượng giao, giá cả, thông tin thanh toán khách hàng, ngày giao hàng</p>
+                <p><strong>Hành động:</strong> Hóa đơn được tạo và gửi cho khách hàng tự động</p>
+            </div>
+            
+            <div class="integration-point">
+                <h4>7. Tất Cả Giai Đoạn → Dashboard</h4>
+                <p><strong>Kích hoạt:</strong> Nguồn dữ liệu thời gian thực từ mọi giao dịch</p>
+                <p><strong>Dữ liệu truyền:</strong> Trạng thái đơn hàng, mức tồn kho, tiến độ sản xuất, theo dõi giao hàng, chỉ số tài chính</p>
+                <p><strong>Hành động:</strong> Dashboard cập nhật tự động; cảnh báo ngoại lệ được tạo khi vượt ngưỡng</p>
+            </div>
+        </div>
+
+        <!-- Section 4: Automation Benefits -->
+        <div class="section">
+            <h2>4. Lợi Ích Tự Động Hóa</h2>
+            
+            <div class="automation-point">
+                <h4>✓ Không Cần Chuyển Giao Thủ Công</h4>
+                <p>Hệ thống quản lý tất cả các chuyển đổi giữa các quy trình tự động. Không cần email, điện thoại hay cuộc họp để chuyển công việc từ giai đoạn này sang giai đoạn khác. Mỗi giai đoạn hoàn thành kích hoạt giai đoạn tiếp theo mà không cần can thiệp của con người.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Quản Lý Dựa Trên Ngoại Lệ</h4>
+                <p>Người dùng chỉ xử lý phê duyệt, leo thang và vấn đề. Xử lý đơn hàng thông thường diễn ra tự động. Ban quản lý tập trung vào các ngoại lệ (lỗi chất lượng, chậm trễ, vấn đề khách hàng) thay vì theo dõi trạng thái.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Hiển Thị Thời Gian Thực</h4>
+                <p>Mọi bên liên quan đều thấy trạng thái hiện tại qua toàn bộ quy trình từ đơn hàng đến giao hàng. Sale biết trạng thái sản xuất, sản xuất biết khi nào vật tư sẽ đến, kho biết phải giao gì, tài chính biết phải xuất hóa đơn gì.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Tích Hợp Vendor</h4>
+                <p>Các đối tác gia công ngoài là một phần của quy trình làm việc, không phải hộp đen bên ngoài. Vendor nhận lệnh sản xuất số hóa, cập nhật tiến độ theo thời gian thực và việc giao hàng được theo dõi tự động. Các vấn đề chất lượng được thông báo ngay lập tức.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Cảnh Báo Thông Minh</h4>
+                <p>Thông báo chủ động về chậm trễ, vấn đề chất lượng, hết hàng và vấn đề giao hàng. Hệ thống giám sát mọi đơn hàng và đưa ra cảnh báo trước khi vấn đề leo thang. Không còn bất ngờ hay xử lý vội vã vào phút cuối.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Nguồn Dữ Liệu Duy Nhất</h4>
+                <p>Tất cả dữ liệu trong một hệ thống tập trung loại bỏ các bảng tính xung đột và chuỗi email. Mọi người làm việc từ cùng một dữ liệu. Mức tồn kho, trạng thái đơn hàng và ngày giao hàng luôn nhất quán.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Truy Xuất Nguồn Gốc Từ Đầu Đến Cuối</h4>
+                <p>Dấu vết kiểm tra hoàn chỉnh từ PO khách hàng qua mọi bước sản xuất đến giao hàng cuối cùng và thanh toán. Mọi giao dịch được đóng dấu thời gian với ID người dùng. Truy xuất nguồn gốc và chất lượng đầy đủ cho chứng nhận và kiểm tra khách hàng.</p>
+            </div>
+            
+            <div class="automation-point">
+                <h4>✓ Khả Năng Mở Rộng Mà Không Tăng Nhân Sự</h4>
+                <p>Hệ thống xử lý khối lượng đơn hàng gấp 10 lần với cùng một đội ngũ. Tự động hóa mở rộng vô hạn - không cần thuê thêm planner, nhân viên nhập liệu hay điều phối viên. Đội ngũ tập trung vào công việc tạo giá trị thay vì xử lý thông thường.</p>
+            </div>
+        </div>
+
+        <!-- Section 5: Process Phases Overview -->
+        <div class="section">
+            <h2>5. Tổng Quan Các Giai Đoạn Quy Trình</h2>
+            
+            <h3>Giai Đoạn 1: Tiếp Nhận & Xác Thực Đơn Hàng</h3>
+            <ul>
+                <li>PO khách hàng nhận qua portal, email hoặc API</li>
+                <li>Hệ thống xác thực chất lượng và tính đầy đủ của dữ liệu</li>
+                <li>Kiểm tra tín dụng khách hàng và xác minh trạng thái tài khoản</li>
+                <li>Đơn hàng được tạo và gán ID duy nhất</li>
+                <li><strong>Kết quả:</strong> Đơn hàng đã xác thực sẵn sàng cho lập kế hoạch</li>
+            </ul>
+            
+            <h3>Giai Đoạn 2: Lập Kế Hoạch & Phân Tích</h3>
+            <ul>
+                <li>Kiểm tra tồn kho thông minh đa cấp (BOM → bán thành phẩm → component)</li>
+                <li>Quyết định sản xuất nội bộ vs gia công ngoài</li>
+                <li>Tự động tạo kế hoạch sản xuất hoặc RFQ/PO cho vendor</li>
+                <li>Tính toán ngày sẵn sàng vật tư và ngày giao hàng</li>
+                <li><strong>Kết quả:</strong> Kế hoạch đáp ứng hoàn chỉnh với ngày tháng và phân bổ nguồn lực</li>
+            </ul>
+            
+            <h3>Giai Đoạn 3: Thu Mua & Gia Công Ngoài (nếu cần)</h3>
+            <ul>
+                <li>RFQ/PO số hóa gửi cho vendor</li>
+                <li>Vendor xác nhận thời gian giao hàng qua portal/API</li>
+                <li>Nhận hàng và kiểm tra QC</li>
+                <li>Cập nhật tồn kho khi vật tư được phê duyệt</li>
+                <li><strong>Kết quả:</strong> Vật tư cần thiết sẵn sàng cho sản xuất</li>
+            </ul>
+            
+            <h3>Giai Đoạn 4: Thực Hiện Sản Xuất</h3>
+            <ul>
+                <li>Lệnh sản xuất được tạo cho sản xuất nội bộ hoặc gia công ngoài</li>
+                <li>Lấy vật tư và xuất cho sản xuất</li>
+                <li>Theo dõi tiến độ sản xuất và QC giữa quá trình</li>
+                <li>Hợp tác với vendor cho công việc gia công ngoài</li>
+                <li><strong>Kết quả:</strong> Thành phẩm sẵn sàng cho QC cuối</li>
+            </ul>
+            
+            <h3>Giai Đoạn 5: Kiểm Tra Chất Lượng & Tồn Kho</h3>
+            <ul>
+                <li>Kiểm tra QC cuối với quyết định đạt/không đạt</li>
+                <li>Quản lý trạng thái kho (Cách ly → Sẵn sàng/Khóa)</li>
+                <li>Cập nhật tồn kho với số lượng được phê duyệt</li>
+                <li>Leo thang vấn đề chất lượng cho vendor nếu cần</li>
+                <li><strong>Kết quả:</strong> Hàng hóa được phê duyệt chất lượng sẵn sàng để giao</li>
+            </ul>
+            
+            <h3>Giai Đoạn 6: Giao Hàng & Xuất Hóa Đơn</h3>
+            <ul>
+                <li>Tạo pick/pack list và thực hiện ở kho</li>
+                <li>Chứng từ giao hàng và tích hợp với nhà vận chuyển</li>
+                <li>Tự động tạo hóa đơn khi giao hàng</li>
+                <li>Thông báo khách hàng với thông tin theo dõi</li>
+                <li>Xác nhận giao hàng và đóng đơn hàng</li>
+                <li><strong>Kết quả:</strong> Khách hàng nhận hàng và hóa đơn, bắt đầu theo dõi thanh toán</li>
+            </ul>
+            
+            <h3>Giai Đoạn 7: Báo Cáo & Giám Sát Liên Tục</h3>
+            <ul>
+                <li>Cập nhật dashboard thời gian thực qua tất cả các quy trình</li>
+                <li>Cảnh báo ngoại lệ về chậm trễ, vấn đề chất lượng, hết hàng</li>
+                <li>Báo cáo tự động theo lịch (hàng ngày/tuần/tháng)</li>
+                <li>Giám sát KPI và phân tích xu hướng</li>
+                <li><strong>Kết quả:</strong> Hiển thị quản lý và ra quyết định chủ động</li>
+            </ul>
+        </div>
+
+        <!-- Section 6: Mermaid Code Snippets -->
+        <div class="section code-section">
+            <h2>6. Đoạn Mã Mermaid</h2>
+            
+            <h3>Sơ Đồ Quy Trình Hoàn Chỉnh</h3>
+            <p>Sao chép mã bên dưới để sử dụng sơ đồ quy trình tích hợp hoàn chỉnh trong tài liệu của bạn.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Quy Trình Hoàn Chỉnh Từ Đơn Hàng Đến Giao Hàng</span>
+                    <button class="copy-button" onclick="copyCode('complete-flow')">Sao Chép Mã</button>
+                </div>
+                <pre><code id="complete-flow">flowchart TD
+    %% GIAI ĐOẠN 1: TIẾP NHẬN ĐỐN HÀNG
+    A[Khách hàng gửi PO] --> B[Hệ thống xác thực PO]
+    B --> C{PO hợp lệ & khách hàng OK?}
+    C -- Không --> D[Cảnh báo sale/tài chính kiểm tra]
+    C -- Có --> E[Tạo bản ghi đơn hàng]
+    
+    %% GIAI ĐOẠN 2: LẬP KẾ HOẠCH & PHÂN TÍCH
+    E --> F[Hệ thống kiểm tra tồn kho BOM]
+    F --> G{Tồn kho BOM đủ?}
+    G -- Có --> H[Dự trữ BOM & kích hoạt giao hàng]
+    G -- Không --> I[Kiểm tra tồn kho bán thành phẩm]
+    I --> J{Bán thành phẩm đủ?}
+    J -- Có --> K[Lập kế hoạch lắp ráp cuối]
+    J -- Không --> L[Kiểm tra tồn kho component]
+    L --> M{Có thể sản xuất component nội bộ kịp thời?}
+    M -- Có --> N[Tự động tạo kế hoạch sản xuất nội bộ]
+    M -- Không --> O[Tự động tạo RFQ/PO cho vendor]
+    
+    %% GIAI ĐOẠN 3: THU MUA (nếu cần)
+    O --> P[Gửi RFQ/PO cho vendor]
+    P --> Q[Vendor xác nhận thời gian giao hàng]
+    Q --> R{Thời gian chấp nhận được?}
+    R -- Không --> S[Cảnh báo planner kiểm tra]
+    R -- Có --> T[Vendor giao component]
+    T --> U[Nhận hàng & QC component]
+    U --> V{QC đạt?}
+    V -- Không --> W[Khóa kho & cảnh báo]
+    V -- Có --> X[Cập nhật tồn kho thành sẵn sàng]
+    X --> N
+    
+    %% GIAI ĐOẠN 4: SẢN XUẤT
+    N --> Y{Loại sản xuất?}
+    Y -- Nội bộ --> Z[Tạo lệnh sản xuất & pick list]
+    Z --> AA[Sản xuất theo dõi tiến độ]
+    AA --> AB[Kiểm tra QC trong quá trình]
+    Y -- Outsource --> AC[Gửi lệnh sản xuất cho vendor]
+    AC --> AD[Vendor cập nhật tiến độ]
+    AD --> AE[Vendor giao hàng]
+    
+    %% GIAI ĐOẠN 5: CHẤT LƯỢNG & TỒN KHO
+    AB --> AF{QC cuối đạt?}
+    AE --> AF
+    K --> AF
+    AF -- Không --> AG[Làm lại/loại bỏ & cảnh báo]
+    AF -- Có --> AH[Cập nhật tồn kho: BOM sẵn sàng]
+    AG --> AA
+    
+    %% GIAI ĐOẠN 6: GIAO HÀNG & XUẤT HÓA ĐƠN
+    AH --> AI[Kiểm tra đáp ứng đơn hàng]
+    H --> AI
+    AI --> AJ[Tạo pick/pack list]
+    AJ --> AK[Lấy & đóng gói hàng]
+    AK --> AL[Tạo chứng từ giao hàng]
+    AL --> AM[Giao hàng cho khách]
+    AM --> AN[Tự động kích hoạt hóa đơn]
+    AN --> AO[Thông báo khách với mã tracking]
+    AM --> AP[Cập nhật trạng thái giao hàng]
+    AP --> AQ{Giao hàng xác nhận?}
+    AQ -- Có --> AR[Đóng đơn hàng]
+    AQ -- Không --> AS[Giám sát & cảnh báo nếu trễ]
+    
+    %% GIAI ĐOẠN 7: GIÁM SÁT LIÊN TỤC
+    AR --> AT[Cập nhật dashboard & báo cáo]
+    AS --> AT
+    AT --> AU[Tự động tạo cảnh báo ngoại lệ]
+    AU --> AV[Ban quản lý xem xét KPI]
+    
+    classDef automated fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef exception fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef complete fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    
+    class B,E,F,I,L,N,O,P,Q,T,U,X,Z,AA,AB,AC,AD,AE,AH,AI,AJ,AK,AL,AM,AN,AO,AP,AT automated
+    class C,G,J,M,R,V,Y,AF,AQ decision
+    class D,S,W,AG,AS,AU exception
+    class AR,AV complete</code></pre>
+            </div>
+            
+            <h3>Góc Nhìn Tổng Quan Đơn Giản Hóa</h3>
+            <p>Sao chép mã bên dưới cho sơ đồ góc nhìn đơn giản hóa.</p>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Quy Trình Tổng Quan Đơn Giản Hóa</span>
+                    <button class="copy-button" onclick="copyCode('simple-flow')">Sao Chép Mã</button>
+                </div>
+                <pre><code id="simple-flow">flowchart LR
+    A[Tiếp Nhận Đơn Hàng] --> B[Lập Kế Hoạch & Phân Tích]
+    B --> C{Có Hàng Tồn Kho?}
+    C -- Có --> D[Giao Trực Tiếp]
+    C -- Không --> E[Thu Mua/Sản Xuất]
+    E --> F[Kiểm Tra Chất Lượng]
+    F --> G[Cập Nhật Tồn Kho]
+    G --> H[Giao Hàng & Xuất Hóa Đơn]
+    D --> H
+    H --> I[Dashboard & Báo Cáo]
+    
+    classDef phase fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    class A,B,C,D,E,F,G,H,I phase</code></pre>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>Hệ Thống Tự Động Hóa ERP - Tài Liệu Quy Trình Kinh Doanh Tích Hợp</p>
+            <p>Tạo: Tháng 10 năm 2025</p>
         </div>
     </div>
-    <div class="section">
-        <h2>3. Các bước tích hợp</h2>
-        <div class="step-box">
-            <h4>Bước 1: Phân tích & lập kế hoạch</h4>
-            <ul>
-                <li>Phân tích đơn hàng, xác định nhu cầu vật tư, lập kế hoạch sản xuất và thu mua</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 2: Thu mua/gia công ngoài</h4>
-            <ul>
-                <li>Tự động hóa quy trình thu mua vật tư và gia công ngoài</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 3: Thực hiện sản xuất</h4>
-            <ul>
-                <li>Phân bổ nguồn lực, giám sát tiến độ, kiểm tra chất lượng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 4: Kiểm tra chất lượng & nhập kho</h4>
-            <ul>
-                <li>Kiểm tra chất lượng sản phẩm, nhập kho, kiểm soát tồn kho</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 5: Giao hàng & xuất hóa đơn</h4>
-            <ul>
-                <li>Chuẩn bị giao hàng, xuất hóa đơn, cập nhật trạng thái đơn hàng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 6: Báo cáo & bảng điều khiển</h4>
-            <ul>
-                <li>Tổng hợp dữ liệu, phân tích, trình bày báo cáo và bảng điều khiển</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 7: Quản lý ra quyết định</h4>
-            <ul>
-                <li>Dựa trên dữ liệu tổng hợp để ra quyết định quản trị</li>
-            </ul>
-        </div>
-    </div>
-    <div class="section">
-        <h2>4. Điểm tự động hóa nổi bật</h2>
-        <div class="automation-point">
-            <h4>Tích hợp dữ liệu tự động</h4>
-            <p>Hệ thống tự động đồng bộ dữ liệu giữa các quy trình.</p>
-        </div>
-        <div class="automation-point">
-            <h4>Báo cáo & bảng điều khiển tự động</h4>
-            <p>Tự động tổng hợp và trình bày dữ liệu quản trị.</p>
-        </div>
-    </div>
-</div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Copy code function with parameter for different code blocks
+        function copyCode(elementId) {
+            const code = document.getElementById(elementId).textContent;
+            const button = event.target;
+            
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Đã Sao Chép!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = 'Sao Chép Mã';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
 </body>
 </html>

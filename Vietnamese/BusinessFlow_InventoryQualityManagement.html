@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quy Trình: Quản Lý Chất Lượng & Kho - Tự Động ERP</title>
+    <title>Quy Trình: Quản Lý Tồn Kho & Chất Lượng - Tự Động ERP</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,103 +37,353 @@
         .copy-button.copied { background: #28a745; }
         pre { margin: 0; padding: 20px; overflow-x: auto; }
         code { font-family: 'Courier New', monospace; font-size: 13px; color: #f8f8f2; line-height: 1.5; }
-        .legend { background: #fff; border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 5px; }
-        .legend h4 { margin-top: 0; margin-bottom: 15px; }
-        .legend-item { display: inline-block; margin-right: 30px; margin-bottom: 10px; }
-        .legend-color { display: inline-block; width: 30px; height: 20px; border-radius: 3px; margin-right: 8px; vertical-align: middle; }
-        .color-manual { background: #fff3e0; border: 2px solid #ef6c00; }
-        .color-decision { background: #ffebee; border: 2px solid #c62828; }
-        .color-system { background: #e3f2fd; border: 2px solid #1976d2; }
         @media print { .container { max-width: 100%; } .copy-button { display: none; } }
     </style>
-    <!-- ...existing code for translated content... -->
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>QUY TRÌNH: QUẢN LÝ CHẤT LƯỢNG & KHO</h1>
-        <p style="margin-top: 10px; color: #666;">Quy trình tự động hóa kiểm soát chất lượng và quản lý kho</p>
-    </div>
-    <a class="back-link" href="../index.html">← Quay lại Trang chính</a>
-    <div class="section">
-        <h2>1. Mục tiêu quy trình</h2>
-        <p>Tự động hóa kiểm tra chất lượng sản phẩm, nhập/xuất kho và kiểm soát tồn kho.</p>
-    </div>
-    <div class="section">
-        <h2>2. Sơ đồ luồng quy trình</h2>
-        <div class="flowchart-container">
-            <div class="mermaid">
-                graph TD
-                A[Nhận sản phẩm hoàn thành] --> B[Kiểm tra chất lượng]
-                B --> C{Đạt chất lượng?}
-                C -- Có --> D[Nhập kho]
-                C -- Không --> E[Xử lý sản phẩm lỗi]
-                D --> F[Kiểm soát tồn kho]
-                F --> G[Xuất kho theo yêu cầu]
-                E --> B
+    <div class="container">
+        <a href="index.html" class="back-link">← Quay lại Tổng quan hệ thống</a>
+
+        <div class="header">
+            <h1>Quy Trình: Quản Lý Tồn Kho & Chất Lượng</h1>
+            <p>Theo dõi tồn kho theo thời gian thực, kiểm tra chất lượng, quản lý trạng thái tồn và cảnh báo tự động</p>
+        </div>
+
+        <div class="section">
+            <h2>1. Sơ Đồ Quy Trình</h2>
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    A[Hàng đến kho] --> B[Quét &amp; ghi nhận nhập kho]
+    B --> C[Hệ thống tạo GRN]
+    C --> D[Trạng thái tồn: Quarantine]
+    D --> E[Kích hoạt kiểm tra QC]
+    E --> F[QC thực hiện kiểm tra]
+    F --> G{Kết quả QC?}
+    G -->|Đạt| H[Cập nhật trạng thái: Available]
+    H --> I[Cập nhật số lượng tồn]
+    I --> J[Hàng sẵn sàng sử dụng]
+    G -->|Không đạt| K[Cập nhật trạng thái: Blocked]
+    K --> L[Tách hàng bị loại]
+    L --> M[Thông báo vendor/nhà cung cấp]
+    M --> N[Vendor xử lý]
+    J --> O[Hệ thống giám sát mức tồn]
+    O --> P{Tồn dưới mức tối thiểu?}
+    P -->|Có| Q[Tự động tạo cảnh báo thiếu tồn]
+    Q --> R[Thông báo bộ phận mua]
+    R --> S[Kích hoạt quy trình bù hàng]
+    P -->|Không| T[Tiếp tục giám sát]
+    T --> O
+    J --> U[Lấy vật tư cho đơn hàng]
+    U --> V[Hệ thống giữ tồn]
+    V --> W[Cập nhật số lượng khả dụng]
+    W --> X[Xuất kho]
+    X --> Y[Cập nhật tồn sau xuất]
+    Y --> Z[Cân bằng tồn kho thời gian thực]
+                </div>
             </div>
         </div>
-        <div class="legend">
-            <h4>Chú thích màu sắc:</h4>
-            <span class="legend-item"><span class="legend-color color-manual"></span> Thao tác thủ công</span>
-            <span class="legend-item"><span class="legend-color color-decision"></span> Quyết định</span>
-            <span class="legend-item"><span class="legend-color color-system"></span> Tự động hệ thống</span>
+
+        <div class="section">
+            <h2>2. Giải thích sơ đồ</h2>
+            <div class="explanation-box">
+                <p>Luồng quản lý tồn kho và QC đảm bảo theo dõi tồn kho chính xác theo thời gian thực với kiểm tra chất lượng tích hợp. Tất cả phiếu nhận hàng (GRN) được tự động tạo, QC được kích hoạt theo quy trình, và hệ thống giám sát mức tồn liên tục. Trạng thái tồn (Quarantine → Available/Blocked) được quản lý tự động và cảnh báo bù hàng được sinh khi cần.</p>
+            </div>
+
+            <h3>Các bước quy trình</h3>
+
+            <div class="step-box">
+                <h4>Bước 1: Hàng đến kho</h4>
+                <p><strong>Kích hoạt:</strong> Hàng vật lý đến bến nhận.</p>
+                <p><strong>Nguồn hàng:</strong></p>
+                <ul>
+                    <li>Giao hàng từ vendor/nhà cung cấp</li>
+                    <li>Trả hàng từ gia công ngoài</li>
+                    <li>Hoàn thành sản xuất nội bộ</li>
+                    <li>Trả hàng khách</li>
+                    <li>Chuyển kho nội bộ</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 2: Quét &amp; ghi nhận nhập kho</h4>
+                <p><strong>Hành động:</strong> Nhân viên kho quét và ghi nhận hàng vào hệ thống.</p>
+                <p><strong>Dữ liệu ghi nhận:</strong></p>
+                <ul>
+                    <li>Tham chiếu PO hoặc Work Order</li>
+                    <li>Mã hàng và mô tả</li>
+                    <li>Số lượng nhận</li>
+                    <li>Ngày giờ nhận</li>
+                    <li>Vị trí nhận</li>
+                    <li>Batch/lot nếu có</li>
+                    <li>Packing list</li>
+                    <li>Ghi chú tình trạng ban đầu</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 3: Hệ thống tạo GRN</h4>
+                <p><strong>Hành động:</strong> Hệ thống tạo Goods Receipt Note tự động.</p>
+                <p><strong>GRN bao gồm:</strong></p>
+                <ul>
+                    <li>Số GRN duy nhất</li>
+                    <li>Chi tiết phiếu nhận từ Bước 2</li>
+                    <li>So sánh với PO/Work Order</li>
+                    <li>Ghi chú sai khác nếu có</li>
+                    <li>Timestamp và người nhận</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 4: Trạng thái tồn: Quarantine</h4>
+                <p><strong>Hành động:</strong> Hệ thống đặt trạng thái ban đầu là "Quarantine".</p>
+                <p><strong>Ý nghĩa:</strong></p>
+                <ul>
+                    <li>Hàng đã nhận nhưng CHƯA sẵn sàng sử dụng</li>
+                    <li>Số lượng ghi nhận nhưng chưa phân bổ</li>
+                    <li>Chờ phê duyệt QC</li>
+                    <li>Đặt tại khu vực giữ QC</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 5: Kích hoạt kiểm tra QC</h4>
+                <p><strong>Hành động:</strong> Hệ thống tạo công việc QC tự động.</p>
+                <p><strong>Hành động tự động:</strong></p>
+                <ul>
+                    <li>Tạo task kiểm tra QC</li>
+                    <li>Thông báo inspector</li>
+                    <li>Tạo checklist theo loại hàng</li>
+                    <li>Gán mức ưu tiên và SLA</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 6: QC thực hiện kiểm tra</h4>
+                <p><strong>Hành động:</strong> Inspector thực hiện kiểm tra vật lý và ghi kết quả.</p>
+                <p><strong>Các hoạt động QC:</strong></p>
+                <ul>
+                    <li>Kiểm tra hình thức, hư hỏng</li>
+                    <li>Đo kích thước nếu cần</li>
+                    <li>Kiểm tra chứng từ vật liệu</li>
+                    <li>Thử nghiệm mẫu nếu cần</li>
+                    <li>Kiểm đếm số lượng</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 7: Quyết định kết quả QC</h4>
+                <p><strong>Quyết định:</strong> Hàng đạt hay không đạt QC?</p>
+                <p><strong>Tiêu chí đạt:</strong></p>
+                <ul>
+                    <li>Đạt thông số kỹ thuật</li>
+                    <li>Không có khuyết tật</li>
+                    <li>Số lượng khớp PO</li>
+                    <li>Chứng từ đầy đủ</li>
+                </ul>
+                <p><strong>Tiêu chí không đạt:</strong></p>
+                <ul>
+                    <li>Khuyết tật vượt ngưỡng cho phép</li>
+                    <li>Kích thước sai</li>
+                    <li>Thiếu chứng nhận</li>
+                    <li>Số lượng sai</li>
+                </ul>
+            </div>
+
+            <h3>Luồng QC đạt</h3>
+
+            <div class="step-box">
+                <h4>Bước 8: Cập nhật trạng thái: Available</h4>
+                <p><strong>Hành động:</strong> Hệ thống đổi trạng thái từ "Quarantine" → "Available".</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 9: Cập nhật số lượng tồn</h4>
+                <p><strong>Hành động:</strong> Hệ thống cập nhật số lượng tồn thực tế và khả dụng.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 10: Hàng sẵn sàng sử dụng</h4>
+                <p><strong>Hệ thống:</strong> Thông báo cho sản xuất, bán hàng và lập kế hoạch.</p>
+            </div>
+
+            <h3>Luồng QC không đạt</h3>
+
+            <div class="step-box">
+                <h4>Bước 11: Cập nhật trạng thái: Blocked</h4>
+                <p><strong>Hành động:</strong> Hệ thống đặt trạng thái "Blocked" và không cho phép phân bổ.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 12: Tách hàng bị loại</h4>
+                <p><strong>Hành động:</strong> Kho tách và dán nhãn hàng bị loại.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 13: Thông báo vendor/nhà cung cấp</h4>
+                <p><strong>Hành động:</strong> Hệ thống gửi thông báo kèm báo cáo QC và ảnh (nếu có).</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 14: Vendor xử lý</h4>
+                <p><strong>Hành động:</strong> Vendor xử lý theo yêu cầu: gửi hàng thay thế, phát hành credit hoặc sửa chữa.</p>
+            </div>
+
+            <h3>Giám sát tồn liên tục</h3>
+
+            <div class="step-box">
+                <h4>Bước 15: Hệ thống giám sát mức tồn</h4>
+                <p><strong>Hành động:</strong> Hệ thống giám sát mức tồn theo thời gian thực.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 16: Quyết định: Tồn dưới mức tối thiểu?</h4>
+                <p><strong>Quy tắc:</strong> Nếu Available ≤ Mức tối thiểu → cảnh báo được kích hoạt.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 17: Tự động tạo cảnh báo thiếu tồn</h4>
+                <p><strong>Hành động:</strong> Hệ thống sinh cảnh báo với thông tin chi tiết và mức ưu tiên.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 18: Thông báo bộ phận mua</h4>
+                <p><strong>Hành động:</strong> Gửi cảnh báo qua email, dashboard hoặc app di động.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 19: Kích hoạt quy trình bù hàng</h4>
+                <p><strong>Hành động:</strong> Procurement thực hiện bù hàng (tự động hoặc thủ công).</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 20: Tiếp tục giám sát</h4>
+                <p><strong>Hành động:</strong> Hệ thống tiếp tục giám sát 24/7 và báo động khi cần.</p>
+            </div>
+
+            <h3>Quy trình giữ và xuất kho</h3>
+
+            <div class="step-box">
+                <h4>Bước 21: Lấy vật tư cho đơn hàng</h4>
+                <p><strong>Hành động:</strong> Nhân viên kho lấy vật tư theo đơn hàng sản xuất hoặc bán hàng.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 22: Hệ thống giữ tồn</h4>
+                <p><strong>Hành động:</strong> Hệ thống reserve số lượng cho đơn hàng.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 23: Cập nhật số lượng khả dụng</h4>
+                <p><strong>Công thức:</strong> Khả dụng = On-Hand - Reserved</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 24: Xuất kho</h4>
+                <p><strong>Hành động:</strong> Vật tư rời kho để giao khách hoặc cho sản xuất.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 25: Cập nhật tồn sau xuất</h4>
+                <p><strong>Hành động:</strong> Hệ thống cập nhật On-Hand, Reserved và lịch sử giao dịch.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 26: Cân bằng tồn kho thời gian thực</h4>
+                <p><strong>Lợi ích:</strong> Tăng độ chính xác, theo dõi audit và hỗ trợ lập kế hoạch.</p>
+            </div>
+
+            <h3>Các điểm tự động chính</h3>
+
+            <div class="automation-point">
+                <h4>✓ Tạo GRN tự động</h4>
+                <p>GRN tạo ngay khi ghi nhận nhập kho - không cần soạn tay.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Kích hoạt QC tự động</h4>
+                <p>QC được kích hoạt tự động theo checklist và SLA.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Quản lý trạng thái tồn tự động</h4>
+                <p>Trạng thái Quarantine → Available/Blocked được cập nhật theo kết quả QC.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Cập nhật tồn thời gian thực</h4>
+                <p>Tất cả giao dịch ảnh hưởng ngay đến số liệu On-Hand và Available.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Cảnh báo thiếu tồn tự động</h4>
+                <p>Hệ thống giám sát và sinh cảnh báo khi mức tối thiểu bị vượt qua.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Thông báo vendor tự động</h4>
+                <p>Vendor được thông báo kèm hồ sơ QC khi có từ chối để xử lý nhanh.</p>
+            </div>
+
+        </div>
+
+        <div class="section code-section">
+            <h2>3. Mã Mermaid Sơ Đồ</h2>
+            <p>Sao chép đoạn mã dưới đây để sử dụng sơ đồ này trong tài liệu hoặc công cụ hỗ trợ Mermaid.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Mã Sơ Đồ Mermaid</span>
+                    <button class="copy-button" onclick="copyCode()">Sao chép mã</button>
+                </div>
+                <pre><code id="mermaid-code">flowchart TD
+    A[Hàng đến kho] --> B[Quét &amp; ghi nhận nhập kho]
+    B --> C[Hệ thống tạo GRN]
+    C --> D[Trạng thái tồn: Quarantine]
+    D --> E[Kích hoạt kiểm tra QC]
+    E --> F[QC thực hiện kiểm tra]
+    F --> G{Kết quả QC?}
+    G -->|Đạt| H[Cập nhật trạng thái: Available]
+    H --> I[Cập nhật số lượng tồn]
+    I --> J[Hàng sẵn sàng sử dụng]
+    G -->|Không đạt| K[Cập nhật trạng thái: Blocked]
+    K --> L[Tách hàng bị loại]
+    L --> M[Thông báo vendor/nhà cung cấp]
+    M --> N[Vendor xử lý]
+    J --> O[Hệ thống giám sát mức tồn]
+    O --> P{Tồn dưới mức tối thiểu?}
+    P -->|Có| Q[Tự động tạo cảnh báo thiếu tồn]
+    Q --> R[Thông báo bộ phận mua]
+    R --> S[Kích hoạt quy trình bù hàng]
+    P -->|Không| T[Tiếp tục giám sát]
+    T --> O
+    J --> U[Lấy vật tư cho đơn hàng]
+    U --> V[Hệ thống giữ tồn]
+    V --> W[Cập nhật số lượng khả dụng]
+    W --> X[Xuất kho]
+    X --> Y[Cập nhật tồn sau xuất]
+    Y --> Z[Cân bằng tồn kho thời gian thực]</code></pre>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>Hệ thống Tự Động ERP - Tài liệu Quy Trình</p>
+            <p>Khởi tạo: October 2025</p>
         </div>
     </div>
-    <div class="section">
-        <h2>3. Các bước chi tiết</h2>
-        <div class="step-box">
-            <h4>Bước 1: Nhận sản phẩm hoàn thành</h4>
-            <ul>
-                <li>Tiếp nhận sản phẩm từ bộ phận sản xuất</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 2: Kiểm tra chất lượng</h4>
-            <ul>
-                <li>Kiểm tra chất lượng sản phẩm đầu vào kho</li>
-                <li>Đánh giá theo tiêu chuẩn</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 3: Nhập kho</h4>
-            <ul>
-                <li>Nhập kho sản phẩm đạt chất lượng</li>
-                <li>Cập nhật số liệu tồn kho</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 4: Kiểm soát tồn kho</h4>
-            <ul>
-                <li>Giám sát số lượng tồn kho theo thời gian thực</li>
-                <li>Cảnh báo khi tồn kho thấp hoặc quá cao</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 5: Xuất kho theo yêu cầu</h4>
-            <ul>
-                <li>Xuất kho sản phẩm theo lệnh sản xuất hoặc đơn hàng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 6: Xử lý sản phẩm lỗi</h4>
-            <ul>
-                <li>Phân tích nguyên nhân lỗi</li>
-                <li>Khắc phục hoặc loại bỏ sản phẩm lỗi</li>
-            </ul>
-        </div>
-    </div>
-    <div class="section">
-        <h2>4. Điểm tự động hóa nổi bật</h2>
-        <div class="automation-point">
-            <h4>Kiểm tra chất lượng tự động</h4>
-            <p>Tích hợp cảm biến và AI để kiểm tra chất lượng sản phẩm nhập kho.</p>
-        </div>
-        <div class="automation-point">
-            <h4>Kiểm soát tồn kho tự động</h4>
-            <p>Hệ thống tự động cảnh báo tồn kho và đề xuất nhập/xuất kho tối ưu.</p>
-        </div>
-    </div>
-</div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+
+        function copyCode() {
+            const code = document.getElementById('mermaid-code').textContent;
+            const button = document.querySelector('.copy-button');
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Đã sao chép!';
+                button.classList.add('copied');
+                setTimeout(function() { button.textContent = 'Sao chép mã'; button.classList.remove('copied'); }, 2000);
+            }).catch(function(err) { console.error('Không thể sao chép: ', err); });
+        }
+    </script>
 </body>
 </html>

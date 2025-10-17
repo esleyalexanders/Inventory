@@ -271,7 +271,7 @@
 
         <!-- Section 1: High-Level As-Is Flow -->
         <div class="section">
-            <h2>1. High-Level As-Is Flow (Manual, Spreadsheet-Driven)</h2>
+            <h2>High-Level As-Is Flow (Manual, Spreadsheet-Driven)</h2>
             
             <div class="explanation-box">
                 <p><strong>Current Reality:</strong> The business operates primarily through manual processes, Excel spreadsheets, emails, phone calls, and chat messages. There is no centralized system providing real-time visibility. Stock checks require contacting warehouse staff, planning is done in spreadsheets, and coordination happens through scattered communication channels.</p>
@@ -291,371 +291,55 @@
             
             <div class="flowchart-container">
                 <div class="mermaid">
-flowchart LR
-    A["Customer sends PO email/excel"] --> B["Sales records PO in spreadsheet"]
-    B --> C["Sales verifies BOM codes manually"]
-    C --> D{"Check finished goods stock?"}
-    D -- Manually check stock list --> E["Warehouse sends stock figure via chat/email"]
-    D -- No system view --> E
-    E --> F{"Enough BOM to fulfill?"}
-    F -- Yes --> G["Reserve stock informally email"]
-    G --> H["Arrange shipment manually"]
-    H --> I["Deliver to customer"]
-    I --> J["Finance issues invoice"]
-    F -- No --> K["Planner calculates shortage in Excel"]
-    K --> L["Planner explodes BOM manually"]
-    L --> M["Planner checks semi-finished availability"]
-    M --> N["Planner checks component availability"]
-    N --> O{"Can in-house make enough components on time?"}
-    O -- Yes --> P["Create internal production plan Excel"]
-    O -- No --> Q["Procurement raises outsource PO for components"]
-    Q --> OC1["Send outsource RFQ/PO to component vendor"]
-    OC1 --> OC2["Vendor confirms tentative lead time"]
-    OC2 --> OC3["Receive outsourced components"]
+flowchart TD
+    A[Customer sends PO email/excel] --> B[Sales records PO in spreadsheet]
+    B --> C[Sales verifies BOM codes manually]
+    C --> D{Check finished goods stock?}
+    D -->|Manually check stock list| E[Warehouse sends stock figure via chat/email]
+    D -->|No system view| E
+    E --> F{Enough BOM to fulfill?}
+    F -->|Yes| G[Reserve stock informally email]
+    G --> H[Arrange shipment manually]
+    H --> I[Deliver to customer]
+    I --> J[Finance issues invoice]
+    
+    F -->|No| K[Planner calculates shortage in Excel]
+    K --> L[Planner explodes BOM manually]
+    L --> M[Planner checks semi-finished availability]
+    M --> N[Planner checks component availability]
+    N --> O{Can in-house make enough components on time?}
+    O -->|Yes| P[Create internal production plan Excel]
+    O -->|No| Q[Procurement raises outsource PO for components]
+    Q --> OC1[Send outsource RFQ/PO to component vendor]
+    OC1 --> OC2[Vendor confirms tentative lead time]
+    OC2 --> OC3[Receive outsourced components]
     OC3 --> P
-    P --> PD{"In-house or outsource processing for semi/finished?"}
-    PD -- "In-house" --> W["Issue components paper pick list"]
-    PD -- Outsource --> XO1["Transfer materials/semi-finished to outsource"]
-    XO1 --> XO2["Outsource processing"]
-    XO2 --> XO3["Receive goods from outsource"]
-    XO3 --> Y["Quality checks paper forms"]
-    W --> X["Production starts; daily progress via chat"]
+    
+    P --> PD{In-house or outsource processing for semi/finished?}
+    PD -->|In-house| W[Issue components paper pick list]
+    PD -->|Outsource| XO1[Transfer materials/semi-finished to outsource]
+    XO1 --> XO2[Outsource processing]
+    XO2 --> XO3[Receive goods from outsource]
+    XO3 --> Y[Quality checks paper forms]
+    W --> X[Production starts; daily progress via chat]
     X --> Y
-    Y --> Z{"Pass quality?"}
-    Z -- Yes --> AA["Move to finished goods area"]
-    Z -- No --> AB["Rework / scrap logged manually"]
-    AA --> AC["Warehouse updates spreadsheet inventory"]
-    AC --> AD["Prepare shipment phone+email"]
+    Y --> Z{Pass quality?}
+    Z -->|Yes| AA[Move to finished goods area]
+    Z -->|No| AB[Rework / scrap logged manually]
+    
+    AA --> AC[Warehouse updates spreadsheet inventory]
+    AC --> AD[Prepare shipment phone+email]
     AD --> I
 
-     A:::manual
-     B:::manual
-     C:::manual
-     D:::decision
-     E:::manual
-     F:::decision
-     G:::manual
-     H:::manual
-     I:::manual
-     J:::manual
-     K:::manual
-     L:::manual
-     M:::manual
-     N:::manual
-     O:::decision
-     P:::manual
-     Q:::manual
-     OC1:::manual
-     OC2:::manual
-     OC3:::manual
-     PD:::decision
-     W:::manual
-     XO1:::manual
-     XO2:::manual
-     XO3:::manual
-     Y:::manual
-     X:::manual
-     Z:::decision
-     AA:::manual
-     AB:::manual
-     AC:::manual
-     AD:::manual
     classDef manual fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
     classDef decision fill:#ffebee,stroke:#c62828,stroke-width:2px
+    class A,B,C,E,G,H,I,J,K,L,M,N,P,Q,OC1,OC2,OC3,W,X,Y,AA,AB,AC,AD,XO1,XO2,XO3 manual
+    class D,F,O,Z,PD decision
                 </div>
             </div>
         </div>
 
-        <!-- Section 2: Role-Based Swimlanes -->
-        <div class="section">
-            <h2>2. Role-Based Swimlanes (Departments and Handoffs)</h2>
-            
-            <div class="explanation-box">
-                <p><strong>Department Silos:</strong> Each department works in isolation with its own tools and processes. Handoffs between departments require manual communication (email, phone, chat), leading to delays, miscommunication, and lost information. No centralized system connects the departments.</p>
-            </div>
-            
-            <div class="flowchart-container">
-                <div class="mermaid">
-flowchart TB
-    subgraph Sales
-      S1[Receive PO via email]
-      S2[Enter PO into spreadsheet]
-      S3[Confirm pricing/terms offline]
-      S4[Coordinate with Planning]
-    end
-
-    subgraph Planning
-      P1[Check FG stock with Warehouse]
-      P2[Explode BOM in Excel]
-      P3[Check semi-finished availability]
-      P4[Check component availability]
-      P5[Estimate capacity manually]
-      P6[Propose delivery date]
-    end
-
-    subgraph Warehouse
-      W1[Provide stock counts Excel]
-      W2[Reserve stock via email note]
-      W3[Issue components with paper list]
-      W4[Receive FG and update spreadsheet]
-      W5[Pick, pack, stage shipment]
-    end
-
-    subgraph Procurement
-      PR1[Collect shortages from Planning]
-      PR2[Request quotes to outsource vendors]
-      PR3[Create outsource PO in Excel/ERP-lite]
-      PR4[Send outsource PO for components]
-      PR5[Chase confirmations]
-    end
-
-    subgraph Production
-      M1[Schedule jobs whiteboard]
-      M2[Run production]
-      M3[Report progress chat/photo]
-    end
-
-    subgraph Outsource
-      O1[Receive semi-finished transfer]
-      O2[Process to finished/semi]
-      O3[Return goods]
-    end
-
-    subgraph "Outsource Component Vendor"
-      OCV1[Confirm lead time]
-      OCV2[Manufacture components]
-      OCV3[Ship components]
-    end
-
-    subgraph Quality
-      Q1[Inspect incoming materials]
-      Q2[In-process checks]
-      Q3[Final inspection]
-      Q4[Record defects on paper]
-    end
-
-    subgraph Finance
-      F1[Issue invoice after ship]
-      F2[Track payments in accounting]
-    end
-
-    subgraph Management
-      MG1[Request status updates]
-      MG2[Review ad-hoc spreadsheets]
-      MG3[Escalate delays]
-    end
-
-  %% Flows (components only via outsourcing)
-    S1 --> S2 --> S3 --> S4
-    S4 --> P1
-    P1 --> W1 --> P2
-    P2 --> P3 --> P4 --> P5 --> P6
-  P6 -->|If shortage| PR1 --> PR2 --> PR3 --> PR4 --> PR5 --> OCV1 --> OCV2 --> OCV3 --> W1
-    P6 -->|If production in-house| M1 --> M2 --> Q2 --> M3 --> W4
-    P6 -->|If outsource processing| O1 --> O2 --> O3 --> W4
-    W3 --> M2
-    W4 --> Q3
-    Q1 --> W4
-    Q3 --> W5 --> F1 --> F2
-    MG1 --> MG2 --> MG3
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 3: Sequence Diagram -->
-        <div class="section">
-            <h2>3. Sequence Diagram (Typical Order with Shortage)</h2>
-            
-            <div class="explanation-box">
-                <p><strong>Manual Coordination Timeline:</strong> This diagram shows the back-and-forth communication required for a typical order with component shortage. Each interaction involves emails, phone calls, or chat messages, creating delays and potential for miscommunication.</p>
-            </div>
-            
-            <div class="flowchart-container">
-                <div class="mermaid">
-sequenceDiagram
-    participant C as Customer
-    participant S as Sales
-    participant PL as Planner
-    participant WH as Warehouse
-    participant PR as Procurement
-    participant PD as Production
-    participant QC as Quality
-    participant OS as Outsource
-    participant OCV as Outsource Component Vendor
-    participant FN as Finance
-
-    C->>S: Send PO (email)
-    S->>PL: Share order details (Excel)
-    PL->>WH: Request FG & component stock
-    WH-->>PL: Send counts (spreadsheet)
-    PL->>PL: BOM explode & MRP in Excel
-    alt Shortage exists
-        PL->>PR: Send shortage list
-        PR->>OCV: RFQ / Outsource to make components
-        OCV-->>PR: Confirm lead time
-        PR-->>PL: Share ETA
-        PL->>C: Propose new delivery date
-    else Stock sufficient
-        PL->>WH: Reserve stock (email)
-    end
-    par Production path
-        PL->>PD: Issue job plan (paper)
-        PD->>WH: Request material issue
-        WH-->>PD: Deliver components (paper pick list)
-        PD->>QC: In-process checks
-        QC-->>PD: OK / Rework
-        PD-->>WH: Return finished goods
-    and Outsource path (if needed)
-        PL->>OS: Send semi-finished
-        OS-->>PL: Progress updates (chat)
-        OS-->>WH: Return finished goods
-    end
-    opt Incoming components from outsourcing
-        OCV-->>WH: Ship manufactured components
-        WH->>QC: Incoming inspection
-        QC-->>WH: Accept / Hold
-    end
-    WH->>S: FG ready
-    S->>C: Arrange shipment
-    WH->>C: Ship goods
-    C-->>FN: Payment per terms
-    FN-->>S: Receivable status
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 4: Pain Points -->
-        <div class="section">
-            <h2>4. Current Pain Points</h2>
-            
-            <div class="pain-point">
-                <h4>❌ Manual Data Entry Across Spreadsheets</h4>
-                <p><strong>Problem:</strong> Sales enters order in one spreadsheet, planning uses another, warehouse maintains separate stock lists. Same data typed multiple times with high risk of errors and inconsistencies.</p>
-                <p><strong>Impact:</strong> Data errors, version control issues, time wasted on data entry and reconciliation.</p>
-            </div>
-            
-            <div class="pain-point">
-                <h4>❌ No Real-Time Inventory Visibility</h4>
-                <p><strong>Problem:</strong> Stock levels are tracked in spreadsheets updated manually. To check stock, must email or call warehouse staff. No way to see real-time availability or what's reserved for other orders.</p>
-                <p><strong>Impact:</strong> Double-booking stock, inaccurate delivery promises, conflicts between orders, delayed responses to customers.</p>
-            </div>
-            
-            <div class="pain-point">
-                <h4>❌ Lead Time Uncertainty from Outsourcing Vendors</h4>
-                <p><strong>Problem:</strong> Vendor lead times are confirmed via email/phone with no system tracking. Delays not communicated proactively. No visibility into vendor production progress.</p>
-                <p><strong>Impact:</strong> Delivery date commitments at risk, last-minute firefighting, customer dissatisfaction, inability to plan around vendor delays.</p>
-            </div>
-            
-            <div class="pain-point">
-                <h4>❌ Capacity Planning Guesswork</h4>
-                <p><strong>Problem:</strong> Production capacity estimated manually based on gut feel and rough calculations. No systematic view of current workload, machine availability, or operator capacity.</p>
-                <p><strong>Impact:</strong> Overcommitting or underutilizing capacity, unrealistic production schedules, frequent rescheduling and chaos.</p>
-            </div>
-            
-            <div class="pain-point">
-                <h4>❌ Informal Reservations Cause Conflicts</h4>
-                <p><strong>Problem:</strong> Stock reservations done via email notes or verbal communication. Multiple orders may claim the same stock. No formal allocation system.</p>
-                <p><strong>Impact:</strong> Conflicts when picking for shipment, orders delayed because stock allocated elsewhere, finger-pointing between sales and warehouse.</p>
-            </div>
-            
-            <div class="pain-point">
-                <h4>❌ Scattered Communications (Email/Chat/Phone)</h4>
-                <p><strong>Problem:</strong> Order status, stock inquiries, delivery updates, quality issues all communicated via different channels. No centralized record of decisions or issues.</p>
-                <p><strong>Impact:</strong> Information lost, decisions forgotten, new staff can't find historical context, constant interruptions asking for status updates.</p>
-            </div>
-            
-            <div class="pain-point">
-                <h4>❌ Delayed Quality Feedback Loops</h4>
-                <p><strong>Problem:</strong> Quality inspections recorded on paper forms. Defects reported verbally or via chat. Vendor quality issues communicated slowly via email.</p>
-                <p><strong>Impact:</strong> Defective materials used in production before QC results available, vendor issues not escalated quickly, rework costs high, compliance documentation incomplete.</p>
-            </div>
-            
-            <div class="pain-point">
-                <h4>❌ Management Lacks Consolidated Dashboard</h4>
-                <p><strong>Problem:</strong> To understand business status, management must request ad-hoc reports from each department. Data compiled manually in spreadsheets. Reporting takes days and data is already outdated.</p>
-                <p><strong>Impact:</strong> Reactive management instead of proactive, decisions based on old data, inability to spot trends or issues early, no KPI visibility.</p>
-            </div>
-        </div>
-
-        <!-- Section 5: Process Inefficiencies -->
-        <div class="section">
-            <h2>5. Process Inefficiencies by Department</h2>
-            
-            <h3>Sales Department</h3>
-            <ul>
-                <li>Manual PO entry into spreadsheets with risk of typos</li>
-                <li>Manually verify BOM codes against master lists</li>
-                <li>No instant visibility into stock availability or production capacity</li>
-                <li>Cannot give customers immediate delivery date commitments</li>
-                <li>Constant back-and-forth with planning for order feasibility</li>
-            </ul>
-            
-            <h3>Planning Department</h3>
-            <ul>
-                <li>Manual BOM explosion in Excel for every order</li>
-                <li>Must request stock counts from warehouse (no real-time view)</li>
-                <li>Capacity planning based on estimates and memory, not system data</li>
-                <li>In-house vs outsource decisions made without full cost/lead time comparison</li>
-                <li>Material available dates calculated manually with high risk of errors</li>
-                <li>No automated alerts when materials will be late</li>
-            </ul>
-            
-            <h3>Procurement Department</h3>
-            <ul>
-                <li>Shortage lists collected manually from planning spreadsheets</li>
-                <li>RFQs and POs created manually and sent via email</li>
-                <li>Vendor lead time confirmations tracked in spreadsheets or email folders</li>
-                <li>Must manually chase vendors for order status updates</li>
-                <li>No systematic vendor performance tracking</li>
-            </ul>
-            
-            <h3>Warehouse Department</h3>
-            <ul>
-                <li>Stock counts maintained in separate spreadsheets (not integrated)</li>
-                <li>Informal reservation system via email creates conflicts</li>
-                <li>Paper pick lists for material issue to production</li>
-                <li>Manual inventory updates after receipts and issues</li>
-                <li>No automated low stock alerts</li>
-                <li>Shipment coordination via phone and email</li>
-            </ul>
-            
-            <h3>Production Department</h3>
-            <ul>
-                <li>Job schedules written on whiteboard or paper</li>
-                <li>Progress reported via chat messages or photos</li>
-                <li>No systematic work order management</li>
-                <li>Material shortages discovered when production starts (too late)</li>
-                <li>Rework and scrap logged manually on paper forms</li>
-            </ul>
-            
-            <h3>Quality Control Department</h3>
-            <ul>
-                <li>Inspection results recorded on paper forms</li>
-                <li>Defect notifications via verbal communication or chat</li>
-                <li>No systematic tracking of reject rates or trends</li>
-                <li>Vendor quality issues communicated slowly via email</li>
-                <li>Compliance documentation scattered across paper files</li>
-            </ul>
-            
-            <h3>Finance Department</h3>
-            <ul>
-                <li>Invoice creation manual after receiving shipment notification</li>
-                <li>Payment tracking in separate accounting system</li>
-                <li>No integration with sales orders or delivery status</li>
-                <li>Receivables aging reports created manually</li>
-            </ul>
-            
-            <h3>Management</h3>
-            <ul>
-                <li>Must request status updates from each department</li>
-                <li>No real-time dashboard showing overall business health</li>
-                <li>Ad-hoc reports compiled manually and already outdated</li>
-                <li>Cannot quickly analyze trends or identify bottlenecks</li>
-                <li>Reactive firefighting instead of proactive management</li>
-            </ul>
-        </div>
-
-        <!-- Section 6: Comparison Note -->
+        <!-- Comparison Note -->
         <div class="section">
             <div class="comparison-note">
                 <h4>💡 How the Automated To-Be Solution Addresses These Issues</h4>
@@ -674,9 +358,9 @@ sequenceDiagram
             </div>
         </div>
 
-        <!-- Section 7: Mermaid Code Snippets -->
+        <!-- Mermaid Code Snippet -->
         <div class="section code-section">
-            <h2>7. Mermaid Code Snippets</h2>
+            <h2>Mermaid Code Snippet</h2>
             
             <h3>High-Level As-Is Flow</h3>
             <div class="code-container">

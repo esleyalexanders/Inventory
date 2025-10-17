@@ -50,101 +50,102 @@
 </head>
 <body>
 <div class="container">
+    <a class="back-link" href="index.html">← Quay lại Trang chính</a>
+    
     <div class="header">
         <h1>QUY TRÌNH: HIỆN TẠI (AS-IS)</h1>
-        <p style="margin-top: 10px; color: #666;">Mô tả quy trình hiện tại trước khi triển khai ERP tự động hóa</p>
+        <p style="margin-top: 10px; color: #666;">Quy trình thủ công, dựa trên bảng tính với thách thức phối hợp và khả năng quan sát hạn chế</p>
     </div>
-    <a class="back-link" href="../index.html">← Quay lại Trang chính</a>
-    <div class="section">
-        <h2>1. Mục tiêu quy trình</h2>
-        <p>Mô tả chi tiết các bước thủ công, các điểm chưa tự động hóa trong quy trình hiện tại.</p>
+
+    <div class="explanation-box" style="background: #ffebee; border: 2px solid #c62828; padding: 25px; margin: 20px 0; border-radius: 5px;">
+        <h4 style="color: #c62828; margin-top: 0;">⚠️ Thách Thức Hiện Tại</h4>
+        <p>Tài liệu này phản ánh hoạt động thủ công hiện tại dựa trên các vấn đề đã xác định: kiểm tra thủ công, phụ thuộc bảng tính, khả năng quan sát vật tư chậm trễ và xung đột phối hợp giữa các nhóm. Giải pháp tự động "To-Be" giải quyết tất cả các vấn đề này.</p>
     </div>
+
     <div class="section">
-        <h2>2. Sơ đồ luồng quy trình hiện tại</h2>
-        <div class="flowchart-container">
-            <div class="mermaid">
-                graph TD
-                A[Nhận đơn hàng khách hàng] --> B[Phân tích yêu cầu sản phẩm]
-                B --> C[Kiểm tra tồn kho]
-                C --> D[Thu mua vật tư thủ công]
-                D --> E[Gia công ngoài thủ công]
-                E --> F[Thực hiện sản xuất thủ công]
-                F --> G[Kiểm tra chất lượng thủ công]
-                G --> H[Nhập kho thủ công]
-                H --> I[Giao hàng & xuất hóa đơn thủ công]
-                I --> J[Báo cáo & quyết định thủ công]
+        <h2>Sơ Đồ Quy Trình As-Is Tổng Quan (Thủ Công, Dựa Trên Bảng Tính)</h2>
+        
+        <div class="explanation-box">
+            <p><strong>Thực Tế Hiện Tại:</strong> Doanh nghiệp hoạt động chủ yếu thông qua quy trình thủ công, bảng tính Excel, email, điện thoại và tin nhắn chat. Không có hệ thống tập trung cung cấp khả năng quan sát thời gian thực. Kiểm tra tồn kho yêu cầu liên hệ nhân viên kho, lập kế hoạch được thực hiện trên bảng tính và phối hợp diễn ra qua các kênh giao tiếp rời rạc.</p>
+        </div>
+        
+        <div class="legend" style="background: #fff; border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 5px;">
+            <h4>Chú Giải Sơ Đồ Luồng:</h4>
+            <div style="display: inline-block; margin: 5px 15px 5px 0; font-size: 13px;">
+                <span style="display: inline-block; width: 20px; height: 20px; border-radius: 3px; margin-right: 8px; vertical-align: middle; border: 1px solid #999; background: #fff3e0; border-color: #ef6c00;"></span>
+                <span>Quy Trình Thủ Công</span>
+            </div>
+            <div style="display: inline-block; margin: 5px 15px 5px 0; font-size: 13px;">
+                <span style="display: inline-block; width: 20px; height: 20px; border-radius: 3px; margin-right: 8px; vertical-align: middle; border: 1px solid #999; background: #ffebee; border-color: #c62828;"></span>
+                <span>Điểm Quyết Định (Thủ Công)</span>
             </div>
         </div>
-        <div class="legend">
-            <h4>Chú thích màu sắc:</h4>
-            <span class="legend-item"><span class="legend-color color-manual"></span> Thao tác thủ công</span>
-            <span class="legend-item"><span class="legend-color color-decision"></span> Quyết định</span>
-            <span class="legend-item"><span class="legend-color color-system"></span> Tự động hệ thống</span>
+        
+        <div class="flowchart-container">
+            <div class="mermaid">
+flowchart TD
+    A[Khách hàng gửi PO qua email/excel] --> B[Bán hàng ghi PO vào bảng tính]
+    B --> C[Bán hàng xác minh mã BOM thủ công]
+    C --> D{Kiểm tra tồn kho thành phẩm?}
+    D -->|Kiểm tra danh sách tồn kho thủ công| E[Kho gửi số liệu tồn kho qua chat/email]
+    D -->|Không có giao diện hệ thống| E
+    E --> F{Đủ BOM để đáp ứng?}
+    F -->|Có| G[Đặt giữ kho không chính thức qua email]
+    G --> H[Sắp xếp giao hàng thủ công]
+    H --> I[Giao hàng cho khách]
+    I --> J[Tài chính xuất hóa đơn]
+    
+    F -->|Không| K[Nhân viên lập kế hoạch tính thiếu hụt trong Excel]
+    K --> L[Nhân viên lập kế hoạch khai triển BOM thủ công]
+    L --> M[Nhân viên lập kế hoạch kiểm tra bán thành phẩm]
+    M --> N[Nhân viên lập kế hoạch kiểm tra component]
+    N --> O{Nội bộ có thể sản xuất đủ component đúng hạn?}
+    O -->|Có| P[Tạo kế hoạch sản xuất nội bộ trong Excel]
+    O -->|Không| Q[Thu mua tạo PO gia công ngoài cho component]
+    Q --> OC1[Gửi RFQ/PO gia công ngoài cho nhà cung cấp component]
+    OC1 --> OC2[Nhà cung cấp xác nhận thời gian giao hàng dự kiến]
+    OC2 --> OC3[Nhận component gia công ngoài]
+    OC3 --> P
+    
+    P --> PD{Sản xuất nội bộ hay gia công ngoài cho bán thành/thành phẩm?}
+    PD -->|Nội bộ| W[Xuất component với danh sách giấy]
+    PD -->|Gia công ngoài| XO1[Chuyển vật liệu/bán thành phẩm cho gia công ngoài]
+    XO1 --> XO2[Xử lý gia công ngoài]
+    XO2 --> XO3[Nhận hàng từ gia công ngoài]
+    XO3 --> Y[Kiểm tra chất lượng bằng biểu mẫu giấy]
+    W --> X[Sản xuất bắt đầu; tiến độ hàng ngày qua chat]
+    X --> Y
+    Y --> Z{Đạt chất lượng?}
+    Z -->|Có| AA[Chuyển vào khu vực thành phẩm]
+    Z -->|Không| AB[Làm lại / phế liệu được ghi thủ công]
+    
+    AA --> AC[Kho cập nhật bảng tính tồn kho]
+    AC --> AD[Chuẩn bị giao hàng qua điện thoại+email]
+    AD --> I
+
+    classDef manual fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef decision fill:#ffebee,stroke:#c62828,stroke-width:2px
+    class A,B,C,E,G,H,I,J,K,L,M,N,P,Q,OC1,OC2,OC3,W,X,Y,AA,AB,AC,AD,XO1,XO2,XO3 manual
+    class D,F,O,Z,PD decision
+            </div>
         </div>
     </div>
+
     <div class="section">
-        <h2>3. Các bước chi tiết quy trình hiện tại</h2>
-        <div class="step-box">
-            <h4>Bước 1: Nhận đơn hàng khách hàng</h4>
+        <div class="explanation-box" style="background: #fff3cd; border-left: 4px solid #856404; padding: 15px 20px; margin: 20px 0;">
+            <h4 style="color: #856404; margin-top: 0;">💡 Giải Pháp Tự Động To-Be Giải Quyết Các Vấn Đề Này Như Thế Nào</h4>
+            <p>Mọi vấn đề được xác định trong quy trình As-Is hiện tại đều được loại bỏ trong hệ thống ERP tự động:</p>
             <ul>
-                <li>Tiếp nhận đơn hàng qua email, điện thoại hoặc giấy tờ</li>
+                <li><strong>Điểm nhập dữ liệu duy nhất</strong> - Đơn hàng được nhập một lần, tự động chuyển qua toàn bộ hệ thống</li>
+                <li><strong>Khả năng quan sát tồn kho thời gian thực</strong> - Tất cả người dùng nhìn thấy mức tồn kho và đặt giữ hiện tại ngay lập tức</li>
+                <li><strong>Tích hợp nhà cung cấp</strong> - Cổng thông tin điện tử cung cấp theo dõi thời gian giao hàng và giao hàng thời gian thực</li>
+                <li><strong>Lập kế hoạch năng lực tự động</strong> - Hệ thống tính toán khả thi và đề xuất lộ trình tối ưu</li>
+                <li><strong>Đặt giữ tồn kho chính thức</strong> - Hệ thống quản lý phân bổ, loại bỏ xung đột</li>
+                <li><strong>Giao tiếp tập trung</strong> - Tất cả thông tin đơn hàng, ghi chú và quyết định trong một hệ thống</li>
+                <li><strong>Phản hồi chất lượng ngay lập tức</strong> - Kết quả QC cập nhật trạng thái tồn kho ngay lập tức, nhà cung cấp được thông báo tự động</li>
+                <li><strong>Bảng điều khiển thời gian thực</strong> - Ban quản lý có khả năng quan sát ngay lập tức vào tất cả KPI và ngoại lệ</li>
             </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 2: Phân tích yêu cầu sản phẩm</h4>
-            <ul>
-                <li>Phân tích thủ công thông tin sản phẩm, số lượng, thời gian giao hàng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 3: Kiểm tra tồn kho</h4>
-            <ul>
-                <li>Kiểm tra tồn kho bằng sổ sách hoặc Excel</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 4: Thu mua vật tư thủ công</h4>
-            <ul>
-                <li>Liên hệ nhà cung cấp qua điện thoại/email</li>
-                <li>So sánh giá, đặt hàng thủ công</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 5: Gia công ngoài thủ công</h4>
-            <ul>
-                <li>Liên hệ đối tác gia công qua điện thoại/email</li>
-                <li>Giám sát tiến độ bằng thủ công</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 6: Thực hiện sản xuất thủ công</h4>
-            <ul>
-                <li>Phân bổ nguồn lực, giám sát tiến độ bằng thủ công</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 7: Kiểm tra chất lượng thủ công</h4>
-            <ul>
-                <li>Kiểm tra chất lượng sản phẩm bằng mắt thường</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 8: Nhập kho thủ công</h4>
-            <ul>
-                <li>Ghi nhận nhập kho bằng sổ sách hoặc Excel</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 9: Giao hàng & xuất hóa đơn thủ công</h4>
-            <ul>
-                <li>Giao hàng, xuất hóa đơn bằng giấy tờ hoặc Excel</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 10: Báo cáo & quyết định thủ công</h4>
-            <ul>
-                <li>Tổng hợp báo cáo, ra quyết định quản trị bằng thủ công</li>
-            </ul>
+            <p style="margin-top: 15px;"><a href="BusinessFlow_IntegratedComplete.html" style="color: #2c5aa0; text-decoration: underline;">Xem Quy Trình Tích Hợp To-Be Tự Động →</a></p>
         </div>
     </div>
 </div>

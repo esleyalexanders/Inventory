@@ -3,32 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quy Trình: Thực Hiện Sản Xuất - Tự Động ERP</title>
+    <title>Quy Trình Nghiệp Vụ: Thực Hiện Sản Xuất - Tự Động ERP</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, Helvetica, sans-serif; line-height: 1.6; color: #000; background: #fff; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        .header { border-bottom: 3px solid #000; padding-bottom: 20px; margin-bottom: 40px; }
-        .header h1 { font-size: 28px; font-weight: bold; margin-bottom: 10px; color: #1a1a1a; }
-        .header p { font-size: 16px; color: #666; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #2c5aa0; text-decoration: none; font-size: 14px; }
-        .back-link:hover { text-decoration: underline; }
-        .section { margin-bottom: 40px; }
-        h2 { font-size: 22px; font-weight: bold; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #333; color: #1a1a1a; }
-        h3 { font-size: 18px; font-weight: bold; margin: 25px 0 15px 0; padding: 12px; background: #f5f5f5; border-left: 4px solid #666; }
-        h4 { font-size: 16px; font-weight: bold; margin: 20px 0 10px 0; color: #333; }
-        p { margin-bottom: 12px; font-size: 14px; }
-        ul { margin: 10px 0 15px 25px; font-size: 14px; }
-        li { margin: 8px 0; }
-        .flowchart-container { background: #f8f8f8; border: 2px solid #ddd; border-radius: 5px; padding: 30px; margin: 30px 0; text-align: center; overflow-x: auto; }
-        .mermaid { display: inline-block; text-align: left; }
-        .explanation-box { border: 2px solid #666; padding: 25px; margin: 20px 0; background: #f8f8f8; border-radius: 5px; }
-        .step-box { background: #fff; border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-left: 4px solid #2c5aa0; }
-        .step-box h4 { color: #2c5aa0; margin-top: 0; }
-        .automation-point { border-left: 4px solid #28a745; padding: 15px 20px; margin: 15px 0; background: #f1f9f4; }
-        .automation-point h4 { color: #28a745; margin-top: 0; }
-        .code-section { margin: 30px 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .header {
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            color: #1a1a1a;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+        }
+        h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        ul {
+            margin: 10px 0 15px 25px;
+            font-size: 14px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .flowchart-container {
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+        .explanation-box {
+            border: 2px solid #666;
+            padding: 25px;
+            margin: 20px 0;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        .step-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2c5aa0;
+        }
+        .step-box h4 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        .automation-point {
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: #f1f9f4;
+        }
+        .automation-point h4 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        .code-section {
+            margin: 30px 0;
+        }
         .code-container { background: #2d2d2d; border-radius: 5px; padding: 0; margin: 20px 0; position: relative; }
         .code-header { background: #1a1a1a; padding: 10px 20px; border-radius: 5px 5px 0 0; display: flex; justify-content: space-between; align-items: center; }
         .code-title { color: #fff; font-size: 14px; font-weight: bold; }
@@ -46,13 +144,13 @@
         .color-system { background: #e3f2fd; border: 2px solid #1976d2; }
         @media print { .container { max-width: 100%; } .copy-button { display: none; } }
     </style>
-    <!-- ...existing code for translated content... -->
+    <!-- Translated content matching the original English flowchart and code snippet. Mermaid nodes use v10 arrow-label syntax and '&' are escaped. -->
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1>QUY TRÌNH: THỰC HIỆN SẢN XUẤT</h1>
-        <p style="margin-top: 10px; color: #666;">Quy trình tự động hóa thực hiện sản xuất</p>
+        <h1>Quy Trình: Thực Hiện Sản Xuất</h1>
+        <p style="margin-top: 10px; color: #666;">Quản lý sản xuất nội bộ và gia công, lấy vật tư, điểm QC và theo dõi tiến độ</p>
     </div>
     <a class="back-link" href="../index.html">← Quay lại Trang chính</a>
     <div class="section">
@@ -63,15 +161,35 @@
         <h2>2. Sơ đồ luồng quy trình</h2>
         <div class="flowchart-container">
             <div class="mermaid">
-                graph TD
-                A[Nhận lệnh sản xuất] --> B[Phân bổ nguồn lực]
-                B --> C[Khởi động sản xuất]
-                C --> D[Giám sát tiến độ]
-                D --> E[Kiểm tra chất lượng]
-                E --> F{Đạt chất lượng?}
-                F -- Có --> G[Hoàn thành sản xuất]
-                F -- Không --> H[Xử lý lỗi]
-                H --> D
+flowchart TD
+    A[Lệnh sản xuất được tạo] --> B{In-house hoặc outsourcing?}
+    B -->|In-house| C[Phân công vào dây chuyền]
+    B -->|outsourcing| D[Gửi tới vendor qua portal]
+    C --> E[Hệ thống sinh phiếu lấy vật tư]
+    E --> F[Kho lấy vật tư]
+    F --> G[Vật tư phát xuống sản xuất]
+    G --> H[Người vận hành xác nhận bắt đầu]
+    H --> I[Đang sản xuất]
+    I --> J{Cần QC giữa quá trình?}
+    J -->|Có| K[Kiểm tra QC giữa quá trình]
+    K --> L{QC đạt?}
+    L -->|Không| M[Dừng sản xuất - điều tra lỗi]
+    M --> N[Quyết định sửa chữa hoặc phế liệu]
+    N --> I
+    L -->|Có| O[Tiếp tục sản xuất]
+    J -->|Không| O
+    O --> P[Sản xuất hoàn thành]
+    D --> Q[Vendor xác nhận đã nhận]
+    Q --> R[Vendor đang sản xuất]
+    R --> S[Vendor giao hàng hoàn thành]
+    S --> T[Hàng nhận về kho]
+    T --> U[Kiểm tra QC cuối]
+    U --> V{QC cuối đạt?}
+    V -->|Có| W[Cập nhật tồn kho thành phẩm]
+    V -->|Không| X[Từ chối &amp; thông báo vendor]
+    P --> U
+    W --> Y[Hàng sẵn sàng giao]
+    Y --> Z[Kích hoạt giao hàng/hóa đơn]
             </div>
         </div>
         <div class="legend">
@@ -129,6 +247,46 @@
                 <li>Ghi nhận sản phẩm hoàn thành</li>
                 <li>Chuyển sang quy trình kho hoặc giao hàng</li>
             </ul>
+        </div>
+    </div>
+    <!-- Section: Mermaid Code Snippet (synchronized with visible diagram) -->
+    <div class="section code-section">
+        <h2>Mermaid Code</h2>
+        <p>Copy đoạn mã sau để dùng sơ đồ này trong tài liệu hoặc công cụ hỗ trợ Mermaid.</p>
+        <div class="code-container">
+            <div class="code-header">
+                <span class="code-title">Mermaid Flowchart Code</span>
+                <button class="copy-button" onclick="copyCode()">Copy Code</button>
+            </div>
+            <pre><code id="mermaid-code">flowchart TD
+    A[Lệnh sản xuất được tạo] --> B{In-house hoặc outsourcing?}
+    B -->|In-house| C[Phân công vào dây chuyền]
+    B -->|outsourcing| D[Gửi tới vendor qua portal]
+    C --> E[Hệ thống sinh phiếu lấy vật tư]
+    E --> F[Kho lấy vật tư]
+    F --> G[Vật tư phát xuống sản xuất]
+    G --> H[Người vận hành xác nhận bắt đầu]
+    H --> I[Đang sản xuất]
+    I --> J{Cần QC giữa quá trình?}
+    J -->|Có| K[Kiểm tra QC giữa quá trình]
+    K --> L{QC đạt?}
+    L -->|Không| M[Dừng sản xuất - điều tra lỗi]
+    M --> N[Quyết định sửa chữa hoặc phế liệu]
+    N --> I
+    L -->|Có| O[Tiếp tục sản xuất]
+    J -->|Không| O
+    O --> P[Sản xuất hoàn thành]
+    D --> Q[Vendor xác nhận đã nhận]
+    Q --> R[Vendor đang sản xuất]
+    R --> S[Vendor giao hàng hoàn thành]
+    S --> T[Hàng nhận về kho]
+    T --> U[Kiểm tra QC cuối]
+    U --> V{QC cuối đạt?}
+    V -->|Có| W[Cập nhật tồn kho thành phẩm]
+    V -->|Không| X[Từ chối &amp; thông báo vendor]
+    P --> U
+    W --> Y[Hàng sẵn sàng giao]
+    Y --> Z[Kích hoạt giao hàng/hóa đơn]</code></pre>
         </div>
     </div>
     <div class="section">

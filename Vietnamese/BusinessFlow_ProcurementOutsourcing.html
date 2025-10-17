@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quy Trình: Thu Mua & Gia Công Ngoài - Tự Động ERP</title>
+    <title>Quy Trình: Mua Sắm & Gia Công Ngoài - Tự Động ERP</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,95 +46,326 @@
         .color-system { background: #e3f2fd; border: 2px solid #1976d2; }
         @media print { .container { max-width: 100%; } .copy-button { display: none; } }
     </style>
-    <!-- ...existing code for translated content... -->
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>QUY TRÌNH: THU MUA & GIA CÔNG NGOÀI</h1>
-        <p style="margin-top: 10px; color: #666;">Quy trình tự động hóa thu mua vật tư và gia công ngoài</p>
-    </div>
-    <a class="back-link" href="../index.html">← Quay lại Trang chính</a>
-    <div class="section">
-        <h2>1. Mục tiêu quy trình</h2>
-        <p>Tự động hóa việc xác định nhu cầu thu mua vật tư, lựa chọn nhà cung cấp, và quản lý gia công ngoài.</p>
-    </div>
-    <div class="section">
-        <h2>2. Sơ đồ luồng quy trình</h2>
-        <div class="flowchart-container">
-            <div class="mermaid">
-                graph TD
-                A[Nhận yêu cầu vật tư/gia công] --> B[Kiểm tra tồn kho]
-                B --> C{Đủ vật tư?}
-                C -- Có --> D[Chuyển sang sản xuất]
-                C -- Không --> E[Lựa chọn nhà cung cấp]
-                E --> F[Tạo đơn mua hàng/gia công]
-                F --> G[Theo dõi tiến độ]
-                G --> H[Nhận hàng/gia công hoàn thành]
-                H --> D
+    <div class="container">
+        <a href="index.html" class="back-link">← Quay lại Tổng quan hệ thống</a>
+
+        <div class="header">
+            <h1>Quy Trình: Mua Sắm & Gia Công Ngoài</h1>
+            <p>Tự động tạo RFQ/PO cho vendor, hợp tác qua portal và theo dõi nhập kho</p>
+        </div>
+
+        <div class="section">
+            <h2>1. Sơ Đồ Quy Trình</h2>
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    A[Nhận diện nhu cầu mua sắm] --> B[Hệ thống tự động tạo RFQ/PO]
+    B --> C[Gửi đến vendor qua cổng/API/email]
+    C --> D[Vendor xem RFQ/PO]
+    D --> E{Vendor chấp nhận?}
+    E -->|Có| F[Vendor xác nhận thời gian giao & giá]
+    F --> G[Hệ thống cập nhật kế hoạch đơn hàng]
+    G --> H[Vendor vận chuyển hàng]
+    E -->|Không| I[Vendor đề xuất phương án khác]
+    I --> J[Xem xét thủ công bởi bộ phận mua]
+    J --> K{Chấp nhận phương án khác?}
+    K -->|Có| F
+    K -->|Không| L[Thương lượng lại hoặc tìm vendor mới]
+    L --> B
+    H --> M[Hàng đến kho]
+    M --> N[Hệ thống ghi nhận nhập kho]
+    N --> O[Kích hoạt kiểm tra chất lượng QC]
+    O --> P{QC đạt?}
+    P -->|Có| Q[Cập nhật tồn kho]
+    Q --> R[Hàng sẵn sàng sử dụng]
+    R --> S[Kích hoạt bước sản xuất tiếp theo]
+    P -->|Không| T[QC không đạt - khóa tồn kho]
+    T --> U[Thông báo vendor về vấn đề chất lượng]
+    U --> V[Vendor xử lý]
+
+    classDef automated fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef decision fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef manual fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef vendor fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    
+    class A,B,C,G,N,O,Q,R,S automated
+    class E,K,P decision
+    class J,L manual
+    class D,F,H,I,U,V vendor
+                </div>
             </div>
         </div>
-        <div class="legend">
-            <h4>Chú thích màu sắc:</h4>
-            <span class="legend-item"><span class="legend-color color-manual"></span> Thao tác thủ công</span>
-            <span class="legend-item"><span class="legend-color color-decision"></span> Quyết định</span>
-            <span class="legend-item"><span class="legend-color color-system"></span> Tự động hệ thống</span>
+
+        <div class="section">
+            <h2>2. Giải thích sơ đồ</h2>
+            <div class="explanation-box">
+                <p>Quy trình mua sắm này tự động hóa toàn bộ luồng từ tạo RFQ/PO đến nhập kho và kiểm tra chất lượng. Hệ thống tạo tài liệu mua hàng tự động, giao tiếp với vendors qua portal hoặc API, theo dõi trạng thái giao hàng và quản lý quy trình QC. Quy trình theo cơ chế ngoại lệ: procurement chỉ can thiệp khi vendor từ chối hoặc đề xuất phương án khác.</p>
+            </div>
+
+            <h3>Các bước quy trình</h3>
+
+            <div class="step-box">
+                <h4>Bước 1: Nhận diện nhu cầu mua sắm</h4>
+                <p><strong>Kích hoạt:</strong> Nhu cầu từ bước lập kế hoạch (Automated Order Analysis &amp; Planning).</p>
+                <p><strong>Nguồn:</strong></p>
+                <ul>
+                    <li>Quyết định outsourcing từ lập kế hoạch sản xuất</li>
+                    <li>Phát hiện thiếu nguyên vật liệu</li>
+                    <li>Đơn bổ sung từ quản lý tồn kho</li>
+                    <li>Yêu cầu mua thủ công từ người dùng</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 2: Tự động tạo RFQ/PO</h4>
+                <p><strong>Hành động:</strong> Hệ thống tự động tạo RFQ hoặc PO.</p>
+                <p><strong>Logic loại tài liệu:</strong></p>
+                <ul>
+                    <li><strong>RFQ:</strong> Cho mặt hàng mới hoặc cần so sánh giá</li>
+                    <li><strong>PO:</strong> Cho mặt hàng thường xuyên với giá đã thỏa thuận</li>
+                </ul>
+                <p><strong>Dữ liệu tự điền:</strong></p>
+                <ul>
+                    <li>Thông số mặt hàng từ master data (BOM nếu liên quan)</li>
+                    <li>Số lượng và đơn vị</li>
+                    <li>Ngày giao yêu cầu</li>
+                    <li>Địa điểm giao và hướng dẫn</li>
+                    <li>Tiêu chí chất lượng và nghiệm thu</li>
+                    <li>Điều khoản thanh toán</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 3: Gửi đến vendor qua kênh kỹ thuật số</h4>
+                <p><strong>Hành động:</strong> Hệ thống gửi RFQ/PO đến vendor qua vendor portal, API hoặc email.</p>
+                <p><strong>Phương thức:</strong></p>
+                <ul>
+                    <li><strong>Vendor Portal:</strong> Tích hợp trực tiếp, hợp tác thời gian thực</li>
+                    <li><strong>API Integration:</strong> Giao tiếp hệ thống-đến-hệ thống</li>
+                    <li><strong>Email:</strong> Gửi PDF đến email mua hàng của vendor</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 4: Vendor xem RFQ/PO</h4>
+                <p><strong>Hành động:</strong> Vendor nhận và kiểm tra yêu cầu.</p>
+                <p><strong>Vendor đánh giá:</strong></p>
+                <ul>
+                    <li>Thông số sản phẩm</li>
+                    <li>Số lượng và thời gian giao</li>
+                    <li>Giá và điều kiện thanh toán</li>
+                    <li>Năng lực sản xuất và nguồn nguyên vật liệu</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 5: Quyết định chấp nhận của Vendor</h4>
+                <p><strong>Quyết định:</strong> Vendor có chấp nhận RFQ/PO không?</p>
+                <p><strong>Nếu có:</strong> Vendor xác nhận thời gian giao và giá</p>
+                <p><strong>Nếu không:</strong> Vendor đề xuất phương án khác</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 6: Vendor xác nhận thời gian giao &amp; giá</h4>
+                <p><strong>Hành động:</strong> Vendor cung cấp lead time và giá cuối cùng.</p>
+                <p><strong>Vendor xác nhận:</strong></p>
+                <ul>
+                    <li>Đơn giá và tổng chi phí</li>
+                    <li>Lead time</li>
+                    <li>Ngày giao dự kiến</li>
+                    <li>MOQ, phương thức vận chuyển nếu có</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 7: Hệ thống cập nhật kế hoạch đơn hàng</h4>
+                <p><strong>Hành động:</strong> Hệ thống cập nhật lịch sản xuất và giao hàng dựa trên lead time từ vendor.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 8: Vendor đề xuất phương án khác (Luồng ngoại lệ)</h4>
+                <p><strong>Hành động:</strong> Vendor đề xuất thay đổi thông số, số lượng hoặc ngày giao.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 9: Xem xét thủ công bởi bộ phận mua</h4>
+                <p><strong>Hành động:</strong> Procurement đánh giá đề xuất của vendor và quyết định bước tiếp theo.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 10: Quyết định chấp nhận phương án thay thế</h4>
+                <p><strong>Nếu có:</strong> Tiếp tục với xác nhận vendor (Bước 6)</p>
+                <p><strong>Nếu không:</strong> Thương lượng lại hoặc tìm vendor khác</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 11: Thương lượng lại hoặc tìm vendor mới</h4>
+                <p><strong>Hành động:</strong> Thương lượng với vendor hoặc sourcing vendor thay thế.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 12: Vendor vận chuyển hàng</h4>
+                <p><strong>Hành động:</strong> Vendor gửi hàng đến kho; cập nhật trạng thái "Shipped" và upload packing list.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 13: Nhận hàng tại kho</h4>
+                <p><strong>Hành động:</strong> Kho nhận, kiểm đếm và đối chiếu với PO.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 14: Hệ thống ghi nhận nhập kho</h4>
+                <p><strong>Hệ thống ghi:</strong> PO, số lượng, ngày nhận, vị trí, batch/lot nếu có.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 15: Kích hoạt kiểm tra chất lượng (QC)</h4>
+                <p><strong>Hành động:</strong> Hệ thống tạo công việc QC, thông báo inspector và khóa tồn tạm thời.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 16: Quyết định QC đạt/không đạt</h4>
+                <p><strong>Tiêu chí:</strong> Kiểm tra hình thức, đo kích thước, chứng nhận vật liệu, test mẫu.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 17: Cập nhật tồn kho (QC đạt)</h4>
+                <p><strong>Hành động:</strong> Hệ thống cập nhật tồn kho, thay đổi trạng thái thành "Available" và cập nhật PO.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 18: Hàng sẵn sàng sử dụng</h4>
+                <p><strong>Hệ thống:</strong> Vật tư có thể được sử dụng cho sản xuất hoặc bán.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 19: Kích hoạt bước sản xuất tiếp theo</h4>
+                <p><strong>Hành động:</strong> Hệ thống phát hành công việc sản xuất phụ thuộc.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 20: QC không đạt - Khóa tồn kho (Luồng ngoại lệ)</h4>
+                <p><strong>Hành động:</strong> Vật tư không đạt QC, khóa kho và tạo NCR.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 21: Thông báo vendor về vấn đề chất lượng</h4>
+                <p><strong>Hành động:</strong> Hệ thống thông báo vendor kèm báo cáo QC và ảnh nếu có.</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 22: Vendor xử lý yêu cầu</h4>
+                <p><strong>Hành động:</strong> Vendor gửi hàng thay thế, phát hành credit hoặc sửa chữa theo thỏa thuận.</p>
+            </div>
+
+            <h3>Key Automation Points</h3>
+
+            <div class="automation-point">
+                <h4>✓ Tự động tạo RFQ/PO</h4>
+                <p>Tài liệu mua hàng được tạo tự động từ master data (BOM/Item master).</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Giao tiếp vendor kỹ thuật số</h4>
+                <p>RFQ/PO gửi qua vendor portal/API/email; phản hồi vendor được thu thập tự động.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Cập nhật kế hoạch tự động</h4>
+                <p>Khi vendor xác nhận lead time, lịch sản xuất và giao hàng được cập nhật tự động.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Tích hợp Goods Receipt</h4>
+                <p>Kho ghi nhận nhập kho một lần, hệ thống cập nhật tồn và kích hoạt QC.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Quy trình QC tự động</h4>
+                <p>QC được kích hoạt tự động với checklist và theo dõi trạng thái.</p>
+            </div>
+
+        </div>
+
+        <div class="section code-section">
+            <h2>3. Mã Mermaid Sơ Đồ</h2>
+            <p>Sao chép đoạn mã dưới đây để sử dụng sơ đồ này trong tài liệu hoặc công cụ hỗ trợ Mermaid.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Mã Sơ Đồ Mermaid</span>
+                    <button class="copy-button" onclick="copyCode()">Sao chép mã</button>
+                </div>
+                <pre><code id="mermaid-code">flowchart TD
+    A[Nhận diện nhu cầu mua sắm] --> B[Hệ thống tự động tạo RFQ/PO]
+    B --> C[Gửi đến vendor qua cổng/API/email]
+    C --> D[Vendor xem RFQ/PO]
+    D --> E{Vendor chấp nhận?}
+    E -->|Có| F[Vendor xác nhận thời gian giao &amp; giá]
+    F --> G[Hệ thống cập nhật kế hoạch đơn hàng]
+    G --> H[Vendor vận chuyển hàng]
+    E -->|Không| I[Vendor đề xuất phương án khác]
+    I --> J[Xem xét thủ công bởi bộ phận mua]
+    J --> K{Chấp nhận phương án khác?}
+    K -->|Có| F
+    K -->|Không| L[Thương lượng lại hoặc tìm vendor mới]
+    L --> B
+    H --> M[Hàng đến kho]
+    M --> N[Hệ thống ghi nhận nhập kho]
+    N --> O[Kích hoạt kiểm tra chất lượng (QC)]
+    O --> P{QC đạt?}
+    P -->|Có| Q[Cập nhật tồn kho]
+    Q --> R[Hàng sẵn sàng sử dụng]
+    R --> S[Kích hoạt bước sản xuất tiếp theo]
+    P -->|Không| T[QC không đạt - khóa tồn kho]
+    T --> U[Thông báo vendor về vấn đề chất lượng]
+    U --> V[Vendor xử lý]
+
+    classDef automated fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef decision fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef manual fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef vendor fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    
+    class A,B,C,G,N,O,Q,R,S automated
+    class E,K,P decision
+    class J,L manual
+    class D,F,H,I,U,V vendor</code></pre>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>Hệ thống Tự Động ERP - Tài liệu Quy Trình</p>
+            <p>Khởi tạo: October 2025</p>
         </div>
     </div>
-    <div class="section">
-        <h2>3. Các bước chi tiết</h2>
-        <div class="step-box">
-            <h4>Bước 1: Nhận yêu cầu vật tư/gia công</h4>
-            <ul>
-                <li>Tiếp nhận yêu cầu từ bộ phận sản xuất hoặc khách hàng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 2: Kiểm tra tồn kho</h4>
-            <ul>
-                <li>Kiểm tra số lượng vật tư hiện có</li>
-                <li>Đánh giá khả năng đáp ứng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 3: Lựa chọn nhà cung cấp</h4>
-            <ul>
-                <li>Tìm kiếm nhà cung cấp phù hợp</li>
-                <li>So sánh giá, chất lượng, thời gian giao hàng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 4: Tạo đơn mua hàng/gia công</h4>
-            <ul>
-                <li>Tạo đơn đặt hàng hoặc hợp đồng gia công ngoài</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 5: Theo dõi tiến độ</h4>
-            <ul>
-                <li>Theo dõi trạng thái đơn hàng/gia công</li>
-                <li>Nhắc nhở khi gần đến hạn giao hàng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 6: Nhận hàng/gia công hoàn thành</h4>
-            <ul>
-                <li>Kiểm tra chất lượng và số lượng khi nhận hàng/gia công</li>
-                <li>Cập nhật tồn kho</li>
-            </ul>
-        </div>
-    </div>
-    <div class="section">
-        <h2>4. Điểm tự động hóa nổi bật</h2>
-        <div class="automation-point">
-            <h4>Tự động lựa chọn nhà cung cấp</h4>
-            <p>Hệ thống đề xuất nhà cung cấp tối ưu dựa trên dữ liệu lịch sử và tiêu chí đánh giá.</p>
-        </div>
-        <div class="automation-point">
-            <h4>Theo dõi tiến độ tự động</h4>
-            <p>Tự động cập nhật trạng thái đơn hàng/gia công và gửi thông báo nhắc nhở.</p>
-        </div>
-    </div>
-</div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        function copyCode() {
+            const code = document.getElementById('mermaid-code').textContent;
+            const button = document.querySelector('.copy-button');
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Đã sao chép!';
+                button.classList.add('copied');
+                setTimeout(function() {
+                    button.textContent = 'Sao chép mã';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Không thể sao chép: ', err);
+            });
+        }
+    </script>
 </body>
 </html>

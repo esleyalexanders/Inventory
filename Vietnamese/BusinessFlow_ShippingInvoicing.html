@@ -46,85 +46,594 @@
         .color-system { background: #e3f2fd; border: 2px solid #1976d2; }
         @media print { .container { max-width: 100%; } .copy-button { display: none; } }
     </style>
-    <!-- ...existing code for translated content... -->
-</head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>QUY TRÌNH: GIAO HÀNG & XUẤT HÓA ĐƠN</h1>
-        <p style="margin-top: 10px; color: #666;">Quy trình tự động hóa giao hàng và xuất hóa đơn</p>
-    </div>
-    <a class="back-link" href="../index.html">← Quay lại Trang chính</a>
-    <div class="section">
-        <h2>1. Mục tiêu quy trình</h2>
-        <p>Tự động hóa việc chuẩn bị giao hàng, xuất hóa đơn và cập nhật trạng thái đơn hàng.</p>
-    </div>
-    <div class="section">
-        <h2>2. Sơ đồ luồng quy trình</h2>
-        <div class="flowchart-container">
-            <div class="mermaid">
-                graph TD
-                A[Chuẩn bị giao hàng] --> B[Xuất hóa đơn]
-                B --> C[Giao hàng cho khách]
-                C --> D[Cập nhật trạng thái đơn hàng]
-                D --> E[Hoàn thành đơn hàng]
+    <div class="container">
+        <!-- Back Link -->
+        <a href="index.html" class="back-link">← Quay lại Tổng quan hệ thống</a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>Quy Trình Nghiệp Vụ: Giao Hàng & Xuất Hóa Đơn</h1>
+            <p>Tự động hóa hoạt động pick/pack, tài liệu giao hàng, tạo hóa đơn và theo dõi giao hàng</p>
+        </div>
+
+        <!-- Section 1: Visual Flowchart -->
+        <div class="section">
+            <h2>1. Sơ Đồ Quy Trình</h2>
+
+            <div class="flowchart-container">
+                <div class="mermaid">
+flowchart TD
+    A[Đơn hàng sẵn sàng giao] --> B[Hệ thống tạo danh sách lấy hàng]
+    B --> C[Kho lấy hàng]
+    C --> D[Quét & xác nhận số lượng lấy]
+    D --> E{Số lượng lấy = số lượng đặt?}
+    E -- Có --> F[Hệ thống tạo danh sách đóng gói]
+    E -- Không --> G[Ghi thiếu hụt/biến động]
+    G --> H[Thông báo bộ phận bán hàng]
+    H --> I[Xem xét thủ công & quyết định]
+    I --> J{Có giao hàng một phần?}
+    J -- Có --> F
+    J -- Không --> K[Hủy/trì hoãn giao hàng]
+    F --> L[Đóng gói hàng]
+    L --> M[Hệ thống tạo tài liệu giao hàng]
+    M --> N[Chọn nhà vận chuyển & in nhãn]
+    N --> O[Giao cho nhà vận chuyển]
+    O --> P[Hệ thống ghi nhận giao hàng]
+    P --> Q[Cập nhật trạng thái đơn hàng: Đã giao]
+    Q --> R[Hệ thống tự động tạo hóa đơn]
+    R --> S[Gửi hóa đơn cho khách hàng]
+    S --> T[Hệ thống theo dõi giao hàng]
+    T --> U{Đã xác nhận giao hàng?}
+    U -- Có --> V[Cập nhật trạng thái đơn hàng: Đã giao thành công]
+    V --> W[Kích hoạt theo dõi thanh toán]
+    W --> X[Theo dõi ngày thanh toán đến hạn]
+    X --> Y{Đã nhận thanh toán?}
+    Y -- Có --> Z[Đóng đơn hàng & cập nhật AR]
+    Y -- Không --> AA[Gửi nhắc nhở thanh toán]
+    AA --> AB{Quá hạn?}
+    AB -- Có --> AC[Giao cho thu nợ]
+    AB -- Không --> X
+                </div>
             </div>
         </div>
-        <div class="legend">
-            <h4>Chú thích màu sắc:</h4>
-            <span class="legend-item"><span class="legend-color color-manual"></span> Thao tác thủ công</span>
-            <span class="legend-item"><span class="legend-color color-decision"></span> Quyết định</span>
-            <span class="legend-item"><span class="legend-color color-system"></span> Tự động hệ thống</span>
+
+        <!-- Section 2: Flow Explanation -->
+        <div class="section">
+            <h2>2. Giải Thích Sơ Đồ Quy Trình</h2>
+
+            <div class="explanation-box">
+                <p>Quy trình giao hàng và xuất hóa đơn này tự động hóa toàn bộ quá trình đáp ứng đơn hàng từ pick/pack đến giao hàng và thu thập thanh toán. Hệ thống tạo danh sách lấy hàng tự động, quản lý tài liệu giao hàng, tạo hóa đơn khi giao hàng và theo dõi trạng thái giao hàng và thanh toán. Quy trình dựa trên ngoại lệ có nghĩa là đội ngũ kho và kế toán chỉ can thiệp khi có biến động hoặc vấn đề thanh toán.</p>
+            </div>
+
+            <h3>Các Bước Quy Trình</h3>
+
+            <div class="step-box">
+                <h4>Bước 1: Đơn Hàng Sẵn Sàng Giao</h4>
+                <p><strong>Kích hoạt:</strong> Đơn hàng được phê duyệt và hàng sẵn sàng giao.</p>
+                <p><strong>Điều kiện tiên quyết đáp ứng:</strong></p>
+                <ul>
+                    <li>Đơn hàng khách hàng được xác thực và xác nhận</li>
+                    <li>Hàng thành phẩm có sẵn trong kho (trạng thái tồn kho: Có sẵn)</li>
+                    <li>Tín dụng khách hàng được phê duyệt (nếu áp dụng)</li>
+                    <li>Ngày giao hàng yêu cầu đang đến gần hoặc sẵn sàng giao ngay</li>
+                    <li>Không có giữ hoặc chặn trên tài khoản khách hàng</li>
+                </ul>
+                <p><strong>Hệ thống:</strong> Trạng thái đơn hàng là "Sẵn sàng lấy hàng"</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 2: Hệ Thống Tạo Danh Sách Lấy Hàng</h4>
+                <p><strong>Hành động:</strong> Hệ thống tự động tạo danh sách lấy hàng kho.</p>
+                <p><strong>Danh sách lấy hàng chứa:</strong></p>
+                <ul>
+                    <li>Số đơn hàng bán và tên khách hàng</li>
+                    <li>Tất cả mặt hàng cần giao với số lượng</li>
+                    <li>Vị trí lưu trữ trong kho (bin/shelf/rack)</li>
+                    <li>Số lô/batch nếu áp dụng</li>
+                    <li>Thứ tự lấy hàng (tối ưu hóa theo bố trí kho)</li>
+                    <li>Hướng dẫn xử lý đặc biệt</li>
+                </ul>
+                <p><strong>Tự động hóa:</strong> Danh sách lấy hàng được tạo tự động - không cần chuẩn bị thủ công</p>
+                <p><strong>Tối ưu hóa:</strong> Hệ thống nhóm nhiều đơn hàng để lấy hàng hiệu quả nếu được bật</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 3: Kho Lấy Hàng</h4>
+                <p><strong>Hành động:</strong> Nhân viên kho lấy hàng theo danh sách lấy hàng.</p>
+                <p><strong>Hoạt động lấy hàng:</strong></p>
+                <ul>
+                    <li>Điều hướng đến vị trí lưu trữ theo thứ tự lấy hàng</li>
+                    <li>Lấy hàng từ kệ/bin</li>
+                    <li>Xác minh mã hàng và mô tả</li>
+                    <li>Đếm số lượng cần lấy</li>
+                    <li>Đưa hàng đã lấy đến khu vực đóng gói</li>
+                </ul>
+                <p><strong>Công cụ:</strong> Máy quét di động, danh sách lấy hàng in, hoặc hệ thống pick-by-light</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 4: Quét & Xác Nhận Số Lượng Lấy</h4>
+                <p><strong>Hành động:</strong> Người lấy hàng quét và xác nhận số lượng lấy thực tế.</p>
+                <p><strong>Quy trình xác nhận:</strong></p>
+                <ul>
+                    <li>Quét mã vạch hàng để xác minh sản phẩm đúng</li>
+                    <li>Nhập hoặc xác nhận số lượng lấy</li>
+                    <li>Hệ thống xác thực với số lượng đặt</li>
+                    <li>Thời gian và ID người lấy hàng được ghi nhận</li>
+                </ul>
+                <p><strong>Hệ thống:</strong> So sánh số lượng lấy vs đặt</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 5: Quyết Định Số Lượng Lấy Khớp</h4>
+                <p><strong>Quyết định:</strong> Số lượng lấy có khớp với số lượng đặt không?</p>
+                <p><strong>Nếu Có (Khớp chính xác):</strong> Tiến hành đóng gói (luồng bình thường)</p>
+                <p><strong>Nếu Không (Thiếu hoặc thừa):</strong> Ghi biến động để xem xét</p>
+                <p><strong>Lý do biến động phổ biến:</strong></p>
+                <ul>
+                    <li>Không đủ tồn kho có sẵn (lỗi tồn kho)</li>
+                    <li>Hàng hỏng được phát hiện khi lấy</li>
+                    <li>Hàng sai ở vị trí lưu trữ</li>
+                    <li>Lỗi người lấy (đếm sai số lượng)</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 6: Ghi Thiếu Hụt/Biến Động</h4>
+                <p><strong>Hành động:</strong> Hệ thống ghi biến động số lượng.</p>
+                <p><strong>Hệ thống ghi:</strong></p>
+                <ul>
+                    <li>Số lượng đặt vs lấy</li>
+                    <li>Số lượng thiếu</li>
+                    <li>Hàng bị ảnh hưởng</li>
+                    <li>Ghi chú người lấy về biến động</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 7: Thông Báo Bộ Phận Bán Hàng</h4>
+                <p><strong>Hành động:</strong> Hệ thống tự động cảnh báo bộ phận bán hàng về thiếu hụt.</p>
+                <p><strong>Thông báo chứa:</strong></p>
+                <ul>
+                    <li>Tên khách hàng và số đơn hàng</li>
+                    <li>Hàng thiếu và biến động số lượng</li>
+                    <li>Lý do thiếu hụt</li>
+                    <li>Tùy chọn giải quyết</li>
+                </ul>
+                <p><strong>Phương thức giao hàng:</strong> Email, cảnh báo dashboard, hoặc thông báo di động</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 8: Xem Xét Thủ Công & Quyết Định</h4>
+                <p><strong>Hành động:</strong> Bộ phận bán hàng xem xét thiếu hụt và xác định hành động.</p>
+                <p><strong>Cân nhắc xem xét:</strong></p>
+                <ul>
+                    <li>Ưu tiên khách hàng và mối quan hệ</li>
+                    <li>Tác động của giao hàng một phần</li>
+                    <li>Tính khả dụng của hàng thiếu (khi nào chúng ta có thể có)</li>
+                    <li>Ưu tiên của khách hàng (chờ đơn hoàn chỉnh hoặc chấp nhận một phần)</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 9: Quyết Định Giao Hàng Một Phần</h4>
+                <p><strong>Quyết định:</strong> Chúng ta có nên giao hàng một phần hay chờ đơn hoàn chỉnh không?</p>
+                <p><strong>Nếu Có (Giao hàng một phần):</strong></p>
+                <ul>
+                    <li>Điều chỉnh số lượng đơn hàng thành số lượng lấy</li>
+                    <li>Tạo đơn hàng phụ cho hàng thiếu</li>
+                    <li>Thông báo khách hàng về giao hàng một phần</li>
+                    <li>Tiến hành đóng gói</li>
+                </ul>
+                <p><strong>Nếu Không (Chờ hoàn chỉnh):</strong></p>
+                <ul>
+                    <li>Hủy hoặc trì hoãn giao hàng</li>
+                    <li>Trả hàng đã lấy về kho</li>
+                    <li>Chờ hàng thiếu có sẵn</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 10: Hủy/Trì Hoãn Giao Hàng</h4>
+                <p><strong>Hành động:</strong> Giao hàng bị giữ cho đến khi thiếu hụt được giải quyết.</p>
+                <p><strong>Hành động hệ thống:</strong></p>
+                <ul>
+                    <li>Giải phóng giữ chỗ tồn kho (trả về có sẵn)</li>
+                    <li>Trạng thái đơn hàng cập nhật thành "Giữ - Chờ tồn kho"</li>
+                    <li>Khách hàng được thông báo về chậm trễ</li>
+                    <li>Ngày giao dự kiến được cập nhật</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 11: Hệ Thống Tạo Danh Sách Đóng Gói</h4>
+                <p><strong>Hành động:</strong> Hệ thống tự động tạo danh sách đóng gói cho giao hàng.</p>
+                <p><strong>Danh sách đóng gói chứa:</strong></p>
+                <ul>
+                    <li>Tên khách hàng và địa chỉ giao hàng</li>
+                    <li>Số đơn hàng bán và ngày</li>
+                    <li>Danh sách hoàn chỉnh hàng đang giao với số lượng</li>
+                    <li>Mô tả hàng và số phần</li>
+                    <li>Tổng trọng lượng và kích thước (nếu áp dụng)</li>
+                    <li>Hướng dẫn xử lý đặc biệt</li>
+                </ul>
+                <p><strong>Tự động hóa:</strong> Danh sách đóng gói tự động tạo từ số lượng lấy - không nhập thủ công</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 12: Đóng Gói Hàng</h4>
+                <p><strong>Hành động:</strong> Nhân viên kho đóng gói hàng để giao.</p>
+                <p><strong>Hoạt động đóng gói:</strong></p>
+                <ul>
+                    <li>Chọn bao bì phù hợp (hộp, pallet, thùng)</li>
+                    <li>Đóng gói hàng an toàn với vật liệu bảo vệ</li>
+                    <li>Gửi danh sách đóng gói kèm theo</li>
+                    <li>Niêm phong và dán nhãn gói</li>
+                    <li>Cân và đo gói đã đóng</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 13: Hệ Thống Tạo Tài Liệu Giao Hàng</h4>
+                <p><strong>Hành động:</strong> Hệ thống tự động tạo tài liệu giao hàng.</p>
+                <p><strong>Tài liệu giao hàng bao gồm:</strong></p>
+                <ul>
+                    <li>Phiếu giao hàng/waybill</li>
+                    <li>Hóa đơn thương mại (cho giao hàng xuất khẩu)</li>
+                    <li>Danh sách đóng gói (bản khách hàng)</li>
+                    <li>Chứng nhận xuất xứ (nếu yêu cầu)</li>
+                    <li>Tờ khai hải quan (cho giao hàng quốc tế)</li>
+                </ul>
+                <p><strong>Tự động hóa:</strong> Tất cả tài liệu được điền từ dữ liệu đơn hàng - không nhập thủ công</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 14: Chọn Nhà Vận Chuyển & In Nhãn</h4>
+                <p><strong>Hành động:</strong> Hệ thống chỉ định nhà vận chuyển và tạo nhãn giao hàng.</p>
+                <p><strong>Logic chọn nhà vận chuyển:</strong></p>
+                <ul>
+                    <li>Nhà vận chuyển ưu tiên của khách hàng (nếu chỉ định)</li>
+                    <li>Địa chỉ giao hàng và cấp dịch vụ</li>
+                    <li>Trọng lượng gói và kích thước</li>
+                    <li>Quy tắc tối ưu hóa chi phí</li>
+                </ul>
+                <p><strong>Tạo nhãn:</strong></p>
+                <ul>
+                    <li>Định dạng nhãn cụ thể nhà vận chuyển</li>
+                    <li>Số theo dõi được chỉ định</li>
+                    <li>Địa chỉ người nhận và mã vạch</li>
+                    <li>Cấp dịch vụ (tiêu chuẩn, nhanh, qua đêm)</li>
+                </ul>
+                <p><strong>Tích hợp:</strong> Tích hợp API nhà vận chuyển trực tiếp để tạo nhãn (FedEx, UPS, DHL, v.v.)</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 15: Giao Cho Nhà Vận Chuyển</h4>
+                <p><strong>Hành động:</strong> Giao hàng vật lý cho nhà vận chuyển logistics.</p>
+                <p><strong>Quy trình giao:</strong></p>
+                <ul>
+                    <li>Giao hàng hoặc drop-off tại depot nhà vận chuyển</li>
+                    <li>Nhà vận chuyển quét và chấp nhận giao hàng</li>
+                    <li>Chứng nhận giao được nhận</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 16: Hệ Thống Ghi Nhận Giao Hàng</h4>
+                <p><strong>Hành động:</strong> Hệ thống ghi chi tiết giao hàng và thông tin theo dõi.</p>
+                <p><strong>Ghi nhận giao hàng bao gồm:</strong></p>
+                <ul>
+                    <li>Ngày và giờ giao hàng</li>
+                    <li>Tên nhà vận chuyển và cấp dịch vụ</li>
+                    <li>Số theo dõi</li>
+                    <li>Số gói, trọng lượng và kích thước</li>
+                    <li>Số lượng giao mỗi hàng</li>
+                    <li>ID nhân viên giao hàng</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 17: Cập Nhật Trạng Thái Đơn Hàng: Đã Giao</h4>
+                <p><strong>Hành động:</strong> Hệ thống tự động cập nhật trạng thái đơn hàng.</p>
+                <p><strong>Cập nhật trạng thái:</strong></p>
+                <ul>
+                    <li>Trạng thái đơn hàng: "Đã giao"</li>
+                    <li>Ngày giao được ghi nhận</li>
+                    <li>Tồn kho giảm (hàng rời khỏi kho)</li>
+                    <li>Số theo dõi liên kết với đơn hàng</li>
+                </ul>
+                <p><strong>Thông báo gửi đến:</strong></p>
+                <ul>
+                    <li>Khách hàng: Xác nhận giao hàng với số theo dõi</li>
+                    <li>Nhân viên bán hàng: Thông báo đơn hàng đã giao</li>
+                    <li>Kế toán: Kích hoạt tạo hóa đơn</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 18: Hệ Thống Tự Động Tạo Hóa Đơn</h4>
+                <p><strong>Hành động:</strong> Hóa đơn được tạo tự động khi giao hàng.</p>
+                <p><strong>Chi tiết hóa đơn tự động điền:</strong></p>
+                <ul>
+                    <li>Thông tin thanh toán khách hàng từ master data</li>
+                    <li>Hàng đã giao với số lượng và đơn giá</li>
+                    <li>Tổng phụ, thuế, phí giao hàng</li>
+                    <li>Điều khoản thanh toán (net 30, net 60, v.v.)</li>
+                    <li>Ngày hóa đơn (ngày giao hàng)</li>
+                    <li>Ngày đến hạn tính từ điều khoản thanh toán</li>
+                    <li>Số hóa đơn (tự động tạo tuần tự)</li>
+                </ul>
+                <p><strong>Tự động hóa:</strong> Không nhập hóa đơn thủ công - tất cả dữ liệu từ đơn hàng bán và giao hàng</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 19: Hóa Đơn Gửi Cho Khách Hàng</h4>
+                <p><strong>Hành động:</strong> Hóa đơn được giao cho khách hàng tự động.</p>
+                <p><strong>Phương thức giao hàng:</strong></p>
+                <ul>
+                    <li><strong>Email:</strong> PDF hóa đơn đến email thanh toán khách hàng</li>
+                    <li><strong>Cổng khách hàng:</strong> Đăng lên cổng trực tuyến để tải</li>
+                    <li><strong>EDI:</strong> Trao đổi dữ liệu điện tử cho khách hàng lớn</li>
+                    <li><strong>In & Gửi:</strong> Cho khách hàng yêu cầu hóa đơn giấy</li>
+                </ul>
+                <p><strong>Hệ thống:</strong> Theo dõi ngày gửi hóa đơn và xác nhận giao hàng</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 20: Hệ Thống Theo Dõi Giao Hàng</h4>
+                <p><strong>Hành động:</strong> Hệ thống giám sát trạng thái giao hàng qua theo dõi nhà vận chuyển.</p>
+                <p><strong>Cập nhật theo dõi:</strong></p>
+                <ul>
+                    <li>Cập nhật trạng thái trong quá trình vận chuyển</li>
+                    <li>Ngày giao hàng dự kiến</li>
+                    <li>Ngoại lệ giao hàng (chậm trễ, vấn đề)</li>
+                    <li>Xác nhận giao hàng (ký nhận, ảnh)</li>
+                </ul>
+                <p><strong>Tích hợp:</strong> Cập nhật theo dõi tự động qua API nhà vận chuyển</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 21: Quyết Định Xác Nhận Giao Hàng</h4>
+                <p><strong>Quyết định:</strong> Nhà vận chuyển đã xác nhận giao hàng thành công chưa?</p>
+                <p><strong>Đã xác nhận:</strong> Nhà vận chuyển cung cấp bằng chứng giao hàng (ký, ảnh, GPS)</p>
+                <p><strong>Chưa xác nhận:</strong> Giao hàng vẫn đang vận chuyển hoặc giao hàng đã thử nhưng thất bại</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 22: Cập Nhật Trạng Thái Đơn Hàng: Đã Giao Thành Công</h4>
+                <p><strong>Hành động:</strong> Hệ thống cập nhật đơn hàng thành trạng thái đã giao.</p>
+                <p><strong>Cập nhật trạng thái:</strong></p>
+                <ul>
+                    <li>Trạng thái đơn hàng: "Đã giao thành công"</li>
+                    <li>Ngày giao thực tế được ghi nhận</li>
+                    <li>Bằng chứng giao hàng (POD) lưu trong hệ thống</li>
+                    <li>Tên người nhận giao hàng được ghi</li>
+                </ul>
+                <p><strong>Thông báo:</strong></p>
+                <ul>
+                    <li>Bộ phận bán hàng: Đơn hàng giao thành công</li>
+                    <li>Dịch vụ khách hàng: Tham khảo cho truy vấn khách hàng</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 23: Kích Hoạt Theo Dõi Thanh Toán</h4>
+                <p><strong>Hành động:</strong> Hệ thống kích hoạt quy trình giám sát thanh toán.</p>
+                <p><strong>Theo dõi thanh toán được khởi tạo:</strong></p>
+                <ul>
+                    <li>Hóa đơn ghi nhận trong Tài khoản phải thu (AR)</li>
+                    <li>Ngày đến hạn thanh toán được tính</li>
+                    <li>Nhắc nhở thanh toán tự động được lên lịch</li>
+                    <li>Bucket lão hóa AR được chỉ định (hiện tại, 30 ngày, 60 ngày, 90+ ngày)</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 24: Giám Sát Ngày Đến Hạn Thanh Toán</h4>
+                <p><strong>Hành động:</strong> Hệ thống giám sát trạng thái thanh toán hóa đơn hàng ngày.</p>
+                <p><strong>Hoạt động giám sát:</strong></p>
+                <ul>
+                    <li>Đếm ngược đến ngày đến hạn thanh toán</li>
+                    <li>Kiểm tra nhận thanh toán</li>
+                    <li>Tính số ngày quá hạn nếu quá hạn</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 25: Quyết Định Nhận Thanh Toán</h4>
+                <p><strong>Quyết định:</strong> Khách hàng đã thanh toán hóa đơn chưa?</p>
+                <p><strong>Phương thức thanh toán được theo dõi:</strong></p>
+                <ul>
+                    <li>Chuyển khoản/chuyển khoản ngân hàng</li>
+                    <li>Séc gửi</li>
+                    <li>Thanh toán thẻ tín dụng</li>
+                    <li>Cổng thanh toán trực tuyến</li>
+                </ul>
+                <p><strong>Nếu Có (Đã thanh toán):</strong> Đóng đơn hàng và cập nhật AR</p>
+                <p><strong>Nếu Không (Chưa thanh toán):</strong> Gửi nhắc nhở thanh toán</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 26: Đóng Đơn Hàng & Cập Nhật AR</h4>
+                <p><strong>Hành động:</strong> Đơn hàng đóng và thanh toán ghi nhận.</p>
+                <p><strong>Cập nhật hệ thống:</strong></p>
+                <ul>
+                    <li>Trạng thái hóa đơn: "Đã thanh toán"</li>
+                    <li>Ngày và số tiền thanh toán ghi nhận</li>
+                    <li>Phương thức thanh toán được ghi</li>
+                    <li>Số dư Tài khoản phải thu giảm</li>
+                    <li>Tài khoản/ngân hàng tăng</li>
+                    <li>Chu kỳ đơn hàng hoàn tất</li>
+                </ul>
+                <p><strong>Phân tích:</strong> Thanh toán ghi nhận để báo cáo dòng tiền và tính DSO (Ngày bán hàng chưa thu)</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 27: Gửi Nhắc Nhở Thanh Toán</h4>
+                <p><strong>Hành động:</strong> Hệ thống gửi nhắc nhở thanh toán tự động cho khách hàng.</p>
+                <p><strong>Lịch nhắc nhở:</strong></p>
+                <ul>
+                    <li>Nhắc nhở thân thiện: 3-5 ngày trước đến hạn</li>
+                    <li>Nhắc nhở đến hạn: Vào ngày đến hạn nếu chưa thanh toán</li>
+                    <li>Nhắc nhở quá hạn: 7 ngày, 14 ngày, 30 ngày quá hạn</li>
+                </ul>
+                <p><strong>Nhắc nhở chứa:</strong></p>
+                <ul>
+                    <li>Số hóa đơn và số tiền</li>
+                    <li>Ngày đến hạn ban đầu</li>
+                    <li>Số ngày quá hạn (nếu áp dụng)</li>
+                    <li>Hướng dẫn thanh toán</li>
+                    <li>Bản sao hóa đơn đính kèm</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 28: Quyết Định Quá Hạn</h4>
+                <p><strong>Quyết định:</strong> Hóa đơn có quá hạn ngoài thời gian ân hạn không?</p>
+                <p><strong>Thời gian ân hạn:</strong> Thường 30-60 ngày tùy điều khoản khách hàng</p>
+                <p><strong>Nếu Có (Quá hạn nghiêm trọng):</strong> Giao cho thu nợ</p>
+                <p><strong>Nếu Không (Trong ân hạn):</strong> Tiếp tục giám sát và nhắc nhở</p>
+            </div>
+
+            <div class="step-box">
+                <h4>Bước 29: Giao Cho Thu Nợ</h4>
+                <p><strong>Hành động:</strong> Hóa đơn quá hạn giao cho nỗ lực thu nợ chuyên sâu.</p>
+                <p><strong>Hành động thu nợ:</strong></p>
+                <ul>
+                    <li>Cuộc gọi điện cá nhân từ quản lý AR</li>
+                    <li>Tài khoản khách hàng đặt giữ tín dụng (không đơn hàng mới)</li>
+                    <li>Giải quyết tranh chấp nếu khách hàng khiếu nại vấn đề</li>
+                    <li>Đàm phán kế hoạch thanh toán</li>
+                    <li>Cân nhắc hành động pháp lý (cho số tiền lớn)</li>
+                    <li>Cung cấp dự phòng nợ xấu (nếu không thu được)</li>
+                </ul>
+                <p><strong>Hệ thống:</strong> Ghi khách hàng để xem xét tín dụng và phê duyệt đơn hàng tương lai</p>
+            </div>
+
+            <h3>Điểm Tự Động Hóa Nổi Bật</h3>
+
+            <div class="automation-point">
+                <h4>✓ Tự Động Tạo Danh Sách Lấy Hàng</h4>
+                <p>Danh sách lấy hàng được tạo tự động từ đơn hàng bán với thứ tự lấy tối ưu và vị trí - không cần chuẩn bị danh sách thủ công.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Tài Liệu Giao Hàng Tự Động</h4>
+                <p>Danh sách đóng gói, phiếu giao hàng và nhãn giao hàng được tạo tự động - tất cả tài liệu được điền từ dữ liệu đơn hàng với không nhập thủ công.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Tích Hợp Nhà Vận Chuyển & Theo Dõi</h4>
+                <p>Tích hợp trực tiếp với nhà vận chuyển (FedEx, UPS, DHL) để tạo nhãn tự động, chỉ định số theo dõi và cập nhật trạng thái giao hàng.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Tự Động Tạo Hóa Đơn</h4>
+                <p>Hóa đơn được tạo tự động khi giao hàng với tất cả chi tiết từ đơn hàng bán - không nhập hóa đơn thủ công hoặc lỗi tính toán.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Thông Báo Khách Hàng Tự Động</h4>
+                <p>Khách hàng nhận xác nhận giao hàng, số theo dõi và hóa đơn tự động qua email hoặc cổng - không cần giao tiếp thủ công.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Theo Dõi Giao Hàng Thời Gian Thực</h4>
+                <p>Hệ thống giám sát trạng thái giao hàng tự động qua API nhà vận chuyển - cung cấp khả năng quan sát mà không cần kiểm tra số theo dõi thủ công.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Nhắc Nhở Thanh Toán Tự Động</h4>
+                <p>Nhắc nhở thanh toán được gửi tự động dựa trên ngày đến hạn và lão hóa - giảm theo dõi thủ công và cải thiện thu thập tiền.</p>
+            </div>
+
+            <div class="automation-point">
+                <h4>✓ Quy Trình Đáp Ứng Dựa Trên Ngoại Lệ</h4>
+                <p>Đơn hàng chảy tự động từ lấy hàng đến giao hàng đến thanh toán. Các đội ngũ chỉ can thiệp cho biến động số lượng, thất bại giao hàng hoặc vấn đề thanh toán.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Mermaid Code -->
+        <div class="section code-section">
+            <h2>3. Mã Mermaid Sơ Đồ Quy Trình</h2>
+            <p>Sao chép đoạn mã dưới đây để sử dụng sơ đồ này trong tài liệu hoặc công cụ hỗ trợ Mermaid.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">Mã sơ đồ Mermaid</span>
+                    <button class="copy-button" onclick="copyCode()">Sao chép mã</button>
+                </div>
+                <pre><code id="mermaid-code">flowchart TD
+    A[Đơn hàng sẵn sàng giao] --> B[Hệ thống tạo danh sách lấy hàng]
+    B --> C[Kho lấy hàng]
+    C --> D[Quét & xác nhận số lượng lấy]
+    D --> E{Số lượng lấy = số lượng đặt?}
+    E -- Có --> F[Hệ thống tạo danh sách đóng gói]
+    E -- Không --> G[Ghi thiếu hụt/biến động]
+    G --> H[Thông báo bộ phận bán hàng]
+    H --> I[Xem xét thủ công & quyết định]
+    I --> J{Có giao hàng một phần?}
+    J -- Có --> F
+    J -- Không --> K[Hủy/trì hoãn giao hàng]
+    F --> L[Đóng gói hàng]
+    L --> M[Hệ thống tạo tài liệu giao hàng]
+    M --> N[Chọn nhà vận chuyển & in nhãn]
+    N --> O[Giao cho nhà vận chuyển]
+    O --> P[Hệ thống ghi nhận giao hàng]
+    P --> Q[Cập nhật trạng thái đơn hàng: Đã giao]
+    Q --> R[Hệ thống tự động tạo hóa đơn]
+    R --> S[Gửi hóa đơn cho khách hàng]
+    S --> T[Hệ thống theo dõi giao hàng]
+    T --> U{Đã xác nhận giao hàng?}
+    U -- Có --> V[Cập nhật trạng thái đơn hàng: Đã giao thành công]
+    V --> W[Kích hoạt theo dõi thanh toán]
+    W --> X[Theo dõi ngày thanh toán đến hạn]
+    X --> Y{Đã nhận thanh toán?}
+    Y -- Có --> Z[Đóng đơn hàng & cập nhật AR]
+    Y -- Không --> AA[Gửi nhắc nhở thanh toán]
+    AA --> AB{Quá hạn?}
+    AB -- Có --> AC[Giao cho thu nợ]
+    AB -- Không --> X</code></pre>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #333; text-align: center; color: #666; font-size: 12px;">
+            <p>ERP Automation System - Business Flow Documentation</p>
+            <p>Generated: October 2025</p>
         </div>
     </div>
-    <div class="section">
-        <h2>3. Các bước chi tiết</h2>
-        <div class="step-box">
-            <h4>Bước 1: Chuẩn bị giao hàng</h4>
-            <ul>
-                <li>Kiểm tra sản phẩm, đóng gói, chuẩn bị vận chuyển</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 2: Xuất hóa đơn</h4>
-            <ul>
-                <li>Tạo hóa đơn bán hàng cho đơn hàng</li>
-                <li>Kiểm tra thông tin khách hàng, sản phẩm, giá trị</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 3: Giao hàng cho khách</h4>
-            <ul>
-                <li>Vận chuyển sản phẩm đến địa chỉ khách hàng</li>
-                <li>Ghi nhận trạng thái giao hàng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 4: Cập nhật trạng thái đơn hàng</h4>
-            <ul>
-                <li>Cập nhật trạng thái đơn hàng trên hệ thống</li>
-                <li>Thông báo cho khách hàng</li>
-            </ul>
-        </div>
-        <div class="step-box">
-            <h4>Bước 5: Hoàn thành đơn hàng</h4>
-            <ul>
-                <li>Đánh dấu đơn hàng đã hoàn thành</li>
-                <li>Lưu trữ thông tin đơn hàng</li>
-            </ul>
-        </div>
-    </div>
-    <div class="section">
-        <h2>4. Điểm tự động hóa nổi bật</h2>
-        <div class="automation-point">
-            <h4>Xuất hóa đơn tự động</h4>
-            <p>Hệ thống tự động tạo hóa đơn dựa trên dữ liệu đơn hàng.</p>
-        </div>
-        <div class="automation-point">
-            <h4>Cập nhật trạng thái tự động</h4>
-            <p>Tự động cập nhật trạng thái đơn hàng và gửi thông báo cho khách hàng.</p>
-        </div>
-    </div>
-</div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Copy code function
+        function copyCode() {
+            const code = document.getElementById('mermaid-code').textContent;
+            const button = document.querySelector('.copy-button');
+
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Đã sao chép!';
+                button.classList.add('copied');
+
+                setTimeout(function() {
+                    button.textContent = 'Sao chép mã';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Không thể sao chép: ', err);
+            });
+        }
+    </script>
 </body>
 </html>
